@@ -1,0 +1,178 @@
+@prefix geof: <http://www.opengis.net/def/function/geosparql/>.
+@prefix map: <#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+#@prefix ogc: <http://www.opengis.net/ont/geosparql#>.
+@prefix geo:   <http://www.opengis.net/ont/geosparql#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix rrx: <http://www.w3.org/ns/r2rml-ext#>.
+@prefix rrxf: <http://www.w3.org/ns/r2rml-ext/functions/def/>.
+@prefix strdf: <http://strdf.di.uoa.gr/ontology#>.
+#@prefix vocab: <ontology#>.
+@prefix iso19150-2: <http://def.seegrid.csiro.au/isotc211/iso19150/-2/2012/basic#> .
+@prefix foodie: <http://foodie-cloud.com/model/foodie#> .
+@prefix foodie-cz: <http://foodie-cloud.com/model/foodie-cz#> .
+@prefix foodie-es: <http://foodie-cloud.com/model/foodie-es#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix virtrdf: <http://www.openlinksw.com/schemas/virtrdf#> .
+
+
+map:CZpilot_fields_geometry
+    rr:logicalTable [ rr:tableName "`CZpilot_fields`"; ];
+    rr:subjectMap [ rr:class geo:Geometry; rr:template "http://w3id.org/foodie/core/CZpilot_fields/Geometry/{`gid`}"; ];
+    rr:predicateObjectMap [
+        rr:predicate geo:isEmpty;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:isEmpty;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:is3D;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:is3D;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:spatialDimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:spatialDimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:dimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:dimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:asWKT;
+        rr:objectMap [
+            #rr:datatype geo:wktLiteral;
+            rr:datatype virtrdf:Geometry;
+            rrx:function rrxf:asWKT;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:coordinateDimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:coordinateDimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:isSimple;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:isSimple;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    .
+map:CZpilot_fields_plot
+    rr:logicalTable [ rr:tableName "`CZpilot_fields`"; ];
+    rr:subjectMap [ rr:class foodie:Plot; rr:template "http://w3id.org/foodie/core/CZpilot_fields/Plot/{`gid`}"; ];   ##
+    rr:predicateObjectMap [
+        rr:predicate foodie-cz:area;
+        rr:objectMap [
+            rr:datatype xsd:double;
+            rr:column "`AREA_GEO`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate foodie-cz:crop;
+        #rr:objectMap [
+        #    rr:termType rr:IRI;
+        #    rr:template "http://w3id.org/foodie/core/CZpilot_fields/CropType/{`gid`}";;
+        #];
+        rr:objectMap [ rr:parentTriplesMap map:CZpilot_fields_cropSpecies ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate foodie-cz:shortId;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`ZKODFB`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate foodie-cz:plotName;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`FieldName`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate foodie:code;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`CTVDPB`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:hasGeometry;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/core/CZpilot_fields/Geometry/{`gid`}";
+        ];
+    ];
+    .
+
+map:CZpilot_fields_cropSpecies
+		rr:logicalTable [ rr:tableName "`CZpilot_fields`"; ];
+		#rr:logicalTable [ rr:sqlQuery """SELECT crop2017 FROM `CZpilot_fields`"""; ];
+		rr:subjectMap [ rr:class foodie:CropSpecies; rr:template "http://w3id.org/foodie/core/CZpilot_fields/CropSpecies/{`gid`}"; ];
+		rr:predicateObjectMap [
+        rr:predicate foodie:cropSpecies;
+        rr:objectMap [ rr:parentTriplesMap map:CZpilot_fields_cropType ];
+    ];
+    .
+
+map:CZpilot_fields_cropType
+		rr:logicalTable [ rr:tableName "`CZpilot_fields`"; ];
+		#rr:logicalTable [ rr:sqlQuery """SELECT crop2017 FROM `CZpilot_fields`"""; ];
+		rr:subjectMap [ rr:class foodie:CropType; rr:template "http://w3id.org/foodie/core/CZpilot_fields/CropType/{`crop2017`}"; ];
+		rr:predicateObjectMap [
+        rr:predicate foodie:description;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`crop2017`";
+        ];
+    ];
+    .
