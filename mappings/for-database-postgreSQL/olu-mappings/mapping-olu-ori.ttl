@@ -1,0 +1,446 @@
+@prefix map: <#> .
+@prefix db: <> .
+@prefix vocab: <vocab/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix d2rq: <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
+@prefix jdbc: <http://d2rq.org/terms/jdbc/> .
+@prefix olu: <http://w3id.org/foodie/olu#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+map:database a d2rq:Database;
+	d2rq:jdbcDriver "org.postgresql.Driver";
+	d2rq:jdbcDSN "jdbc:postgresql://localhost/olu";
+	d2rq:username "rapw3k";
+	d2rq:password "rapulin";
+	.
+
+# create instances for areas_master-geometry
+map:areas_master_geometry a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "LandUse/@@areas_master.id@@/geometry";
+	d2rq:class geo:Geometry;
+	d2rq:classDefinitionLabel "Geometry";
+	.
+map:areas_master_geometry_asWKT a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:areas_master_geometry;
+	d2rq:property geo:asWKT;
+	d2rq:column "areas_master.geom";
+	.
+
+
+# Table areas_master
+map:areas_master a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "LandUse/@@areas_master.id@@";
+	d2rq:class olu:LandUse;
+	d2rq:classDefinitionLabel "LandUse";
+	.
+map:areas_master__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:areas_master;
+	d2rq:property rdfs:label;
+	d2rq:pattern "LandUse #@@areas_master.id@@";
+	.
+
+map:areas_master_geom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:areas_master;
+	d2rq:property geo:hasGeometry;
+	d2rq:uriPattern "LandUse/@@areas_master.id@@/geometry";
+	.		
+map:areas_master_hilucs_value a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:areas_master;
+	d2rq:property olu:hilucsLandUse;
+	d2rq:column "areas_master.hilucs_value";
+	d2rq:datatype xsd:double;
+	.
+map:areas_master_original_value a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:areas_master;
+	d2rq:property olu:specificLandUse;
+	d2rq:column "areas_master.original_value";
+	d2rq:datatype xsd:anyURI;
+	.
+map:areas_master_country_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:areas_master;
+	d2rq:property olu:countryCode;
+	d2rq:column "areas_master.country_code";
+	d2rq:datatype xsd:string;
+	.
+map:areas_master_municipal_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:areas_master;
+	d2rq:property olu:municipalCode;
+	d2rq:column "areas_master.municipal_code";
+	d2rq:datatype xsd:string;
+	.
+map:areas_master_validfrom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:areas_master;
+	d2rq:property prov:generatedAtTime;
+	d2rq:column "areas_master.validfrom";
+	d2rq:datatype xsd:date;
+	.
+map:areas_master_validto a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:areas_master;
+	d2rq:property prov:invalidatedAtTime;
+	d2rq:column "areas_master.validto";
+	d2rq:datatype xsd:date;
+	.
+
+# original error:
+# Skipping column @@areas_master.attribute_source@@ as property bridge.
+#     Its datatype is unknown to D2RQ.
+#     You can override the column's datatype using d2rq:xxxColumn and add a property bridge.
+# TRY uriPattern OR uriColumn -> d2rq:uriColumn "areas_master.attribute_source";
+
+#map:areas_master_geometry_source a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:areas_master;
+#	d2rq:property olu:geometrySource;
+#	d2rq:uriPattern "@@areas_master.geometry_source@@";
+#	.
+#map:areas_master_attribute_source a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:areas_master;
+#	d2rq:property olu:attributeSource;
+#	d2rq:uriPattern "@@areas_master.attribute_source@@";
+#  .
+
+#does not seems to be used		
+#map:areas_master_discr a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:areas_master;
+#	d2rq:property vocab:areas_master_discr;
+#	d2rq:propertyDefinitionLabel "areas_master discr";
+#	d2rq:column "areas_master.discr";
+#	.
+
+
+
+# Table spatial_ref_sys
+map:spatial_ref_sys a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "spatial_ref_sys/@@spatial_ref_sys.srid@@";
+	d2rq:class vocab:spatial_ref_sys;
+	d2rq:classDefinitionLabel "spatial_ref_sys";
+	.
+map:spatial_ref_sys__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:spatial_ref_sys;
+	d2rq:property rdfs:label;
+	d2rq:pattern "spatial_ref_sys #@@spatial_ref_sys.srid@@";
+	.
+map:spatial_ref_sys_srid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:spatial_ref_sys;
+	d2rq:property vocab:spatial_ref_sys_srid;
+	d2rq:propertyDefinitionLabel "spatial_ref_sys srid";
+	d2rq:column "spatial_ref_sys.srid";
+	d2rq:datatype xsd:integer;
+	.
+map:spatial_ref_sys_auth_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:spatial_ref_sys;
+	d2rq:property vocab:spatial_ref_sys_auth_name;
+	d2rq:propertyDefinitionLabel "spatial_ref_sys auth_name";
+	d2rq:column "spatial_ref_sys.auth_name";
+	.
+map:spatial_ref_sys_auth_srid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:spatial_ref_sys;
+	d2rq:property vocab:spatial_ref_sys_auth_srid;
+	d2rq:propertyDefinitionLabel "spatial_ref_sys auth_srid";
+	d2rq:column "spatial_ref_sys.auth_srid";
+	d2rq:datatype xsd:integer;
+	.
+map:spatial_ref_sys_srtext a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:spatial_ref_sys;
+	d2rq:property vocab:spatial_ref_sys_srtext;
+	d2rq:propertyDefinitionLabel "spatial_ref_sys srtext";
+	d2rq:column "spatial_ref_sys.srtext";
+	.
+map:spatial_ref_sys_proj4text a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:spatial_ref_sys;
+	d2rq:property vocab:spatial_ref_sys_proj4text;
+	d2rq:propertyDefinitionLabel "spatial_ref_sys proj4text";
+	d2rq:column "spatial_ref_sys.proj4text";
+	.
+
+# Table geography_columns
+map:geography_columns a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "geography_columns" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "geography_columns";
+	d2rq:class vocab:geography_columns;
+	d2rq:classDefinitionLabel "geography_columns";
+	.
+map:geography_columns_f_table_catalog a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:geography_columns;
+	d2rq:property vocab:geography_columns_f_table_catalog;
+	d2rq:propertyDefinitionLabel "geography_columns f_table_catalog";
+	d2rq:column "geography_columns.f_table_catalog";
+	.
+map:geography_columns_f_table_schema a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:geography_columns;
+	d2rq:property vocab:geography_columns_f_table_schema;
+	d2rq:propertyDefinitionLabel "geography_columns f_table_schema";
+	d2rq:column "geography_columns.f_table_schema";
+	.
+map:geography_columns_f_table_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:geography_columns;
+	d2rq:property vocab:geography_columns_f_table_name;
+	d2rq:propertyDefinitionLabel "geography_columns f_table_name";
+	d2rq:column "geography_columns.f_table_name";
+	.
+map:geography_columns_f_geography_column a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:geography_columns;
+	d2rq:property vocab:geography_columns_f_geography_column;
+	d2rq:propertyDefinitionLabel "geography_columns f_geography_column";
+	d2rq:column "geography_columns.f_geography_column";
+	.
+map:geography_columns_coord_dimension a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:geography_columns;
+	d2rq:property vocab:geography_columns_coord_dimension;
+	d2rq:propertyDefinitionLabel "geography_columns coord_dimension";
+	d2rq:column "geography_columns.coord_dimension";
+	d2rq:datatype xsd:integer;
+	.
+map:geography_columns_srid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:geography_columns;
+	d2rq:property vocab:geography_columns_srid;
+	d2rq:propertyDefinitionLabel "geography_columns srid";
+	d2rq:column "geography_columns.srid";
+	d2rq:datatype xsd:integer;
+	.
+map:geography_columns_type a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:geography_columns;
+	d2rq:property vocab:geography_columns_type;
+	d2rq:propertyDefinitionLabel "geography_columns type";
+	d2rq:column "geography_columns.type";
+	.
+
+# Table geometry_columns
+map:geometry_columns a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "geometry_columns" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "geometry_columns";
+	d2rq:class vocab:geometry_columns;
+	d2rq:classDefinitionLabel "geometry_columns";
+	.
+map:geometry_columns_f_table_catalog a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:geometry_columns;
+	d2rq:property vocab:geometry_columns_f_table_catalog;
+	d2rq:propertyDefinitionLabel "geometry_columns f_table_catalog";
+	d2rq:column "geometry_columns.f_table_catalog";
+	.
+map:geometry_columns_f_table_schema a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:geometry_columns;
+	d2rq:property vocab:geometry_columns_f_table_schema;
+	d2rq:propertyDefinitionLabel "geometry_columns f_table_schema";
+	d2rq:column "geometry_columns.f_table_schema";
+	.
+map:geometry_columns_f_table_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:geometry_columns;
+	d2rq:property vocab:geometry_columns_f_table_name;
+	d2rq:propertyDefinitionLabel "geometry_columns f_table_name";
+	d2rq:column "geometry_columns.f_table_name";
+	.
+map:geometry_columns_f_geometry_column a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:geometry_columns;
+	d2rq:property vocab:geometry_columns_f_geometry_column;
+	d2rq:propertyDefinitionLabel "geometry_columns f_geometry_column";
+	d2rq:column "geometry_columns.f_geometry_column";
+	.
+map:geometry_columns_coord_dimension a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:geometry_columns;
+	d2rq:property vocab:geometry_columns_coord_dimension;
+	d2rq:propertyDefinitionLabel "geometry_columns coord_dimension";
+	d2rq:column "geometry_columns.coord_dimension";
+	d2rq:datatype xsd:integer;
+	.
+map:geometry_columns_srid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:geometry_columns;
+	d2rq:property vocab:geometry_columns_srid;
+	d2rq:propertyDefinitionLabel "geometry_columns srid";
+	d2rq:column "geometry_columns.srid";
+	d2rq:datatype xsd:integer;
+	.
+map:geometry_columns_type a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:geometry_columns;
+	d2rq:property vocab:geometry_columns_type;
+	d2rq:propertyDefinitionLabel "geometry_columns type";
+	d2rq:column "geometry_columns.type";
+	.
+
+# Table raster_columns
+map:raster_columns a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "raster_columns" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "raster_columns";
+	d2rq:class vocab:raster_columns;
+	d2rq:classDefinitionLabel "raster_columns";
+	.
+# Skipping column @@raster_columns.pixel_types@@ as property bridge.
+#     Its datatype UnsupportedDataType:_TEXT{jdbcType:2003,typeName:'_TEXT'} cannot be mapped to RDF.
+# Skipping column @@raster_columns.nodata_values@@ as property bridge.
+#     Its datatype UnsupportedDataType:_FLOAT8{jdbcType:2003,typeName:'_FLOAT8'} cannot be mapped to RDF.
+# Skipping column @@raster_columns.out_db@@ as property bridge.
+#     Its datatype UnsupportedDataType:_BOOL{jdbcType:2003,typeName:'_BOOL'} cannot be mapped to RDF.
+map:raster_columns_r_table_catalog a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_columns;
+	d2rq:property vocab:raster_columns_r_table_catalog;
+	d2rq:propertyDefinitionLabel "raster_columns r_table_catalog";
+	d2rq:column "raster_columns.r_table_catalog";
+	.
+map:raster_columns_r_table_schema a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_columns;
+	d2rq:property vocab:raster_columns_r_table_schema;
+	d2rq:propertyDefinitionLabel "raster_columns r_table_schema";
+	d2rq:column "raster_columns.r_table_schema";
+	.
+map:raster_columns_r_table_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_columns;
+	d2rq:property vocab:raster_columns_r_table_name;
+	d2rq:propertyDefinitionLabel "raster_columns r_table_name";
+	d2rq:column "raster_columns.r_table_name";
+	.
+map:raster_columns_r_raster_column a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_columns;
+	d2rq:property vocab:raster_columns_r_raster_column;
+	d2rq:propertyDefinitionLabel "raster_columns r_raster_column";
+	d2rq:column "raster_columns.r_raster_column";
+	.
+map:raster_columns_srid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_columns;
+	d2rq:property vocab:raster_columns_srid;
+	d2rq:propertyDefinitionLabel "raster_columns srid";
+	d2rq:column "raster_columns.srid";
+	d2rq:datatype xsd:integer;
+	.
+map:raster_columns_scale_x a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_columns;
+	d2rq:property vocab:raster_columns_scale_x;
+	d2rq:propertyDefinitionLabel "raster_columns scale_x";
+	d2rq:column "raster_columns.scale_x";
+	d2rq:datatype xsd:double;
+	.
+map:raster_columns_scale_y a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_columns;
+	d2rq:property vocab:raster_columns_scale_y;
+	d2rq:propertyDefinitionLabel "raster_columns scale_y";
+	d2rq:column "raster_columns.scale_y";
+	d2rq:datatype xsd:double;
+	.
+map:raster_columns_blocksize_x a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_columns;
+	d2rq:property vocab:raster_columns_blocksize_x;
+	d2rq:propertyDefinitionLabel "raster_columns blocksize_x";
+	d2rq:column "raster_columns.blocksize_x";
+	d2rq:datatype xsd:integer;
+	.
+map:raster_columns_blocksize_y a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_columns;
+	d2rq:property vocab:raster_columns_blocksize_y;
+	d2rq:propertyDefinitionLabel "raster_columns blocksize_y";
+	d2rq:column "raster_columns.blocksize_y";
+	d2rq:datatype xsd:integer;
+	.
+map:raster_columns_same_alignment a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_columns;
+	d2rq:property vocab:raster_columns_same_alignment;
+	d2rq:propertyDefinitionLabel "raster_columns same_alignment";
+	d2rq:column "raster_columns.same_alignment";
+	d2rq:valueRegex "^[01]*$";
+	.
+map:raster_columns_regular_blocking a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_columns;
+	d2rq:property vocab:raster_columns_regular_blocking;
+	d2rq:propertyDefinitionLabel "raster_columns regular_blocking";
+	d2rq:column "raster_columns.regular_blocking";
+	d2rq:valueRegex "^[01]*$";
+	.
+map:raster_columns_num_bands a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_columns;
+	d2rq:property vocab:raster_columns_num_bands;
+	d2rq:propertyDefinitionLabel "raster_columns num_bands";
+	d2rq:column "raster_columns.num_bands";
+	d2rq:datatype xsd:integer;
+	.
+map:raster_columns_extent a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_columns;
+	d2rq:property vocab:raster_columns_extent;
+	d2rq:propertyDefinitionLabel "raster_columns extent";
+	d2rq:column "raster_columns.extent";
+	.
+map:raster_columns_spatial_index a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_columns;
+	d2rq:property vocab:raster_columns_spatial_index;
+	d2rq:propertyDefinitionLabel "raster_columns spatial_index";
+	d2rq:column "raster_columns.spatial_index";
+	d2rq:valueRegex "^[01]*$";
+	.
+
+# Table raster_overviews
+map:raster_overviews a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "raster_overviews" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "raster_overviews";
+	d2rq:class vocab:raster_overviews;
+	d2rq:classDefinitionLabel "raster_overviews";
+	.
+map:raster_overviews_o_table_catalog a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_overviews;
+	d2rq:property vocab:raster_overviews_o_table_catalog;
+	d2rq:propertyDefinitionLabel "raster_overviews o_table_catalog";
+	d2rq:column "raster_overviews.o_table_catalog";
+	.
+map:raster_overviews_o_table_schema a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_overviews;
+	d2rq:property vocab:raster_overviews_o_table_schema;
+	d2rq:propertyDefinitionLabel "raster_overviews o_table_schema";
+	d2rq:column "raster_overviews.o_table_schema";
+	.
+map:raster_overviews_o_table_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_overviews;
+	d2rq:property vocab:raster_overviews_o_table_name;
+	d2rq:propertyDefinitionLabel "raster_overviews o_table_name";
+	d2rq:column "raster_overviews.o_table_name";
+	.
+map:raster_overviews_o_raster_column a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_overviews;
+	d2rq:property vocab:raster_overviews_o_raster_column;
+	d2rq:propertyDefinitionLabel "raster_overviews o_raster_column";
+	d2rq:column "raster_overviews.o_raster_column";
+	.
+map:raster_overviews_r_table_catalog a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_overviews;
+	d2rq:property vocab:raster_overviews_r_table_catalog;
+	d2rq:propertyDefinitionLabel "raster_overviews r_table_catalog";
+	d2rq:column "raster_overviews.r_table_catalog";
+	.
+map:raster_overviews_r_table_schema a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_overviews;
+	d2rq:property vocab:raster_overviews_r_table_schema;
+	d2rq:propertyDefinitionLabel "raster_overviews r_table_schema";
+	d2rq:column "raster_overviews.r_table_schema";
+	.
+map:raster_overviews_r_table_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_overviews;
+	d2rq:property vocab:raster_overviews_r_table_name;
+	d2rq:propertyDefinitionLabel "raster_overviews r_table_name";
+	d2rq:column "raster_overviews.r_table_name";
+	.
+map:raster_overviews_r_raster_column a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_overviews;
+	d2rq:property vocab:raster_overviews_r_raster_column;
+	d2rq:propertyDefinitionLabel "raster_overviews r_raster_column";
+	d2rq:column "raster_overviews.r_raster_column";
+	.
+map:raster_overviews_overview_factor a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_overviews;
+	d2rq:property vocab:raster_overviews_overview_factor;
+	d2rq:propertyDefinitionLabel "raster_overviews overview_factor";
+	d2rq:column "raster_overviews.overview_factor";
+	d2rq:datatype xsd:integer;
+	.
+

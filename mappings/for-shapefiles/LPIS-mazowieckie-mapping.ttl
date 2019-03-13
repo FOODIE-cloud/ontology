@@ -1,0 +1,380 @@
+@prefix geof: <http://www.opengis.net/def/function/geosparql/>.
+@prefix map: <#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix geo:   <http://www.opengis.net/ont/geosparql#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix rrx: <http://www.w3.org/ns/r2rml-ext#>.
+@prefix rrxf: <http://www.w3.org/ns/r2rml-ext/functions/def/>.
+@prefix strdf: <http://strdf.di.uoa.gr/ontology#>.
+@prefix iso19150-2: <http://def.seegrid.csiro.au/isotc211/iso19150/-2/2012/basic#> .
+@prefix foodie: <http://foodie-cloud.com/model/foodie#> .
+@prefix foodie-cz: <http://foodie-cloud.com/model/foodie-cz#> .
+@prefix foodie-es: <http://foodie-cloud.com/model/foodie-es#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix virtrdf: <http://www.openlinksw.com/schemas/virtrdf#> .
+@prefix iso19103: <http://def.seegrid.csiro.au/isotc211/iso19103/2005/basic#> .
+@prefix common: <http://portele.de/ont/inspire/baseInspire#> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix olu: <http://w3id.org/foodie/olu#> .
+@prefix af-inspire:	<http://inspire.ec.europa.eu/schemas/af/3.0#> .
+
+
+####################### Geometry #######################
+
+<#mazowieckie_wgs84_geometry>
+    rr:logicalTable [ rr:tableName "`mazowieckie_wgs84`"; ];
+    rr:subjectMap [ rr:class geo:Geometry; rr:template "http://w3id.org/foodie/open/pl/LPIS/Geometry/{`OBJECTID`}"; ];
+    rr:predicateObjectMap [
+        rr:predicate geo:isEmpty;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:isEmpty;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:is3D;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:is3D;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:spatialDimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:spatialDimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:dimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:dimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:asWKT;
+        rr:objectMap [
+            rr:datatype geo:wktLiteral;
+            rrx:function rrxf:asWKT;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:coordinateDimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:coordinateDimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:isSimple;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:isSimple;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    .
+    
+#################### UOM #############################
+
+<#mazowieckie_wgs84_UOM_ha>
+	rr:logicalTable [ rr:tableName "`mazowieckie_wgs84`"; ];
+    rr:subjectMap [ rr:class iso19103:UnitOfMeasure; rr:constant <http://w3id.org/foodie/open/pl/LPIS/area_ha>; ];
+    
+    rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [
+            rr:constant "ha";
+        ];
+    ];
+ .  
+ 
+############################ Plot Area ###################  
+  
+#<#mazowieckie_wgs84_plot_area>
+#	rr:logicalTable [ rr:tableName "`mazowieckie_wgs84`"; ];
+#    rr:subjectMap [ rr:class iso19103:Area; rr:template "http://w3id.org/foodie/open/pl/LPIS/Plot/Area/{`OBJECTID`}"; ];
+#    
+#    rr:predicateObjectMap [
+#        rr:predicate iso19103:value;
+#        rr:objectMap [
+#        	rr:datatype xsd:double;
+#            rr:column "`POWIERZCHN`";
+#        ];
+#    ];  
+    
+#    rr:predicateObjectMap [
+#        rr:predicate iso19103:uom;
+#        rr:objectMap [
+#        	rr:constant <http://w3id.org/foodie/open/pl/LPIS/area_ha> ;
+#        ];
+#    ];   
+#   .   
+   
+ ############################ Site Area ###################  
+  
+<#mazowieckie_wgs84_site_area>
+	rr:logicalTable [ rr:tableName "`mazowieckie_wgs84`"; ];
+    rr:subjectMap [ rr:class iso19103:Area; rr:template "http://w3id.org/foodie/open/pl/LPIS/Site/Area/{`OBJECTID`}"; ]; 
+    
+    rr:predicateObjectMap [
+        rr:predicate iso19103:value;
+        rr:objectMap [
+        	rr:datatype xsd:double;
+            rr:column "`POWIERZCHN`";
+        ];
+    ];  
+    
+    rr:predicateObjectMap [
+        rr:predicate iso19103:uom;
+        rr:objectMap [
+        	rr:constant <http://w3id.org/foodie/open/pl/LPIS/area_ha> ;
+        ];
+    ];   
+   . 
+    
+##################### Plot #################################
+    
+#<#mazowieckie_wgs84_plot>
+#    rr:logicalTable [ rr:tableName "`mazowieckie_wgs84`"; ];
+#    rr:subjectMap [ rr:class foodie:Plot; rr:template "http://w3id.org/foodie/open/pl/LPIS/Plot/{`OBJECTID`}"; ];
+#    
+#   rr:predicateObjectMap [
+#        rr:predicate foodie:code;
+#        rr:objectMap [
+#            rr:datatype xsd:string;
+#            rr:template "{`IDENTYFIKA`}";
+#        ];
+#    ];
+    
+#    rr:predicateObjectMap [
+#        rr:predicate common:validFrom;
+#        rr:objectMap [
+#            rr:datatype rr:Literal;
+#            rr:template "{`DATA_OD`}";
+#        ];
+#    ];
+    
+#    rr:predicateObjectMap [
+#        rr:predicate foodie:shortId;
+#        rr:objectMap [
+#            rr:datatype xsd:string;
+#            rr:template "{`NUMER`}";
+#        ];
+#    ];
+    
+#    rr:predicateObjectMap [
+#        rr:predicate foodie:cadastralUnit;
+#        rr:objectMap [
+#            rr:datatype xsd:string;
+#            rr:template "{`TERYT`}";
+#        ];
+#    ];
+    
+#    rr:predicateObjectMap [
+#        rr:predicate prov:generatedAtTime;
+#        rr:objectMap [
+#            rr:datatype xsd:date;
+#            rr:constant "2016-03-03";
+#        ];
+#    ];
+    
+#    rr:predicateObjectMap [
+#        rr:predicate geo:hasGeometry;
+#        rr:objectMap [
+#            rr:termType rr:IRI;
+#            rr:template "http://w3id.org/foodie/open/pl/LPIS/Geometry/{`OBJECTID`}";
+#        ];
+#    ];
+    
+#    rr:predicateObjectMap [
+#        rr:predicate common:identifierScheme;
+#        rr:objectMap [
+#           rr:datatype xsd:string;
+#            rr:constant "http://w3id.org/foodie/open/pl/LPIS/";
+#        ];
+#    ];
+    
+#    rr:predicateObjectMap [
+#        rr:predicate iso19103:measure;
+#        rr:objectMap [
+#            rr:termType rr:IRI;
+#            rr:template "http://w3id.org/foodie/open/pl/LPIS/Plot/Area/{`OBJECTID`}";
+#        ];
+#    ];
+    
+    #rr:predicateObjectMap [
+    #    rr:predicate olu:specificLandUse;
+    #    rr:objectMap [
+    #        rr:termType rr:IRI;
+    #        rr:template "http://w3id.org/foodie/open/cz/lpis/code/LandUseClassificationValue/{`KULTURAKOD`}";
+    #    ];
+    #];
+    
+ #   rr:predicateObjectMap [
+ #       rr:predicate foodie:holdingPlot;
+ #       rr:objectMap [ rr:parentTriplesMap <#mazowieckie_wgs84_site>  ];
+ #   ];
+ #   .    
+    
+####################### Site ############################
+
+<#mazowieckie_wgs84_site> 
+	rr:logicalTable [ rr:tableName "`mazowieckie_wgs84`"; ];
+    rr:subjectMap [ rr:class foodie:Site; rr:template "http://w3id.org/foodie/open/pl/LPIS/Site/{`OBJECTID`}"; ]; 
+    
+    rr:predicateObjectMap [
+        rr:predicate foodie:code;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:template "{`IDENTYFIKA`}";
+        ];
+    ];
+    
+    rr:predicateObjectMap [
+        rr:predicate common:validFrom;
+        rr:objectMap [
+            rr:termType rr:Literal;
+            rr:template "{`DATA_OD`}";
+        ];
+    ];
+    
+	rr:predicateObjectMap [
+        rr:predicate prov:generatedAtTime;
+        rr:objectMap [
+            rr:datatype xsd:date;
+            rr:constant "2016-03-03";
+        ];
+    ];
+	
+	rr:predicateObjectMap [
+        rr:predicate common:identifierScheme;
+        rr:objectMap [
+            rr:constant "http://w3id.org/foodie/open/pl/LPIS/";
+        ];
+    ];    
+        
+	rr:predicateObjectMap [
+        rr:predicate foodie:shortId;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:template "{`NUMER`}";
+        ];
+    ];
+    
+    rr:predicateObjectMap [
+        rr:predicate foodie:cadastralUnit;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`TERYT`";
+        ];
+    ];    
+	
+	rr:predicateObjectMap [
+        rr:predicate geo:hasGeometry;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/open/pl/LPIS/Geometry/{`OBJECTID`}";
+        ];
+    ];    
+    
+    #rr:predicateObjectMap [
+    #    rr:predicate olu:specificLandUse;
+    #    rr:objectMap [
+    #        rr:datatype xsd:string;
+    #        rr:column "`KULTURAKOD`";
+    #    ];
+    #];
+    
+	rr:predicateObjectMap [
+        rr:predicate iso19103:measure;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/open/pl/LPIS/Site/Area/{`OBJECTID`}";
+        ];
+    ];    
+    
+#  rr:predicateObjectMap [
+#        rr:predicate foodie:containsPlot;
+#        rr:objectMap [ rr:parentTriplesMap <#mazowieckie_wgs84_plot> ];
+#    ];
+    
+#    rr:predicateObjectMap [
+#        rr:predicate foodie:holdingSite;
+#        rr:objectMap [ rr:parentTriplesMap <#mazowieckie_wgs84_holding> ];
+#    ]; 
+    
+    .    
+    
+####################### Holding ############################
+    
+#<#mazowieckie_wgs84_holding>
+#    rr:logicalTable [ rr:tableName "`mazowieckie_wgs84`"; ];
+#    rr:subjectMap [ rr:class foodie:Holding; rr:template "http://w3id.org/foodie/open/pl/LPIS/Holding/{`OBJECTID`}"; ]; 
+#    
+#    rr:predicateObjectMap [
+#        rr:predicate common:identifier;
+#        rr:objectMap [
+#            rr:datatype xsd:string;
+#            #rr:template "{`HOLDING_ID`}";
+#            rr:column "`HOLDING_ID`";
+#        ];
+#    ];
+    
+#    rr:predicateObjectMap [
+#        rr:predicate common:identifierScheme ;
+#        rr:objectMap [
+#            rr:constant <http://w3id.org/foodie/open/pl/LPIS/>;
+#        ];
+#    ];  
+
+#	rr:predicateObjectMap [
+#        rr:predicate prov:generatedAtTime;
+#        rr:objectMap [
+#            rr:datatype xsd:date;
+#            rr:constant "2016-03-03";
+#        ];
+#    ];
+    
+#    rr:predicateObjectMap [
+#        rr:predicate af-inspire:contains;
+#        rr:objectMap [ rr:parentTriplesMap <#mazowieckie_wgs84_site>  ];
+#    ];
+#    . 
+       

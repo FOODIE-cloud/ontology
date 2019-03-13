@@ -1,0 +1,377 @@
+@prefix map: <#> .
+@prefix db: <> .
+@prefix vocab: <vocab/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix d2rq: <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
+@prefix jdbc: <http://d2rq.org/terms/jdbc/> .
+@prefix eg: <http://example.org/ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix qb: <http://purl.org/linked-data/cube#> .
+@prefix qb4st: <http://www.w3.org/ns/qb4st/> .
+@prefix sdmx-attribute: <http://purl.org/linked-data/sdmx/2009/attribute#> .
+@prefix sdmx-dimension: <http://purl.org/linked-data/sdmx/2009/dimension#> .
+@prefix sdmx-measure: <http://purl.org/linked-data/sdmx/2009/measure#> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix ssn: <http://www.w3.org/ns/ssn/> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix geo:   <http://www.opengis.net/ont/geosparql#> .
+@prefix virtrdf: <http://www.openlinksw.com/schemas/virtrdf#> .
+
+map:database a d2rq:Database;
+	d2rq:jdbcDriver "org.postgresql.Driver";
+	d2rq:jdbcDSN "jdbc:postgresql://10.0.0.27/senslog";
+	d2rq:username "senslog";
+	d2rq:password "senslog";
+	.
+
+# NO TABLE - SLICEBYTIME
+map:sliceTimes a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:class qb:SliceKey;
+	d2rq:constantValue <sliceByTime>;
+	.
+map:sliceTimes__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:sliceTimes;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Slice by Time";
+	.
+	map:sliceTimes__comment a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:sliceTimes;
+	d2rq:property rdfs:comment;
+	d2rq:pattern "Slice by fixing sensor and unit, results in observations as time series";
+	.
+	map:sliceTimes_componentProperty a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:sliceTimes;
+	d2rq:property  qb:componentProperty;
+	d2rq:constantValue sdmx-dimension:timePeriod;
+	.
+	
+# NO TABLE - G_UNITS 
+map:datasets a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:class sosa:Platform;
+	d2rq:class qb:DataSet;
+	d2rq:constantValue <platform/dataset>;
+	.	
+map:datasets__comment a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:datasets;
+	d2rq:property rdfs:comment;
+	d2rq:pattern "Sensor Data provided from Senslog (gUnit)";
+	.	
+map:datasets_sensor_id__ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:datasets;
+	d2rq:property sosa:hosts;
+	d2rq:refersToClassMap map:unitSensors;
+	.
+map:datasets_slice_id__ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:datasets;
+	d2rq:property qb:slice;
+	d2rq:refersToClassMap map:unitSensors;
+	.	
+map:datasets_structure a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:datasets;
+	d2rq:property qb:structure;
+	d2rq:constantValue <data_structure>;
+	.	
+	
+# NO TABLE - STRUCTURE
+map:dataStructures a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:class qb:DataStructureDefinition;
+	d2rq:constantValue <data_structure>;
+	.		
+map:dataStructures_sliceKey a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:dataStructures;
+	d2rq:property  qb:sliceKey;
+	d2rq:constantValue <sliceByTime>;
+	.	
+map:dataStructures_components_measure a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:dataStructures;
+	d2rq:property qb:component;
+	d2rq:refersToClassMap map:measureComponents;
+	.
+map:dataStructures_components_dimension a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:dataStructures;
+	d2rq:property qb:component;
+	d2rq:constantValue <component/dimension/timeperiod>;
+	.
+map:dataStructures_components_attribute_unitmeasure a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:dataStructures;
+	d2rq:property qb:component;
+	d2rq:constantValue <component/attribute>
+	.
+		
+# NO TABLE - TimePeriod
+map:timePeriod a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:class qb:DimensionProperty;
+	d2rq:class rdf:Property;
+	d2rq:constantValue <timePeriod>;
+	.		
+map:timePeriod__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:timePeriod;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Time Period";
+	.	
+map:timePeriod__subproperty a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:timePeriod;
+	d2rq:property rdfs:subPropertyOf;
+	d2rq:constantValue sdmx-dimension:timePeriod;
+	.	
+map:timePeriod__range a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:timePeriod;
+	d2rq:property rdfs:range;
+	d2rq:constantValue xsd:dateTime;
+	.	
+	
+# Table phenomenons
+map:phenomenons a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "phenomenons/@@phenomenons.phenomenon_id|urlify@@";
+	d2rq:class sosa:ObservableProperty;
+	d2rq:class qb:MeasureProperty;
+	d2rq:class rdf:Property;
+	.
+map:phenomenons__range a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:phenomenons;
+	d2rq:property rdfs:range;
+	d2rq:constantValue xsd:decimal;
+	.
+map:phenomenons__subproperty a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:phenomenons;
+	d2rq:property rdfs:subPropertyOf;
+	d2rq:constantValue sdmx-measure:obsValue;
+	.
+map:phenomenons_phenomenon_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:phenomenons;
+	d2rq:property rdfs:label;
+	d2rq:column "phenomenons.phenomenon_name";
+	.
+map:phenomenons_unit a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:phenomenons;
+	d2rq:property sdmx-attribute:unitMeasure;
+	d2rq:column "phenomenons.unit";
+	.
+map:phenomenons_sensor_id__ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:phenomenons;
+	d2rq:property sosa:isObservedBy;
+	d2rq:refersToClassMap map:sensors;
+	d2rq:join "sensors.phenomenon_id => phenomenons.phenomenon_id";
+	.
+map:phenomenons_unitSensors_id__ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:phenomenons;
+	d2rq:property sosa:isObservedBy;
+	d2rq:refersToClassMap map:unitSensors;
+	d2rq:join "units_to_sensors.sensor_id => sensors.sensor_id";
+	d2rq:join "sensors.phenomenon_id => phenomenons.phenomenon_id";
+	.
+
+
+# Table sensors
+map:sensors a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "sensors/@@sensors.sensor_id@@";
+	d2rq:class sosa:Sensor;
+	.
+map:sensors_sensor_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:sensors;
+	d2rq:property rdfs:label;
+	d2rq:column "sensors.sensor_name";
+	.
+map:sensors_sensor_type a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:sensors;
+	d2rq:property rdfs:comment;
+	d2rq:column "sensors.sensor_type";
+	.	
+map:sensors_phenomenon_id__ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:sensors;
+	d2rq:property sosa:observes;
+	d2rq:refersToClassMap map:phenomenons;
+	d2rq:join "sensors.phenomenon_id => phenomenons.phenomenon_id";
+	.
+map:sensors_isHostedBy_unit a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:sensors;
+	d2rq:property qb:isHostedBy;
+	d2rq:refersToClassMap map:units;
+	d2rq:join "units_to_sensors.sensor_id => sensors.sensor_id";
+	d2rq:join "units_to_sensors.unit_id => units.unit_id";
+	.
+
+# Table unit_to_sensors
+map:unitSensors a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "sensors/@@units_to_sensors.unit_id|urlify@@-@@units_to_sensors.sensor_id|urlify@@";
+	d2rq:class sosa:Sensor;
+	d2rq:class qb:Slice;
+	.
+map:unitSensors_sensor_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:unitSensors;
+	d2rq:property rdfs:label;
+	d2rq:pattern "@@units.description@@-@@sensors.sensor_name@@";
+	d2rq:join "units_to_sensors.sensor_id => sensors.sensor_id";
+	d2rq:join "units_to_sensors.unit_id => units.unit_id";
+	.
+map:unitSensors_sliceStructure a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:unitSensors;
+	d2rq:property qb:sliceStructure;
+	d2rq:constantValue <sliceByTime>;
+	.	
+map:unitSensors_isHostedBy a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:unitSensors;
+	d2rq:property qb:isHostedBy;
+	d2rq:constantValue <platform/dataset>;
+	.			
+map:unitSensors_madeObservations a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:unitSensors;
+	d2rq:property sosa:madeObservation;
+	d2rq:refersToClassMap map:observations;
+	d2rq:join "observations.sensor_id = units_to_sensors.sensor_id";
+	d2rq:join "observations.unit_id = units_to_sensors.unit_id";
+	.			
+map:unitSensors_observation a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:unitSensors;
+	d2rq:property qb:observation;
+	d2rq:refersToClassMap map:observations;
+	d2rq:join "observations.sensor_id = units_to_sensors.sensor_id";
+	d2rq:join "observations.unit_id = units_to_sensors.unit_id";
+	.
+map:unitSensors_isHostedBy_unit a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:unitSensors;
+	d2rq:property qb:isHostedBy;
+	d2rq:refersToClassMap map:units;
+	d2rq:join "units_to_sensors.unit_id => units.unit_id";
+	.
+map:unitSensors_phenomenon_id__ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:unitSensors;
+	d2rq:property sosa:observes;
+	d2rq:refersToClassMap map:phenomenons;
+	d2rq:join "units_to_sensors.sensor_id => sensors.sensor_id";
+	d2rq:join "sensors.phenomenon_id => phenomenons.phenomenon_id";
+	.
+		
+	
+# Table observations
+map:observations a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "observations/@@observations.observation_id@@";
+	d2rq:class qb:Observation;
+	d2rq:class sosa:Observation;
+	.
+map:observations__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:observations;
+	d2rq:property rdfs:label;
+	d2rq:pattern "observations #@@observations.observation_id@@";
+	.	
+map:observations_time_recieved a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:observations;
+	d2rq:property sdmx-dimension:timeperiod;
+	d2rq:column "observations.time_received";
+	.
+map:observations_observed_value a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:observations;
+	d2rq:property sosa:hasSimpleResult;
+	d2rq:column "observations.observed_value";
+	d2rq:datatype xsd:double;
+	.	
+map:observations_sensor_id__ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:observations;
+	d2rq:property sosa:madeBySensor;
+	d2rq:refersToClassMap map:unitSensors;
+	d2rq:join "observations.sensor_id = units_to_sensors.sensor_id";
+	d2rq:join "observations.unit_id = units_to_sensors.unit_id";
+	.	
+map:observations_dataSet a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:observations;
+	d2rq:property qb:dataSet;
+	d2rq:constantValue  <platform/dataset> ;
+	.		
+		
+# Create instances for units_positions_wkt_geometry
+map:unitsPosition a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "units/@@units_positions_wkt.gid@@/geometry";
+	d2rq:class geo:Geometry;
+	d2rq:class qb4st:PositionMeasure;
+ 	.
+map:unitsPosition_asWKT a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:unitsPosition;
+	d2rq:property geo:asWKT;
+	d2rq:column "units_positions_wkt.geom";
+	d2rq:datatype virtrdf:Geometry;
+	.
+	
+# Table units
+map:units a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "units/@@units.unit_id@@";
+	d2rq:class sosa:Platform;
+	.
+map:units__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:units;
+	d2rq:property rdfs:label;
+	d2rq:column "units.description";
+	.		
+map:units_sensor_id__ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:units;
+	d2rq:property sosa:hosts;
+	d2rq:refersToClassMap map:sensors;
+	d2rq:join "units_to_sensors.sensor_id => sensors.sensor_id";
+	d2rq:join "units_to_sensors.unit_id => units.unit_id";
+	.		
+map:units_has_geometry a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:units;
+	d2rq:property geo:hasGeometry;
+	d2rq:uriPattern "units/@@units_positions_wkt.gid@@/geometry";
+	d2rq:join "units_positions_wkt.unit_id => units.unit_id";
+	.
+map:units_unitSensors_id__ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:units;
+	d2rq:property sosa:hosts;
+	d2rq:refersToClassMap map:unitSensors;
+	d2rq:join "units_to_sensors.unit_id => units.unit_id";
+	.
+	
+# Create instances for component_phenomenon
+map:measureComponents a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "component/measure/@@phenomenons.phenomenon_name|urlify@@";
+	d2rq:class qb:ComponentSpecification;
+ 	.
+map:measureComponents_phenomenons a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:measureComponents;
+	d2rq:property qb:measure;
+	d2rq:refersToClassMap map:phenomenons;
+	.
+	
+# Create instances for component_timeperiod
+map:dimensionComponents a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:constantValue <component/dimension/timeperiod>;
+	d2rq:class qb:ComponentSpecification;
+ 	.
+map:dimensionComponents_timeperiod a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:dimensionComponents;
+	d2rq:property qb:dimension;
+	d2rq:constantValue <timePeriod>;
+	.						
+	
+# Create instances for component_attribute
+map:attributeComponents a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:constantValue <component/attribute>;
+	d2rq:class qb:ComponentSpecification;
+ 	.
+map:attributeComponents_attribute a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:attributeComponents;
+	d2rq:property qb:attribute;
+	d2rq:constantValue sdmx-attribute:unitMeasure;
+	.		
+map:attributeComponents_componentAttachment a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:attributeComponents;
+	d2rq:property qb:componentAttachment;
+	d2rq:constantValue qb:dataset;
+	.	
+
+							

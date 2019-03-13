@@ -1,0 +1,357 @@
+@prefix geof: <http://www.opengis.net/def/function/geosparql/>.
+@prefix map: <#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix geo:   <http://www.opengis.net/ont/geosparql#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix rrx: <http://www.w3.org/ns/r2rml-ext#>.
+@prefix rrxf: <http://www.w3.org/ns/r2rml-ext/functions/def/>.
+@prefix strdf: <http://strdf.di.uoa.gr/ontology#>.
+@prefix iso19150-2: <http://def.seegrid.csiro.au/isotc211/iso19150/-2/2012/basic#> .
+@prefix foodie: <http://foodie-cloud.com/model/foodie#> .
+@prefix foodie-cz: <http://foodie-cloud.com/model/foodie-cz#> .
+@prefix foodie-es: <http://foodie-cloud.com/model/foodie-es#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix virtrdf: <http://www.openlinksw.com/schemas/virtrdf#> .
+@prefix iso19103: <http://def.seegrid.csiro.au/isotc211/iso19103/2005/basic#> .
+@prefix common: <http://portele.de/ont/inspire/baseInspire#> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix olu: <http://w3id.org/foodie/olu#> .
+@prefix af-inspire:	<http://inspire.ec.europa.eu/schemas/af/3.0#> .
+
+################## Geometry ###################
+
+map:pLPIS_180616_WGS_geometry
+    rr:logicalTable [ rr:tableName "`pLPIS_180616_WGS`"; ];
+    rr:subjectMap [ rr:class geo:Geometry; rr:template "http://w3id.org/foodie/open/cz/LPIS/Geometry/{`gid`}"; ];
+    rr:predicateObjectMap [
+        rr:predicate geo:asWKT;
+        rr:objectMap [
+            rr:datatype geo:wktLiteral;
+            rrx:function rrxf:asWKT;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:dimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:dimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:spatialDimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:spatialDimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:isSimple;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:isSimple;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:coordinateDimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:coordinateDimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:is3D;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:is3D;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:isEmpty;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:isEmpty;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    .
+    
+################## Unit of Measure for Area ######################
+
+map:pLPIS_180616_WGS_UOM_ha
+    rr:logicalTable [ rr:tableName "`pLPIS_180616_WGS`"; ];
+    rr:subjectMap [ rr:class iso19103:UnitOfMeasure; rr:constant <http://w3id.org/foodie/open/cz/LPIS/area_ha>; ];
+    
+    rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [ rr:constant "ha" ];
+    ];
+    .
+
+##################### Plot Area #####################
+
+map:pLPIS_180616_WGS_plot_area
+    rr:logicalTable [ rr:tableName "`pLPIS_180616_WGS`"; ];
+    rr:subjectMap [ rr:class iso19103:Area; rr:template "http://w3id.org/foodie/open/cz/LPIS/Plot/Area/{`gid`}"; ];
+    
+    rr:predicateObjectMap [
+        rr:predicate iso19103:value;
+        rr:objectMap [
+            rr:datatype xsd:double;
+            rr:column "`VYMERAM`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate iso19103:uom;
+        rr:objectMap [
+            rr:constant <http://w3id.org/foodie/open/cz/LPIS/area_ha> ;
+        ];
+    ];
+    .
+
+##################### Site Area #####################
+
+map:pLPIS_180616_WGS_site_area
+    rr:logicalTable [ rr:tableName "`pLPIS_180616_WGS`"; ];
+    rr:subjectMap [ rr:class iso19103:Area; rr:template "http://w3id.org/foodie/open/cz/LPIS/Site/Area/{`gid`}"; ];
+    
+    rr:predicateObjectMap [
+        rr:predicate iso19103:value;
+        rr:objectMap [
+            rr:datatype xsd:double;
+            rr:column "`VYMERAM`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate iso19103:uom;
+        rr:objectMap [
+            rr:constant <http://w3id.org/foodie/open/cz/LPIS/area_ha> ;
+        ];
+    ];
+    .
+
+##################### Plot #####################
+
+map:pLPIS_180616_WGS_plot
+    rr:logicalTable [ rr:tableName "`pLPIS_180616_WGS`"; ];
+    #rr:logicalTable [rr:sqlQuery """SELECT \"CTVEREC\", \"ZKOD_DPB\", \"PLATNYOD\" FROM \"pLPIS_180616_WGS\"""";];
+    rr:subjectMap [ rr:class foodie:Plot; rr:template "http://w3id.org/foodie/open/cz/LPIS/Plot/{`gid`}"; ];
+    
+    rr:predicateObjectMap [
+        rr:predicate foodie:code;
+        rr:objectMap [
+            rr:template "{`CTVEREC`}/{`ZKOD_DPB`}";
+            rr:datatype xsd:string;
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate common:identifierScheme;
+        rr:objectMap [
+            rr:constant <http://w3id.org/foodie/open/cz/LPIS/>;
+        ];
+        
+    ];
+    rr:predicateObjectMap [
+        rr:predicate common:validFrom;
+        rr:objectMap [
+            rr:template "{`PLATNYOD`}";
+            rr:termType rr:Literal;            
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate prov:generatedAtTime;
+        rr:objectMap [
+            rr:datatype xsd:date;
+            rr:constant "2018-06-16";
+        ];
+    ];
+    
+    rr:predicateObjectMap [
+        rr:predicate foodie:shortId;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`ZKOD_DPB`";
+        ];
+    ];
+    
+    rr:predicateObjectMap [
+        rr:predicate foodie:cadastralUnit;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`CTVEREC`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:hasGeometry;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/open/cz/LPIS/Geometry/{`gid`}";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate iso19103:measure;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/open/cz/LPIS/Plot/Area/{`gid`}";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate olu:specificLandUse;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/open/cz/lpis/code/LandUseClassificationValue/{`KULTURAKOD`}";
+        ];
+    ];
+    
+    rr:predicateObjectMap [
+        rr:predicate foodie:holdingPlot;
+        rr:objectMap [ rr:parentTriplesMap map:pLPIS_180616_WGS_site ];
+    ];
+    .
+
+##################### Site #####################
+
+map:pLPIS_180616_WGS_site
+    rr:logicalTable [ rr:tableName "`pLPIS_180616_WGS`"; ];
+    rr:subjectMap [ rr:class foodie:Site; rr:template "http://w3id.org/foodie/open/cz/LPIS/Site/{`gid`}"; ];
+    
+    rr:predicateObjectMap [
+        rr:predicate foodie:code;
+        rr:objectMap [
+            rr:template "{`CTVEREC`}/{`ZKOD_DPB`}";
+            #rr:termType rr:Literal;
+            rr:datatype xsd:string;
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate common:identifierScheme;
+        rr:objectMap [
+            rr:constant <http://w3id.org/foodie/open/cz/LPIS/>;
+        ];
+        
+    ];
+    rr:predicateObjectMap [
+        rr:predicate common:validFrom;
+        rr:objectMap [
+            rr:template "{`PLATNYOD`}";
+            rr:termType rr:Literal;
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate prov:generatedAtTime;
+        rr:objectMap [
+            rr:datatype xsd:date;
+            rr:constant "2018-06-16";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate foodie:shortId;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`ZKOD_DPB`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate foodie:cadastralUnit;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`CTVEREC`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:hasGeometry;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/open/cz/LPIS/Geometry/{`gid`}";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate iso19103:measure;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/open/cz/LPIS/Site/Area/{`gid`}";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate olu:specificLandUse;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/open/cz/lpis/code/LandUseClassificationValue/{`KULTURAKOD`}";
+        ];
+    ];
+    
+    rr:predicateObjectMap [
+        rr:predicate foodie:containsPlot;
+        rr:objectMap [ rr:parentTriplesMap map:pLPIS_180616_WGS_plot ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate foodie:holdingSite;
+        rr:objectMap [ rr:parentTriplesMap map:pLPIS_180616_WGS_holding ];
+    ];
+    .
+    
+##################### Holding #####################
+    
+map:pLPIS_180616_WGS_holding
+    rr:logicalTable [ rr:tableName "`pLPIS_180616_WGS`"; ];
+    rr:subjectMap [ rr:class foodie:Holding; rr:template "http://w3id.org/foodie/open/cz/LPIS/Holding/{`ID_UZ`}"; ];
+    
+    rr:predicateObjectMap [
+        rr:predicate common:identifier;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`ID_UZ`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate common:identifierScheme ;
+        rr:objectMap [
+            rr:constant <http://w3id.org/foodie/open/cz/LPIS/>;
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate prov:generatedAtTime;
+        rr:objectMap [
+            rr:datatype xsd:date;
+            rr:constant "2018-06-16";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate af-inspire:contains;
+        rr:objectMap [ rr:parentTriplesMap map:pLPIS_180616_WGS_site ];
+    ];
+    .
