@@ -14,6 +14,7 @@
   dct:issued "2017-07-31T10:00:00Z"^^xsd:dateTime ;
   dct:modified "2017-07-31T10:00:00Z"^^xsd:dateTime ;
   rdfs:comment "Corine ontology derived from corine sql schema"@en ;
+  rdfs:comment "hilucsLandUse reuses olu ontology definition"@en ;
   rdfs:label "Corine ontology"@en ;
   dc:title "Corine ontology"@en ;
   dc:source "Corine data model"@en ;
@@ -79,6 +80,10 @@ geo:hasGeometry
   skos:prefLabel "shapeArea"@en ;
   rdfs:range xsd:double ;
   rdfs:isDefinedBy <http://w3id.org/foodie/corine> .
+
+<http://w3id.org/foodie/olu#hilucsLandUse>
+  a owl:DatatypeProperty ;
+  rdfs:isDefinedBy <http://inspire.ec.europa.eu/schemas/elu/4.0/> .
 
   
 #################################################################

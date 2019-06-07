@@ -14,6 +14,7 @@
   dct:issued "2017-07-31T10:00:00Z"^^xsd:dateTime ;
   dct:modified "2017-07-31T10:00:00Z"^^xsd:dateTime ;
   rdfs:comment "Urban Atlas ontology derived from urban atlas sql schema"@en ;
+  rdfs:comment "hilucsLandUse reuses olu ontology definition"@en ;
   rdfs:label "Urban Atlas ontology"@en ;
   dc:title "Urban Atlas ontology"@en ;
   dc:source "Urban Atlas model"@en ;
@@ -37,18 +38,12 @@ geo:hasGeometry
 #    Data properties
 #################################################################
 
-<http://w3id.org/foodie/atlas#cities>
-  a owl:DatatypeProperty ;
-  skos:notation "cities"^^xsd:NCName ;
-  skos:prefLabel "cities"@en ;
-  rdfs:range xsd:string ;
-  rdfs:isDefinedBy <http://w3id.org/foodie/atlas> .
-
 <http://w3id.org/foodie/atlas#luzOrCit>
   a owl:DatatypeProperty ;
   skos:notation "luzOrCit"^^xsd:NCName ;
   skos:prefLabel "luzOrCit"@en ;
   rdfs:range xsd:string ;
+  rdfs:comment "Urban Audit code for former larger urban zone (LUZ) (now called Functional Urban Area) or city. See https://ec.europa.eu/eurostat/web/cities/spatial-units"@en ;
   rdfs:isDefinedBy <http://w3id.org/foodie/atlas> .
 
 <http://w3id.org/foodie/atlas#code>
@@ -65,10 +60,10 @@ geo:hasGeometry
   rdfs:range xsd:string ;
   rdfs:isDefinedBy <http://w3id.org/foodie/atlas> .
 
-<http://w3id.org/foodie/atlas#prodDate>
+<http://w3id.org/foodie/atlas#productionDate>
   a owl:DatatypeProperty ;
-  skos:notation "prodDate"^^xsd:NCName ;
-  skos:prefLabel "prodDate"@en ;
+  skos:notation "productionDate"^^xsd:NCName ;
+  skos:prefLabel "productionDate"@en ;
   rdfs:range xsd:string ;
   rdfs:isDefinedBy <http://w3id.org/foodie/atlas> .
 
@@ -85,6 +80,14 @@ geo:hasGeometry
   skos:prefLabel "shapeArea"@en ;
   rdfs:range xsd:double ;
   rdfs:isDefinedBy <http://w3id.org/foodie/atlas> .
+  
+<http://dbpedia.org/ontology/city>
+  a owl:ObjectProperty ;
+  rdfs:isDefinedBy <http://dbpedia.org/ontology/> .
+
+<http://w3id.org/foodie/olu#hilucsLandUse>
+  a owl:DatatypeProperty ;
+  rdfs:isDefinedBy <http://inspire.ec.europa.eu/schemas/elu/4.0/> .
 
 
 #################################################################
