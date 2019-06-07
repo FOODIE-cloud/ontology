@@ -80,12 +80,6 @@ geo:hasGeometry
   rdfs:range xsd:double ;
   rdfs:isDefinedBy <http://w3id.org/foodie/corine> .
 
-<http://w3id.org/foodie/corine#hilucsLandUse>
-  a owl:DatatypeProperty ;
-  skos:notation "hilucsLandUse"^^xsd:NCName ;
-  skos:prefLabel "hilucsLandUse"@en ;
-  rdfs:range xsd:decimal ;
-  rdfs:isDefinedBy <http://inspire.ec.europa.eu/schemas/elu/4.0/> .
   
 #################################################################
 #    Classes
