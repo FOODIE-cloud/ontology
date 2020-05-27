@@ -1,0 +1,1062 @@
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix  rml: <http://semweb.mmlab.be/ns/rml#> .
+@prefix ql: <http://semweb.mmlab.be/ns/ql#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@base <http://geotriples.eu/base> .
+@prefix rrx: <http://www.w3.org/ns/r2rml-ext#>.
+@prefix rrxf: <http://www.w3.org/ns/r2rml-ext/functions/def/>.
+@prefix ogc: <http://www.opengis.net/ont/geosparql#>.
+@prefix schema: <http://schema.org/>.
+@prefix catchrecord-norway: <http://www.ontologydesignpatterns.org/cp/owl/fsdas/catchrecord.owl#>.
+@prefix vessel: <http://w3id.org/foodie/open/vessels#>.
+@prefix gear: <http://w3id.org/foodie/open/gear#>.
+
+<#catchdata_2019.catch-record>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/catchdata_2019.csv";
+	rml:referenceFormulation ql:CSV;
+	#rml:iterator "catchdata_2019";
+];
+
+rr:subjectMap [
+	rr:template "http://w3id.org/foodie/open/catchrecord/norway#{Dokumentnummer}";
+	rr:class catchrecord-norway:CatchRecord;
+];
+
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:saleDate ];
+	rr:objectMap [
+		rr:datatype  xsd:datetime;
+		rml:reference "Dokument salgsdato";
+	];
+];
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:saleAssociationID ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Salgslag ID";
+	];
+];
+
+
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:receiverID ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Mottaker ID";
+	];
+];
+
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:landingMunicipalityCode ];
+	rr:objectMap [
+		#rr:datatype  xsd:string;
+		#rml:reference "Landingskommune (kode)";
+		rr:termType rr:IRI;
+		rr:template "https://www.omg.org/spec/LCC/Countries/Regions/ISO3166-2-SubdivisionCodes-NO/NO-{Landingskommune (kode)}";
+	];
+];
+
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:landingRegionCode ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Landingsfylke (kode)";
+		rr:template "https://www.omg.org/spec/LCC/Countries/Regions/ISO3166-2-SubdivisionCodes-NO/NO-{Landingsfylke (kode)}";
+	];
+];
+
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:landingCountryCode ];
+	rr:objectMap [
+		#rr:datatype  xsd:string;
+		#rml:reference "Landingsnasjon";
+		https://www.omg.org/spec/LCC/Countries/ISO3166-1-CountryCodes/{Landingsnasjon}";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway#productionFacility ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Produksjonsanlegg";
+	];
+];
+########################
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasProduksjonskommune (kode) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Produksjonskommune (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasProduksjonskommune ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Produksjonskommune";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasMottakende fartøy regmerke ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Mottakende fartøy reg.merke";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasMottakende fartøy rkal ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Mottakende fartøy rkal";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasMottakende fartøytype (kode) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Mottakende fartøytype (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasMottakende farttype ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Mottakende fart.type";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasMottakende fartøynasj (kode) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Mottakende fartøynasj. (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasMottakende fartnasj ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Mottakende fart.nasj";
+	];
+];
+
+############################## Fisherman data ###################
+
+<#catchdata_2019.fisherman-record>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/catchdata_2019.csv";
+	rml:referenceFormulation ql:CSV;
+	#rml:iterator "catchdata_2019";
+];
+
+rr:subjectMap [
+	#rr:template "http://w3id.org/foodie/open/catchrecord/norway#{Dokumentnummer}";
+	rr:template "http://w3id.org/foodie/open/catchrecord/norway#{Fisker ID}";
+	rr:class catchrecord-norway:CatchRecord, catchrecord-norway:Person; 
+];
+
+#rr:predicateObjectMap [
+#	rr:predicateMap [ rr:constant catchrecord-norway:fromFisherman ];
+#	rr:objectMap [
+#		rr:datatype  xsd:string;
+#		rml:reference "Fisker ID";
+#	];
+#];
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:fromFisherman ];
+	rr:objectMap [
+		#rr:datatype  xsd:string;
+		#rml:reference "Fiskerkommune (kode)";
+		rr:termType rr:IRI;
+		rr:template "https://www.omg.org/spec/LCC/Countries/Regions/ISO3166-2-SubdivisionCodes-NO/NO-{Fiskerkommune (kode)}";
+	];
+];
+.
+
+############################## Vessel data ################
+
+<#catchdata_2019.vessel-record>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/catchdata_2019.csv";
+	rml:referenceFormulation ql:CSV;
+	#rml:iterator "catchdata_2019";
+];
+
+rr:subjectMap [
+	#rr:template "http://w3id.org/foodie/open/catchrecord/norway#{Dokumentnummer}";
+	rr:template " http://w3id.org/foodie/open/vessels#{Fartøy ID}";
+	rr:class catchrecord-norway:CatchRecord, vessel:Vessel; 
+];
+
+
+#rr:predicateObjectMap [
+#	rr:predicateMap [ rr:constant onto:hasFartøy ID ];
+#	rr:objectMap [
+#		rr:datatype  xsd:string;
+#		rml:reference "Fartøy ID";
+#	];
+#];
+
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant vessel:radioCallSignal ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Radiokallesignal (seddel)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant rdfs:label ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Fartøynavn";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant vessel:vesselType ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+    rr:template "http://w3id.org/foodie/open/vessels/type/{Fartøytype (kode)}";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant vessel:lenghtGroup ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+    rr:template "http://w3id.org/foodie/open/vessels/length#{Lengdegruppe (kode)}";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant vessel:quotaType ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+    rr:template "http://w3id.org/foodie/open/vessels/length#{Lengdegruppe (kode)}";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant gear:withGearType ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+    rr:template "http://w3id.org/foodie/open/catchrecord/norway/gearType/{Redskap (kode)}";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant gear:withGearGroup ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+    rr:template "http://w3id.org/foodie/open/catchrecord/norway/gearType/{Redskap (kode)}";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant gear:withMainGearGroup ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+    rr:template "http://w3id.org/foodie/open/catchrecord/norway/mainGearGroup/{Redskap - hovedgruppe (kode)}";
+	];
+];
+.
+############################## Vessel type ################
+
+<#catchdata_2019.vessel-type>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/catchdata_2019.csv";
+	rml:referenceFormulation ql:CSV;
+	#rml:iterator "catchdata_2019";
+];
+
+rr:subjectMap [
+	#rr:template "http://w3id.org/foodie/open/catchrecord/norway#{Dokumentnummer}";
+	rr:template "http://w3id.org/foodie/open/vessels/type#{Fartøytype (kode)}";
+	rr:class  vessel:Vessel; 
+];
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant vessel:vesselTypeName ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Fartøytype";
+	];
+];
+.
+
+############################## Vessel length ################
+
+<#catchdata_2019.vessel-length>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/catchdata_2019.csv";
+	rml:referenceFormulation ql:CSV;
+	#rml:iterator "catchdata_2019";
+];
+
+rr:subjectMap [
+	rr:template "http://w3id.org/foodie/open/vessels/length#{Lengdegruppe (kode)}";
+	rr:class  vessel:Vessel; 
+];
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant vessel:vesselLengthGroup ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Lengdegruppe";
+	];
+];
+.
+
+############################## Vessel quota ################
+
+<#catchdata_2019.vessel-quota>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/catchdata_2019.csv";
+	rml:referenceFormulation ql:CSV;
+	#rml:iterator "catchdata_2019";
+];
+
+rr:subjectMap [
+	rr:template "http://w3id.org/foodie/open/vessels/quota#{Kvotetype (kode)}";
+	rr:class  vessel:Vessel; 
+];
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant vessel:quotaTypeName ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Kvotetype";
+	];
+];
+.
+############################# Gear Type ####################
+
+<#catchdata_2019.gear-type>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/catchdata_2019.csv";
+	rml:referenceFormulation ql:CSV;
+	#rml:iterator "catchdata_2019";
+];
+
+rr:subjectMap [
+	rr:template "http://w3id.org/foodie/open/catchrecord/norway/gearType/{Redskap (kode)}";
+	rr:class  gear:GearType; 
+];
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant gear:gearTypeName ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Redskap";
+	];
+];
+.
+############################# Gear Group ################
+
+<#catchdata_2019.gear-group>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/catchdata_2019.csv";
+	rml:referenceFormulation ql:CSV;
+	#rml:iterator "catchdata_2019";
+];
+
+rr:subjectMap [
+	rr:template "http://w3id.org/foodie/open/catchrecord/norway/gearGroup/{Redskap - gruppe (kode)}";
+	rr:class  gear:GearGroup; 
+];
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant gear:gearGroupName ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Redskap - gruppe";
+	];
+];
+.
+############################ Main Gear Group ################
+
+<#catchdata_2019.main-gear-group>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/catchdata_2019.csv";
+	rml:referenceFormulation ql:CSV;
+	#rml:iterator "catchdata_2019";
+];
+
+rr:subjectMap [
+	rr:template "http://w3id.org/foodie/open/catchrecord/norway/mainGearGroup/{Redskap - hovedgruppe (kode)}";
+	rr:class  gear:MainGearGroup; 
+];
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant gear:mainGearGroupName ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Redskap - hovedgruppe";
+	];
+];
+.
+############################################
+
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasKvotefartøy regmerke ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Kvotefartøy reg.merke";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasBesetning ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Besetning";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasFartøykommune (kode) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Fartøykommune (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasFartøykommune ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Fartøykommune";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasFartøyfylke (kode) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Fartøyfylke (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasFartøyfylke ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Fartøyfylke";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasFartøynasjonalitet (kode) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Fartøynasjonalitet (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasFartøynasjonalitet ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Fartøynasjonalitet";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasFartøynasjonalitet gruppe ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Fartøynasjonalitet gruppe";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasStørste lengde ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Største lengde";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasLengdegruppe (kode) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Lengdegruppe (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasLengdegruppe ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Lengdegruppe";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasBruttotonnasje 1969 ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Bruttotonnasje 1969";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasBruttotonnasje annen ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Bruttotonnasje annen";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasByggeår ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Byggeår";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasOmbyggingsår ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Ombyggingsår";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasMotorkraft ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Motorkraft";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasMotorbyggeår ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Motorbyggeår";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasFangstår ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Fangstår";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasSiste fangstdato ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Siste fangstdato";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasKvotetype (kode) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Kvotetype (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasKvotetype ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Kvotetype";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasRedskap (kode) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Redskap (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasRedskap ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Redskap";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasRedskap - gruppe (kode) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Redskap - gruppe (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasRedskap - gruppe ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Redskap - gruppe";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasRedskap - hovedgruppe (kode) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Redskap - hovedgruppe (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasRedskap - hovedgruppe ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Redskap - hovedgruppe";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasFangstfelt (kode) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Fangstfelt (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasKyst/hav (kode) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Kyst/hav (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasHovedområde (kode) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Hovedområde (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasHovedområde ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Hovedområde";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasLon (hovedområde) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Lon (hovedområde)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasLat (hovedområde) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Lat (hovedområde)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasLokasjon (kode) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Lokasjon (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasLon (lokasjon) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Lon (lokasjon)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasLat (lokasjon) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Lat (lokasjon)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasSone (kode) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Sone (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasSone ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Sone";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasOmrådegruppering ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Områdegruppering";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasHovedområde FAO (kode) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Hovedområde FAO (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasHovedområde FAO ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Hovedområde FAO";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasNord/sør for 62 grader nord ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Nord/sør for 62 grader nord";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasFangstdagbok (nummer) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Fangstdagbok (nummer)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasFangstdagbok (turnummer) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Fangstdagbok (turnummer)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasLandingsdato ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Landingsdato";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasLandingsklokkeslett ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Landingsklokkeslett";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasLandingsmåned (kode) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Landingsmåned (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasLandingsmåned ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Landingsmåned";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasLandingstidspunkt ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Landingstidspunkt";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasDellanding (signal) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Dellanding (signal)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasNeste mottaksstasjon ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Neste mottaksstasjon";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasForrige mottakstasjon ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Forrige mottakstasjon";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasLinjenummer ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Linjenummer";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasArt - FDIR (kode) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Art - FDIR (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasArt - FDIR ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Art - FDIR";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasArt (kode) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Art (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasArt ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Art";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasArt - gruppe (kode) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Art - gruppe (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasArt - gruppe ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Art - gruppe";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasArt - hovedgruppe (kode) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Art - hovedgruppe (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasArt - hovedgruppe ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Art - hovedgruppe";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasArt FAO (kode) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Art FAO (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasArt FAO ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Art FAO";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasProdukttilstand (kode) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Produkttilstand (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasProdukttilstand ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Produkttilstand";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasKonserveringsmåte (kode) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Konserveringsmåte (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasKonserveringsmåte ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Konserveringsmåte";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasLandingsmåte (kode) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Landingsmåte (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasLandingsmåte ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Landingsmåte";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasKvalitet (kode) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Kvalitet (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasKvalitet ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Kvalitet";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasStørrelsesgruppering (kode) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Størrelsesgruppering (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasAnvendelse (kode) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Anvendelse (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasAnvendelse ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Anvendelse";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasAnvendelse hovedgruppe (kode) ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Anvendelse hovedgruppe (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasAnvendelse hovedgruppe ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Anvendelse hovedgruppe";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasAntall stykk ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Antall stykk";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasBruttovekt ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Bruttovekt";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasProduktvekt ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Produktvekt";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasProduktvekt over kvote ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Produktvekt over kvote";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasRundvekt over kvote ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Rundvekt over kvote";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasRundvekt ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Rundvekt";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasEnhetspris for kjøper ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Enhetspris for kjøper";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasBeløp for kjøper ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Beløp for kjøper";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasEnhetspris for fisker ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Enhetspris for fisker";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasBeløp for fisker ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Beløp for fisker";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasStøttebeløp ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Støttebeløp";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasLagsavgift ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Lagsavgift";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasInndradd fangstverdi ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Inndradd fangstverdi";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasEtterbetaling ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Etterbetaling";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasFangstverdi ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Fangstverdi";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant onto:hasOppdateringstidspunkt ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Oppdateringstidspunkt";
+	];
+].
+
