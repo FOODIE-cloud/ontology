@@ -1,0 +1,102 @@
+@prefix map: <#> .
+@prefix db: <> .
+@prefix vocab: <vocab/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix d2rq: <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
+@prefix jdbc: <http://d2rq.org/terms/jdbc/> .
+@prefix olu: <http://w3id.org/foodie/olu#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix virtrdf: <http://www.openlinksw.com/schemas/virtrdf#> .
+
+map:database a d2rq:Database;
+	d2rq:jdbcDriver "org.postgresql.Driver";
+	d2rq:jdbcDSN "jdbc:postgresql://localhost/olu";
+	d2rq:username "sam";
+	d2rq:password "psnc";
+	.
+
+# create instances for cz_view_lpis_geometry
+map:cz_view_lpis_geometry a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "LandUse/@@cz_view_lpis.id@@/geometry";
+	d2rq:class geo:Geometry;
+	d2rq:classDefinitionLabel "Geometry";
+	.
+map:cz_view_lpis_geometry_asWKT a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:cz_view_lpis_geometry;
+	d2rq:property geo:asWKT;
+	d2rq:column "cz_view_lpis.geom";
+	d2rq:datatype virtrdf:Geometry;
+	.
+
+
+# Table cz_view_lpis
+map:cz_view_lpis a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "LandUse/@@cz_view_lpis.id@@";
+	d2rq:class olu:LandUse;
+	d2rq:classDefinitionLabel "LandUse";
+	.
+map:cz_view_lpis__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:cz_view_lpis;
+	d2rq:property rdfs:label;
+	d2rq:pattern "LandUse #@@cz_view_lpis.id@@";
+	.
+map:cz_view_lpis_geom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:cz_view_lpis;
+	d2rq:property geo:hasGeometry;
+	d2rq:uriPattern "LandUse/@@cz_view_lpis.id@@/geometry";
+	.		
+map:cz_view_lpis_hilucs_value a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:cz_view_lpis;
+	d2rq:property olu:hilucsLandUse;
+	d2rq:column "cz_view_lpis.hilucs_value";
+	d2rq:datatype xsd:decimal;
+	.
+map:cz_view_lpis_original_value a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:cz_view_lpis;
+	d2rq:property olu:specificLandUse;
+	d2rq:column "cz_view_lpis.original_value";
+	d2rq:datatype xsd:string;
+	.
+map:cz_view_lpis_country_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:cz_view_lpis;
+	d2rq:property olu:countryCode;
+	d2rq:column "cz_view_lpis.country_code";
+	d2rq:datatype xsd:string;
+	.
+map:cz_view_lpis_municipal_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:cz_view_lpis;
+	d2rq:property olu:municipalCode;
+	d2rq:column "cz_view_lpis.municipal_code";
+	d2rq:datatype xsd:string;
+	.
+map:cz_view_lpis_validfrom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:cz_view_lpis;
+	d2rq:property prov:generatedAtTime;
+	d2rq:column "cz_view_lpis.validfrom";
+	d2rq:datatype xsd:dateTime;
+	.
+map:cz_view_lpis_validto a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:cz_view_lpis;
+	d2rq:property prov:invalidatedAtTime;
+	d2rq:column "cz_view_lpis.validto";
+	d2rq:datatype xsd:dateTime;
+	.
+	
+#all rules for geometry_source			
+map:cz_view_lpis_geometry_source a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:cz_view_lpis;
+	d2rq:property olu:geometrySource;
+	d2rq:uriPattern "http://w3id.org/foodie/lpis/lpis18032017/@@cz_view_lpis.geometry_source_gid@@";
+	.
+	
+#all rules for attribute source			
+map:cz_view_lpis_attribute_source a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:cz_view_lpis;
+	d2rq:property olu:attributeSource;
+	d2rq:uriPattern "http://w3id.org/foodie/lpis/lpis18032017/@@cz_view_lpis.attribute_source_gid@@";
+	.

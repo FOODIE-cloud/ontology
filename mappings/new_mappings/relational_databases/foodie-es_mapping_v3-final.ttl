@@ -1,0 +1,2940 @@
+@prefix map: <#> .
+@prefix db: <> .
+@prefix vocab: <vocab/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix d2rq: <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
+@prefix jdbc: <http://d2rq.org/terms/jdbc/> .
+@prefix iso19150-2: <http://def.seegrid.csiro.au/isotc211/iso19150/-2/2012/basic#> .
+@prefix foodie: <http://foodie-cloud.com/model/foodie#> .
+@prefix foodie-es: <http://foodie-cloud.com/model/foodie-es#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo:   <http://www.opengis.net/ont/geosparql#> .
+@prefix iso19108: <http://def.seegrid.csiro.au/isotc211/iso19108/2002/temporal#> .
+@prefix dct:   <http://purl.org/dc/terms/> .
+@prefix common: <http://portele.de/ont/inspire/baseInspire#> .
+@prefix iso19115-citation: <http://def.seegrid.csiro.au/isotc211/iso19115/2003/citation#> .
+@prefix iso19103: <http://def.seegrid.csiro.au/isotc211/iso19103/2005/basic#> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix dc:    <http://purl.org/dc/elements/1.1/> .
+@prefix iso19109: <http://def.seegrid.csiro.au/isotc211/iso19109/2005/feature#> .
+@prefix af-inspire:	<http://inspire.ec.europa.eu/schemas/af/3.0#> .
+@prefix act-inspire:	<http://inspire.ec.europa.eu/schemas/act-core/3.0#> .
+@prefix virtrdf: <http://www.openlinksw.com/schemas/virtrdf#> .
+
+map:database a d2rq:Database;
+	d2rq:jdbcDriver "org.postgresql.Driver";
+	d2rq:jdbcDSN "jdbc:postgresql://localhost/foodie-es_db";
+	d2rq:username "sam";
+	d2rq:password "psnc";
+	.
+
+# create instances for foodie.alert_view_geometry
+map:foodie_alert_view_geometry a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Alert/@@foodie.alert_view.alert_id@@/geometry";
+	d2rq:class geo:Geometry;
+	d2rq:classDefinitionLabel "Geometry";	
+	.
+map:foodie_alert_view_geometry_asWKT a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_alert_view_geometry;
+	d2rq:property geo:asWKT;
+	d2rq:column "foodie.alert_view.alert_geometry";
+	d2rq:datatype virtrdf:Geometry;
+	.
+
+# Table foodie.alert_view
+map:foodie_alert_view a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Alert/@@foodie.alert_view.alert_id@@";
+	d2rq:class foodie:Alert;
+	d2rq:classDefinitionLabel "Alert";
+	.
+map:foodie_alert_view__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_alert_view;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Alert #@@foodie.alert_view.alert_id@@";
+	.
+map:foodie_alert_view_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_alert_view;
+	d2rq:property foodie:code ;
+	d2rq:column "foodie.alert_view.code";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_alert_view_code_space a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_alert_view;
+	d2rq:property foodie-es:codeSpace;
+	d2rq:column "foodie.alert_view.code_space";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_alert_view_code_version a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_alert_view;
+	d2rq:property foodie-es:codeVersion;
+	d2rq:column "foodie.alert_view.code_version";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_alert_view_description a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_alert_view;
+	d2rq:property foodie:description;
+	d2rq:column "foodie.alert_view.description";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_alert_view_alert_date a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_alert_view;
+	d2rq:property foodie:alertDate;
+	d2rq:column "foodie.alert_view.alert_date";
+	d2rq:datatype xsd:date;
+	.
+map:foodie_alert_view_alert_geometry a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_alert_view;
+	d2rq:property foodie:alertGeometry;
+	d2rq:uriPattern "Alert/@@foodie.alert_view.alert_id@@/geometry";
+	.
+
+# create instances for foodie.crop_species_view_geometry
+map:foodie_crop_species_view_geometry a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "CropSpecies/@@foodie.crop_species_view.crop_species_id@@/geometry";
+	d2rq:class geo:Geometry;
+	d2rq:classDefinitionLabel "Geometry";	
+	.
+map:foodie_crop_species_view_geometry_asWKT a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_crop_species_view_geometry;
+	d2rq:property geo:asWKT;
+	d2rq:column "foodie.crop_species_view.crop_area";
+	d2rq:datatype virtrdf:Geometry;
+	.
+
+# Table foodie.crop_species_view
+map:foodie_crop_species_view a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "CropSpecies/@@foodie.crop_species_view.crop_species_id@@";
+	d2rq:class foodie:CropSpecies;
+	d2rq:classDefinitionLabel "CropSpecies";
+	.
+map:foodie_crop_species_view__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_crop_species_view;
+	d2rq:property rdfs:label;
+	d2rq:pattern "CropSpecies #@@foodie.crop_species_view.crop_species_id@@";
+	.
+map:foodie_crop_species_view_crop_type_id__ref a d2rq:PropertyBridge;        ###reference to the crop_type instance
+	d2rq:belongsToClassMap map:foodie_crop_species_view;
+	d2rq:property foodie:cropSpecies;
+	d2rq:refersToClassMap map:foodie_crop_type;
+	d2rq:join "foodie.crop_species_view.crop_type_id => foodie.crop_type.crop_type_id";
+	.	
+map:foodie_crop_species_view_valid_from a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_crop_species_view;
+	d2rq:property common:validFrom;
+	d2rq:column "foodie.crop_species_view.valid_from";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_crop_species_view_valid_to a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_crop_species_view;
+	d2rq:property common:validTo;
+	d2rq:column "foodie.crop_species_view.valid_to";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_crop_species_view_begin_life_span_version a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_crop_species_view;
+	d2rq:property prov:generatedAtTime;
+	d2rq:column "foodie.crop_species_view.begin_life_span_version";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_crop_species_view_end_life_span_version a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_crop_species_view;
+	d2rq:property prov:invalidatedAtTime;
+	d2rq:column "foodie.crop_species_view.end_life_span_version";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_crop_species_view_crop_area a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_crop_species_view;
+	d2rq:property foodie:cropArea;
+	d2rq:uriPattern "CropSpecies/@@foodie.crop_species_view.crop_species_id@@/geometry";
+	.
+
+# create instances for foodie.file_view_geometry
+map:foodie_file_view_geometry a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "File/@@foodie.file_view.file_id@@/geometry";
+	d2rq:class geo:Geometry;
+	d2rq:classDefinitionLabel "Geometry";	
+	.
+map:foodie_file_view_geometry_asWKT a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_file_view_geometry;
+	d2rq:property geo:asWKT;
+	d2rq:column "foodie.file_view.geometry";
+	d2rq:datatype virtrdf:Geometry;
+	.
+
+# Table foodie.file_view
+map:foodie_file_view a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "File/@@foodie.file_view.file_id@@";
+	d2rq:class foodie-es:File;
+	d2rq:classDefinitionLabel "File";
+	.
+map:foodie_file_view__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_file_view;
+	d2rq:property rdfs:label;
+	d2rq:pattern "File #@@foodie.file_view.file_id@@";
+	.
+map:foodie_file_view_data a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_file_view;
+	d2rq:property foodie-es:data;
+	d2rq:column "foodie.file_view.data";
+	d2rq:datatype xsd:hexBinary;
+	.
+map:foodie_file_view_description a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_file_view;
+	d2rq:property foodie:description;
+	d2rq:column "foodie.file_view.description";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_file_view_hasgeometry a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_file_view;
+	d2rq:property geo:hasGeometry;
+	d2rq:uriPattern "File/@@foodie.file_view.file_id@@/geometry";
+	.
+map:foodie_file_view_filename a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_file_view;
+	d2rq:property foodie-es:filename;
+	d2rq:column "foodie.file_view.filename";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_file_view_mimetype a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_file_view;
+	d2rq:property foodie-es:mimeType;
+	d2rq:column "foodie.file_view.mimetype";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_file_view_size a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_file_view;
+	d2rq:property foodie-es:size;
+	d2rq:column "foodie.file_view.size";
+	d2rq:datatype xsd:decimal;
+	.
+map:foodie_file_view_url a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_file_view;
+	d2rq:property foodie-es:url;
+	d2rq:column "foodie.file_view.url";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_file_view_extension a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_file_view;
+	d2rq:property foodie-es:extension;
+	d2rq:column "foodie.file_view.extension";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_file_view_creation_date a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_file_view;
+	d2rq:property foodie:creationDateTime;        ## we have foodie:creationDateTime
+	d2rq:column "foodie.file_view.creation_date";
+	d2rq:datatype xsd:dateTime;
+	.
+
+# create instances for foodie.holding_view_geometry
+map:foodie_holding_view_geometry a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Holding/@@foodie.holding_view.holding_id@@/geometry";
+	d2rq:class geo:Geometry;
+	d2rq:classDefinitionLabel "Geometry";	
+	.
+map:foodie_holding_view_geometry_asWKT a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_holding_view_geometry;
+	d2rq:property geo:asWKT;
+	d2rq:column "foodie.holding_view.geometry";
+	d2rq:datatype virtrdf:Geometry;
+	.
+
+# Table foodie.holding_view
+map:foodie_holding_view a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Holding/@@foodie.holding_view.holding_id@@";
+	d2rq:class af-inspire:Holding;
+	d2rq:classDefinitionLabel "Holding";
+	.
+map:foodie_holding_view__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_holding_view;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Holding #@@foodie.holding_view.holding_id@@";
+	.
+map:foodie_holding_view_inspire_id_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_holding_view;
+	d2rq:property common:identifier;
+	d2rq:column "foodie.holding_view.inspire_id_code";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_holding_view_inspire_id_code_space a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_holding_view;
+	d2rq:property foodie-es:inspireIdCodeSpace;
+	d2rq:column "foodie.holding_view.inspire_id_code_space";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_holding_view_inspire_id_code_version a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_holding_view;
+	d2rq:property foodie-es:inspireIdCodeVersion;
+	d2rq:column "foodie.holding_view.inspire_id_code_version";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_holding_view_hasgeometry a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_holding_view;
+	d2rq:property geo:hasGeometry;
+	d2rq:uriPattern "Holding/@@foodie.holding_view.holding_id@@/geometry";
+	.
+map:foodie_holding_view_holding_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_holding_view;
+	d2rq:property foodie-es:holdingName;
+	d2rq:column "foodie.holding_view.holding_name";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_holding_view_valid_from a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_holding_view;
+	d2rq:property common:validFrom;
+	d2rq:column "foodie.holding_view.valid_from";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_holding_view_valid_to a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_holding_view;
+	d2rq:property common:validTo;
+	d2rq:column "foodie.holding_view.valid_to";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_holding_view_begin_life_span_version a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_holding_view;
+	d2rq:property prov:generatedAtTime;
+	d2rq:column "foodie.holding_view.begin_life_span_version";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_holding_view_end_life_span_version a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_holding_view;
+	d2rq:property prov:invalidatedAtTime;
+	d2rq:column "foodie.holding_view.end_life_span_version";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_holding_view_user_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_holding_view;
+	d2rq:property foodie:userId ;
+	d2rq:column "foodie.holding_view.user_id";
+	d2rq:datatype xsd:string;
+	.
+
+# create instances for foodie.intervention_view_geometry
+map:foodie_intervention_view_geometry a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Intervention/@@foodie.intervention_view.intervention_id@@/geometry";
+	d2rq:class geo:Geometry;
+	d2rq:classDefinitionLabel "Geometry";	
+	.
+map:foodie_intervention_view_geometry_asWKT a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_intervention_view_geometry;
+	d2rq:property geo:asWKT;
+	d2rq:column "foodie.intervention_view.intervention_geometry";
+	d2rq:datatype virtrdf:Geometry;
+	.
+# Table foodie.intervention_view
+map:foodie_intervention_view a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Intervention/@@foodie.intervention_view.intervention_id@@";
+	d2rq:class foodie:Intervention;
+	d2rq:classDefinitionLabel "Intervention";
+	.
+map:foodie_intervention_view__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_intervention_view;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Intervention #@@foodie.intervention_view.intervention_id@@";
+	.
+map:foodie_intervention_view_description a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_intervention_view;
+	d2rq:property foodie:description;
+	d2rq:column "foodie.intervention_view.description";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_intervention_view_notes a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_intervention_view;
+	d2rq:property foodie:notes;
+	d2rq:column "foodie.intervention_view.notes";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_intervention_view_price a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_intervention_view;
+	d2rq:property foodie:price;
+	d2rq:column "foodie.intervention_view.price";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_intervention_view_status a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_intervention_view;
+	d2rq:property foodie:status;
+	d2rq:column "foodie.intervention_view.status";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_intervention_view_creation_date_time a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_intervention_view;
+	d2rq:property foodie:creationDateTime;
+	d2rq:column "foodie.intervention_view.creation_date_time";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_intervention_view_intervention_start a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_intervention_view;
+	d2rq:property common:validFrom;
+	d2rq:column "foodie.intervention_view.intervention_start";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_intervention_view_intervention_end a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_intervention_view;
+	d2rq:property common:validTo;
+	d2rq:column "foodie.intervention_view.intervention_end";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_intervention_view_intervention_geometry a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_intervention_view;
+	d2rq:property foodie:interventionGeometry;
+	d2rq:uriPattern "Intervention/@@foodie.intervention_view.intervention_id@@/geometry";
+	.
+map:foodie_intervention_view_intervention_type_value_id__ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_intervention_view;
+	d2rq:property foodie-es:interventionTypeValue;                												##reference to the intervention_type_value instance.
+	d2rq:refersToClassMap map:foodie_intervention_type_value;
+	d2rq:join "foodie.intervention_view.intervention_type_value_id => foodie.intervention_type_value.intervention_type_value_id";
+	.
+map:foodie_intervention_view_plot_id__ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_intervention_view;
+	d2rq:property foodie:interventionPlot;                												       ##reference to the plot_view instance.
+	d2rq:refersToClassMap map:foodie_plot_view;
+	d2rq:join "foodie.intervention_view.plot_id => foodie.plot_view.plot_id";
+	.
+
+# create instances for foodie.management_zone_proposed_view_geometry
+map:foodie_management_zone_proposed_view_geometry a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ManagementZoneProposed/@@foodie.management_zone_proposed_view.management_zone_proposed_id@@/geometry";
+	d2rq:class geo:Geometry;
+	d2rq:classDefinitionLabel "Geometry";	
+	.
+map:foodie_management_zone_proposed_view_geometry_asWKT a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_management_zone_proposed_view_geometry;
+	d2rq:property geo:asWKT;
+	d2rq:column "foodie.management_zone_proposed_view.geometry";
+	d2rq:datatype virtrdf:Geometry;
+	.
+
+# Table foodie.management_zone_proposed_view
+map:foodie_management_zone_proposed_view a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ManagementZoneProposed/@@foodie.management_zone_proposed_view.management_zone_proposed_id@@";
+	d2rq:class foodie-es:ManagementZoneProposed;
+	d2rq:classDefinitionLabel "ManagementZoneProposed";
+	.
+map:foodie_management_zone_proposed_view__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_management_zone_proposed_view;
+	d2rq:property rdfs:label;
+	d2rq:pattern "ManagementZoneProposed #@@foodie.management_zone_proposed_view.management_zone_proposed_id@@";
+	.
+map:foodie_management_zone_proposed_view_hasgeometry a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_management_zone_proposed_view;
+	d2rq:property geo:hasGeometry;
+	d2rq:uriPattern "ManagementZoneProposed/@@foodie.management_zone_proposed_view.management_zone_proposed_id@@/geometry";
+	.
+
+map:foodie_management_zone_proposed_view_site_id__ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_management_zone_proposed_view;
+	d2rq:property foodie-es:managementZoneProposedSite;                												##reference to the site_view instance.
+	d2rq:refersToClassMap map:foodie_site_view;
+	d2rq:join "foodie.management_zone_proposed_view.site_id => foodie.site_view.site_id";
+	.
+
+map:foodie_management_zone_proposed_view_accepted a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_management_zone_proposed_view;
+	d2rq:property foodie-es:accepted;
+	d2rq:column "foodie.management_zone_proposed_view.accepted";
+	d2rq:datatype xsd:boolean;
+	.
+map:foodie_management_zone_proposed_view_accepted_date a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_management_zone_proposed_view;
+	d2rq:property foodie-es:acceptedDate;
+	d2rq:column "foodie.management_zone_proposed_view.accepted_date";
+	d2rq:datatype xsd:dateTime;
+	.
+
+# create instances for foodie.management_zone_view_geometry
+map:foodie_management_zone_view_geometry a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ManagementZone/@@foodie.management_zone_view.management_zone_id@@/geometry";
+	d2rq:class geo:Geometry;
+	d2rq:classDefinitionLabel "Geometry";	
+	.
+map:foodie_management_zone_view_geometry_asWKT a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_management_zone_view_geometry;
+	d2rq:property geo:asWKT;
+	d2rq:column "foodie.management_zone_view.geometry";
+	d2rq:datatype virtrdf:Geometry;
+	.
+# Table foodie.management_zone_view
+map:foodie_management_zone_view a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ManagementZone/@@foodie.management_zone_view.management_zone_id@@";
+	d2rq:class foodie:ManagementZone;
+	d2rq:classDefinitionLabel "ManagementZone";
+	.
+map:foodie_management_zone_view__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_management_zone_view;
+	d2rq:property rdfs:label;
+	d2rq:pattern "ManagementZone #@@foodie.management_zone_view.management_zone_id@@";
+	.
+map:foodie_management_zone_view_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_management_zone_view;
+	d2rq:property foodie:code;
+	d2rq:column "foodie.management_zone_view.code";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_management_zone_view_code_space a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_management_zone_view;
+	d2rq:property foodie-es:codeSpace;
+	d2rq:column "foodie.management_zone_view.code_space";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_management_zone_view_code_version a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_management_zone_view;
+	d2rq:property foodie-es:codeVersion;
+	d2rq:column "foodie.management_zone_view.code_version";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_management_zone_view_valid_from a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_management_zone_view;
+	d2rq:property common:validFrom;
+	d2rq:column "foodie.management_zone_view.valid_from";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_management_zone_view_valid_to a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_management_zone_view;
+	d2rq:property common:validTo;
+	d2rq:column "foodie.management_zone_view.valid_to";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_management_zone_view_begin_life_span_version a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_management_zone_view;
+	d2rq:property prov:generatedAtTime;
+	d2rq:column "foodie.management_zone_view.begin_life_span_version";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_management_zone_view_end_life_span_zone a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_management_zone_view;
+	d2rq:property prov:invalidatedAtTime;
+	d2rq:column "foodie.management_zone_view.end_life_span_zone";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_management_zone_view_notes a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_management_zone_view;
+	d2rq:property foodie:notes;
+	d2rq:column "foodie.management_zone_view.notes";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_management_zone_view_plot_id__ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_management_zone_view;
+	d2rq:property foodie:holdingZone;                												##reference to the plot_view instance.
+	d2rq:refersToClassMap map:foodie_plot_view;
+	d2rq:join "foodie.management_zone_view.plot_id => foodie.plot_view.plot_id";
+	.
+map:foodie_management_zone_view_management_zone_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_management_zone_view;
+	d2rq:property foodie-es:managementZoneName;
+	d2rq:column "foodie.management_zone_view.management_zone_name";
+	d2rq:datatype xsd:string;
+	.	
+map:foodie_management_zone_view_origin_type_value_id__ref a d2rq:PropertyBridge;				###reference to the origin_type_value instance.
+	d2rq:belongsToClassMap map:foodie_management_zone_view;
+	d2rq:property foodie:originType;
+	d2rq:refersToClassMap map:foodie_origin_type_value;
+	d2rq:join "foodie.management_zone_view.origin_type_value_id => foodie.origin_type_value.origin_type_value_id";
+	.
+map:foodie_management_zone_view_crop_type_id__ref a d2rq:PropertyBridge;        ###reference to the crop_type instance
+	d2rq:belongsToClassMap map:foodie_management_zone_view;
+	d2rq:property foodie:cropSpecies;
+	d2rq:refersToClassMap map:foodie_crop_type;
+	d2rq:join "foodie.management_zone_view.crop_type_id => foodie.crop_type.crop_type_id";
+	.
+map:foodie_management_zone_view_creation_date a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_management_zone_view;
+	d2rq:property foodie:creationDateTime;
+	d2rq:column "foodie.management_zone_view.creation_date";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_management_zone_view_hasgeometry a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_management_zone_view;
+	d2rq:property geo:hasGeometry;
+	d2rq:uriPattern "ManagementZone/@@foodie.management_zone_view.management_zone_id@@/geometry";
+	.
+
+# create instances for foodie.plot_view_geometry
+map:foodie_plot_view_geometry a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Plot/@@foodie.plot_view.plot_id@@/geometry";
+	d2rq:class geo:Geometry;
+	d2rq:classDefinitionLabel "Geometry";	
+	.
+map:foodie_plot_view_geometry_asWKT a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_plot_view_geometry;
+	d2rq:property geo:asWKT;
+	d2rq:column "foodie.plot_view.geometry";
+	d2rq:datatype virtrdf:Geometry;
+	.
+# Table foodie.plot_view
+map:foodie_plot_view a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Plot/@@foodie.plot_view.plot_id@@";
+	d2rq:class foodie:Plot;
+	d2rq:classDefinitionLabel "Plot";
+	.
+map:foodie_plot_view__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_plot_view;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Plot #@@foodie.plot_view.plot_id@@";
+	.
+map:foodie_plot_view_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_plot_view;
+	d2rq:property foodie:code;
+	d2rq:column "foodie.plot_view.code";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_plot_view_code_space a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_plot_view;
+	d2rq:property foodie-es:codeSpace;
+	d2rq:column "foodie.plot_view.code_space";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_plot_view_code_version a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_plot_view;
+	d2rq:property foodie-es:codeVersion;
+	d2rq:column "foodie.plot_view.code_version";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_plot_view_valid_from a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_plot_view;
+	d2rq:property common:validFrom;
+	d2rq:column "foodie.plot_view.valid_from";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_plot_view_valid_to a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_plot_view;
+	d2rq:property common:validTo;
+	d2rq:column "foodie.plot_view.valid_to";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_plot_view_begin_life_span_version a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_plot_view;
+	d2rq:property prov:generatedAtTime ;
+	d2rq:column "foodie.plot_view.begin_life_span_version";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_plot_view_end_life_span_version a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_plot_view;
+	d2rq:property prov:invalidatedAtTime ;
+	d2rq:column "foodie.plot_view.end_life_span_version";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_plot_view_hasgeometry a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_plot_view;
+	d2rq:property geo:hasGeometry;
+	d2rq:uriPattern "Plot/@@foodie.plot_view.plot_id@@/geometry";
+	.
+map:foodie_plot_view_description a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_plot_view;
+	d2rq:property foodie:description;
+	d2rq:column "foodie.plot_view.description";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_plot_view_origin_type_value_id__ref a d2rq:PropertyBridge;				###reference to the origin_type_value instance.
+	d2rq:belongsToClassMap map:foodie_plot_view;
+	d2rq:property foodie:originType;
+	d2rq:refersToClassMap map:foodie_origin_type_value;
+	d2rq:join "foodie.plot_view.origin_type_value_id => foodie.origin_type_value.origin_type_value_id";
+	.
+map:foodie_plot_view_site_id__ref a d2rq:PropertyBridge;										### reference to the site_view instance???
+	d2rq:belongsToClassMap map:foodie_plot_view;
+	d2rq:property foodie:holdingPlot;
+	d2rq:refersToClassMap map:foodie_site_view;
+	d2rq:join "foodie.plot_view.site_id => foodie.site_view.site_id";
+	.
+
+# create instances for foodie.site_view_geometry
+map:foodie_site_view_geometry a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Site/@@foodie.site_view.site_id@@/geometry";
+	d2rq:class geo:Geometry;
+	d2rq:classDefinitionLabel "Geometry";	
+	.
+map:foodie_site_view_geometry_asWKT a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_site_view_geometry;
+	d2rq:property geo:asWKT;
+	d2rq:column "foodie.site_view.geometry";
+	d2rq:datatype virtrdf:Geometry;
+	.
+
+# Table foodie.site_view
+map:foodie_site_view a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Site/@@foodie.site_view.site_id@@";
+	d2rq:class af-inspire:Site;
+	d2rq:classDefinitionLabel "Site";
+	.
+map:foodie_site_view__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_site_view;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Site #@@foodie.site_view.site_id@@";
+	.
+map:foodie_site_view_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_site_view;
+	d2rq:property foodie:code;
+	d2rq:column "foodie.site_view.code";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_site_view_code_space a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_site_view;
+	d2rq:property foodie-es:codeSpace;
+	d2rq:column "foodie.site_view.code_space";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_site_view_code_version a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_site_view;
+	d2rq:property foodie-es:codeVersion;
+	d2rq:column "foodie.site_view.code_version";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_site_view_hasgeometry a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_site_view;
+	d2rq:property geo:hasGeometry;
+	d2rq:uriPattern "Site/@@foodie.site_view.site_id@@/geometry";
+	.
+map:foodie_site_view_valid_from a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_site_view;
+	d2rq:property common:validFrom;
+	d2rq:column "foodie.site_view.valid_from";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_site_view_valid_to a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_site_view;
+	d2rq:property common:validTo;
+	d2rq:column "foodie.site_view.valid_to";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_site_view_begin_life_span_version a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_site_view;
+	d2rq:property prov:generatedAtTime;
+	d2rq:column "foodie.site_view.begin_life_span_version";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_site_view_end_life_span_version a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_site_view;
+	d2rq:property prov:invalidatedAtTime;
+	d2rq:column "foodie.site_view.end_life_span_version";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_site_view_holding_id__ref a d2rq:PropertyBridge; 							### reference to the holding_view instance		
+	d2rq:belongsToClassMap map:foodie_site_view;
+	d2rq:property foodie:holdingSite;
+	d2rq:refersToClassMap map:foodie_holding_view;
+	d2rq:join "foodie.site_view.holding_id => foodie.holding_view.holding_id";
+	.
+map:foodie_site_view_site_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_site_view;
+	d2rq:property foodie-es:siteName;
+	d2rq:column "foodie.site_view.site_name";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_site_view_main_site a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_site_view;
+	d2rq:property foodie-es:mainSite;
+	d2rq:column "foodie.site_view.main_site";
+	d2rq:valueRegex "boolean";
+	.
+map:foodie_site_view_cl_address_id__ref a d2rq:PropertyBridge;						### reference to the cl_address instance
+	d2rq:belongsToClassMap map:foodie_site_view;
+	d2rq:property foodie-es:siteAddress;
+	d2rq:refersToClassMap map:foodie_cl_address;
+	d2rq:join "foodie.site_view.cl_address_id => foodie.cl_address.cl_address_id";
+	.
+
+# create instances for foodie.station_view_geometry
+map:foodie_station_view_geometry a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Station/@@foodie.station_view.station_id@@/geometry";
+	d2rq:class geo:Geometry;
+	d2rq:classDefinitionLabel "Geometry";	
+	.
+map:foodie_station_view_geometry_asWKT a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_station_view_geometry;
+	d2rq:property geo:asWKT;
+	d2rq:column "foodie.station_view.geom";
+	d2rq:datatype virtrdf:Geometry;
+	.
+# Table foodie.station_view
+map:foodie_station_view a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Station/@@foodie.station_view.station_id@@";
+	d2rq:class foodie-es:Station;
+	d2rq:classDefinitionLabel "Station";
+	.
+map:foodie_station_view__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_station_view;
+	d2rq:property rdfs:label ;
+	d2rq:pattern "Station #@@foodie.station_view.station_id@@";
+	.
+map:foodie_station_view_scope a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_station_view;
+	d2rq:property foodie-es:scope;
+	d2rq:column "foodie.station_view.scope";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_station_view_description a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_station_view;
+	d2rq:property foodie:description;
+	d2rq:column "foodie.station_view.description";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_station_view_data_source a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_station_view;
+	d2rq:property foodie-es:dataSource;
+	d2rq:column "foodie.station_view.data_source";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_station_view_geom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_station_view;
+	d2rq:property geo:hasGeometry;
+	d2rq:uriPattern "Station/@@foodie.station_view.station_id@@/geometry";
+	.
+map:foodie_station_view_altitude a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_station_view;
+	d2rq:property foodie-es:altitude;
+	d2rq:column "foodie.station_view.altitude";
+	d2rq:datatype xsd:decimal;
+	.
+map:foodie_station_view_holding_id__ref a d2rq:PropertyBridge;								### reference to the holding_view instance
+	d2rq:belongsToClassMap map:foodie_station_view;
+	d2rq:property foodie-es:stationHolding;
+	d2rq:refersToClassMap map:foodie_holding_view;
+	d2rq:join "foodie.station_view.holding_id => foodie.holding_view.holding_id";
+	.
+map:foodie_station_view_type a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_station_view;
+	d2rq:property foodie:type;
+	d2rq:column "foodie.station_view.type";
+	d2rq:datatype xsd:string;
+	.
+
+# create instances for foodie.zone_polygon_view_geometry
+map:foodie_zone_polygon_view_geometry a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ZonePolygon/@@foodie.zone_polygon_view.zone_polygon_id@@/geometry";
+	d2rq:class geo:Geometry;
+	d2rq:classDefinitionLabel "Geometry";	
+	.
+map:foodie_zone_polygon_view_geometry_asWKT a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_zone_polygon_view_geometry;
+	d2rq:property geo:asWKT;
+	d2rq:column "foodie.zone_polygon_view.geom";
+	d2rq:datatype virtrdf:Geometry;
+	.
+
+# create instances for foodie.zone_polygon_view_area
+map:foodie_zone_polygon_view_area a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ZonePolygon/@@foodie.zone_polygon_view.zone_polygon_id@@/area";
+	d2rq:class iso19103:Measure;
+	d2rq:classDefinitionLabel "Measure";	
+	.
+map:foodie_zone_polygon_view_area_value a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_zone_polygon_view_area;
+	d2rq:property iso19103:value;
+	d2rq:column "foodie.zone_polygon_view.area";
+	d2rq:datatype xsd:decimal;
+	.
+map:foodie_zone_polygon_view_area_uom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_zone_polygon_view_area;
+	d2rq:property iso19103:uom;
+	d2rq:column "foodie.zone_polygon_view.areaunit";
+	d2rq:datatype xsd:string;
+	.
+
+
+# Table foodie.zone_polygon_view
+map:foodie_zone_polygon_view a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ZonePolygon/@@foodie.zone_polygon_view.zone_polygon_id@@";
+	d2rq:class foodie-es:ZonePolygon;
+	d2rq:classDefinitionLabel "ZonePolygon";
+	.
+map:foodie_zone_polygon_view__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_zone_polygon_view;
+	d2rq:property rdfs:label;
+	d2rq:pattern "ZonePolygon #@@foodie.zone_polygon_view.zone_polygon_id@@";
+	.
+#map:foodie_zone_polygon_view_area a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_zone_polygon_view;
+#	d2rq:property foodie-es:area;
+#	d2rq:column "foodie.zone_polygon_view.area";
+#	d2rq:datatype xsd:double;
+#	.
+#map:foodie_zone_polygon_view_areaunit a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_zone_polygon_view;
+#	d2rq:property foodie-es:areaUnit;
+#	d2rq:column "foodie.zone_polygon_view.areaunit";
+#	d2rq:datatype xsd:string;
+#	.
+map:foodie_zone_polygon_view_area_ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_zone_polygon_view;
+	d2rq:property foodie-es:area;
+	d2rq:uriPattern "ZonePolygon/@@foodie.zone_polygon_view.zone_polygon_id@@/area";
+	.
+map:foodie_zone_polygon_view_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_zone_polygon_view;
+	d2rq:property foodie:code;
+	d2rq:column "foodie.zone_polygon_view.code";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_zone_polygon_view_end_date a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_zone_polygon_view;
+	d2rq:property foodie-es:endDateTime;
+	d2rq:column "foodie.zone_polygon_view.end_date";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_zone_polygon_view_geom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_zone_polygon_view;
+	d2rq:property geo:hasGeometry;
+	d2rq:uriPattern "ZonePolygon/@@foodie.zone_polygon_view.zone_polygon_id@@/geometry";
+	.
+map:foodie_zone_polygon_view_zone_polygon_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_zone_polygon_view;
+	d2rq:property foodie-es:polygonName;
+	d2rq:column "foodie.zone_polygon_view.zone_polygon_name";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_zone_polygon_view_management_zone_id a d2rq:PropertyBridge;											### reference to the management_zone_view instance
+	d2rq:belongsToClassMap map:foodie_zone_polygon_view;
+	d2rq:property foodie-es:zonePolygonManagementZone;
+	d2rq:refersToClassMap map:foodie_management_zone_view;
+	d2rq:join "foodie.zone_polygon_view.management_zone_id => foodie.management_zone_view.management_zone_id";
+	.
+
+# Table foodie.adviser
+map:foodie_adviser a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Adviser/@@foodie.adviser.adviser_id@@";
+	d2rq:class foodie-es:Adviser;
+	d2rq:classDefinitionLabel "Adviser";
+	.
+map:foodie_adviser__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_adviser;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Adviser #@@foodie.adviser.adviser_id@@";
+	.
+map:foodie_adviser_role a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_adviser;
+	d2rq:property foodie-es:role;
+	d2rq:column "foodie.adviser.role";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_adviser_user_id__ref a d2rq:PropertyBridge;											### reference to the cl_responsible_party instance
+	d2rq:belongsToClassMap map:foodie_adviser;
+	d2rq:property foodie-es:adviserResponsibleParty;   
+	d2rq:refersToClassMap map:foodie_cl_responsible_party;
+	d2rq:join "foodie.adviser.user_id => foodie.cl_responsible_party.cl_responsible_party_id";
+	.
+map:foodie_adviser_holding_id__ref a d2rq:PropertyBridge;	                                ### reference to the holding_view instance										
+	d2rq:belongsToClassMap map:foodie_adviser;
+	d2rq:property foodie-es:adviserHolding;   
+	d2rq:refersToClassMap map:foodie_holding_view;
+	d2rq:join "foodie.adviser.holding_id => foodie.holding_view.holding_id";
+	.
+
+
+# Table foodie.alert_management_zone
+#map:foodie_alert_management_zone a d2rq:ClassMap;
+#	d2rq:dataStorage map:database;
+#	d2rq:uriPattern "alertManagementZone/@@foodie.alert_management_zone.alert_management_zone_id@@";
+#	d2rq:class foodie-es:AlertManagementZone;
+#	d2rq:classDefinitionLabel "AlertManagementZone";
+#	.
+#map:foodie_alert_management_zone__label a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_alert_management_zone;
+#	d2rq:property rdfs:label;
+#	d2rq:pattern "AlertManagementZone #@@foodie.alert_management_zone.alert_management_zone_id@@";
+#	.
+#map:foodie_alert_management_zone_alert_id__ref a d2rq:PropertyBridge;											### reference to the alert_view instance
+#	d2rq:belongsToClassMap map:foodie_alert_management_zone;
+#	d2rq:property foodie-es:alertManagementZoneAlert;   
+#	d2rq:refersToClassMap map:foodie_alert_view;
+#	d2rq:join "foodie.alert_management_zone.alert_id => foodie.alert_view.alert_id";
+#	.
+#map:foodie_alert_management_zone_management_zone_id__ref a d2rq:PropertyBridge;											### reference to the management_zone_view instance
+#	d2rq:belongsToClassMap map:foodie_alert_management_zone;
+#	d2rq:property foodie-es:alertManagementZoneManagementZone;   
+#	d2rq:refersToClassMap map:foodie_management_zone_view;
+#	d2rq:join "foodie.alert_management_zone.management_zone_id => foodie.management_zone_view.management_zone_id";
+#	.
+
+map:foodie_management_zone_view_alert_id__ref a d2rq:PropertyBridge;											### reference to the alert_view instance
+	d2rq:belongsToClassMap map:foodie_management_zone_view;
+	d2rq:property foodie:zoneAlert;   
+	d2rq:refersToClassMap map:foodie_alert_view;
+	d2rq:join "foodie.alert_management_zone.alert_id => foodie.alert_view.alert_id";
+	d2rq:join "foodie.alert_management_zone.management_zone_id => foodie.management_zone_view.management_zone_id";
+	.
+map:foodie_alert_view_management_zone_id__ref a d2rq:PropertyBridge;											### reference to the management_zone_view instance
+	d2rq:belongsToClassMap map:foodie_alert_view;
+	d2rq:property foodie:alertZone;   
+	d2rq:refersToClassMap map:foodie_management_zone_view;
+	d2rq:join "foodie.alert_management_zone.management_zone_id => foodie.management_zone_view.management_zone_id";
+	d2rq:join "foodie.alert_management_zone.alert_id => foodie.alert_view.alert_id";
+	.
+
+
+	
+# Table foodie.campaign_type
+map:foodie_campaign_type a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "CampaignType/@@foodie.campaign_type.campaign_type_id@@";
+	d2rq:class foodie-es:CampaignType;
+	d2rq:classDefinitionLabel "CampaignType";
+	.
+map:foodie_campaign_type__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_campaign_type;
+	d2rq:property rdfs:label;
+	d2rq:pattern "CampaignType #@@foodie.campaign_type.campaign_type_id@@";
+	.
+map:foodie_campaign_type_campaign_begin a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_campaign_type;
+	d2rq:property foodie-es:campaignBegin;
+	d2rq:column "foodie.campaign_type.campaign_begin";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_campaign_type_campaign_end a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_campaign_type;
+	d2rq:property foodie-es:campaignEnd;
+	d2rq:column "foodie.campaign_type.campaign_end";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_campaign_type_holding_id__ref a d2rq:PropertyBridge;											
+	d2rq:belongsToClassMap map:foodie_campaign_type;
+	d2rq:property foodie-es:campaignHolding;   
+	d2rq:refersToClassMap map:foodie_holding_view;
+	d2rq:join "foodie.campaign_type.holding_id => foodie.holding_view.holding_id";
+	.
+
+
+# Table foodie.cl_address
+map:foodie_cl_address a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Address/@@foodie.cl_address.cl_address_id@@";
+	d2rq:class iso19115-citation:Address;
+	d2rq:classDefinitionLabel "Address";
+	.
+map:foodie_cl_address__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_cl_address;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Address #@@foodie.cl_address.cl_address_id@@";
+	.
+
+map:foodie_cl_address_administrative_area a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_cl_address;
+	d2rq:property iso19115-citation:administrativeArea;
+	d2rq:column "foodie.cl_address.administrative_area";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_cl_address_city a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_cl_address;
+	d2rq:property iso19115-citation:city;
+	d2rq:column "foodie.cl_address.city";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_cl_address_country a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_cl_address;
+	d2rq:property iso19115-citation:country;
+	d2rq:column "foodie.cl_address.country";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_cl_address_postal_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_cl_address;
+	d2rq:property iso19115-citation:postalCode;
+	d2rq:column "foodie.cl_address.postal_code";
+	d2rq:datatype xsd:string;
+	.
+
+# Table foodie.cl_responsible_party
+map:foodie_cl_responsible_party a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ResponsibleParty/@@foodie.cl_responsible_party.cl_responsible_party_id@@";
+	d2rq:class iso19115-citation:ResponsibleParty;
+	d2rq:classDefinitionLabel "ResponsibleParty";
+	.
+map:foodie_cl_responsible_party__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_cl_responsible_party;
+	d2rq:property rdfs:label;
+	d2rq:pattern "ResponsibleParty #@@foodie.cl_responsible_party.cl_responsible_party_id@@";
+	.
+map:foodie_cl_responsible_party_individual_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_cl_responsible_party;
+	d2rq:property iso19115-citation:individualName;
+	d2rq:column "foodie.cl_responsible_party.individual_name";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_cl_responsible_party_organisation_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_cl_responsible_party;
+	d2rq:property iso19115-citation:organisationName;
+	d2rq:column "foodie.cl_responsible_party.organisation_name";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_cl_responsible_party_position_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_cl_responsible_party;
+	d2rq:property iso19115-citation:positionName;
+	d2rq:column "foodie.cl_responsible_party.position_name";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_cl_responsible_party_user_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_cl_responsible_party;
+	d2rq:property foodie-es:userName;
+	d2rq:column "foodie.cl_responsible_party.user_name";
+	d2rq:datatype xsd:string;
+	.
+
+# Table foodie.crop_species_plot
+#map:foodie_crop_species_plot a d2rq:ClassMap;
+#	d2rq:dataStorage map:database;
+#	d2rq:uriPattern "CropSpeciesPlot/@@foodie.crop_species_plot.crop_species_plot_id@@";
+#	d2rq:class foodie-es:CropSpeciesPlot;
+#	d2rq:classDefinitionLabel "CropSpeciesPlot";
+#	.
+#map:foodie_crop_species_plot__label a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_crop_species_plot;
+#	d2rq:property rdfs:label;
+#	d2rq:pattern "CropSpeciesPlot #@@foodie.crop_species_plot.crop_species_plot_id@@";
+#	.
+#map:foodie_crop_species_plot_plot_id__ref a d2rq:PropertyBridge;											### reference to the plot_view instance
+#	d2rq:belongsToClassMap map:foodie_crop_species_plot;
+#	d2rq:property foodie:speciesPlot;   
+#	d2rq:refersToClassMap map:foodie_plot_view;
+#	d2rq:join "foodie.crop_species_plot.plot_id => foodie.plot_view.plot_id";
+#	.	
+#map:foodie_crop_species_plot_crop_species_id__ref a d2rq:PropertyBridge;											### reference to the crop_species_view instance
+#	d2rq:belongsToClassMap map:foodie_crop_species_plot;
+#	d2rq:property foodie-es:cropSpeciesPlotCropSpecies;   
+#	d2rq:refersToClassMap map:foodie_crop_species_view;
+#	d2rq:join "foodie.crop_species_plot.crop_species_id => foodie.crop_species_view.crop_species_id";
+#	.
+map:foodie_crop_species_view_plot_id__ref a d2rq:PropertyBridge;											### reference to the plot_view instance
+	d2rq:belongsToClassMap map:foodie_crop_species_view;
+	d2rq:property foodie:speciesPlot;   
+	d2rq:refersToClassMap map:foodie_plot_view;
+	d2rq:join "foodie.crop_species_plot.plot_id => foodie.plot_view.plot_id";
+	d2rq:join "foodie.crop_species_plot.crop_species_id => foodie.crop_species_view.crop_species_id";
+	.	
+map:foodie_plot_view_crop_species_id__ref a d2rq:PropertyBridge;											### reference to the crop_species_view instance
+	d2rq:belongsToClassMap map:foodie_plot_view;
+	d2rq:property foodie-es:crop;   
+	d2rq:refersToClassMap map:foodie_crop_species_view;
+	d2rq:join "foodie.crop_species_plot.crop_species_id => foodie.crop_species_view.crop_species_id";
+	d2rq:join "foodie.crop_species_plot.plot_id => foodie.plot_view.plot_id";
+	.
+
+
+	
+# Table foodie.crop_type
+map:foodie_crop_type a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "CropType/@@foodie.crop_type.crop_type_id@@";
+	d2rq:class foodie:CropType;
+	d2rq:classDefinitionLabel "CropType";
+	.
+map:foodie_crop_type__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_crop_type;
+	d2rq:property rdfs:label;
+	d2rq:pattern "crop_type #@@foodie.crop_type.crop_type_id@@";
+	.
+map:foodie_crop_type_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_crop_type;
+	d2rq:property foodie:code;
+	d2rq:column "foodie.crop_type.code";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_crop_type_description a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_crop_type;
+	d2rq:property foodie:description;
+	d2rq:column "foodie.crop_type.description";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_crop_type_crop_type_family a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_crop_type;
+	d2rq:property foodie:family;
+	d2rq:column "foodie.crop_type.crop_type_family";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_crop_type_genus a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_crop_type;
+	d2rq:property foodie:genus;
+	d2rq:column "foodie.crop_type.genus";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_crop_type_species a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_crop_type;
+	d2rq:property foodie:species;
+	d2rq:column "foodie.crop_type.species";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_crop_type_notes a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_crop_type;
+	d2rq:property foodie:notes;
+	d2rq:column "foodie.crop_type.notes";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_crop_type_variety a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_crop_type;
+	d2rq:property foodie:variety;
+	d2rq:column "foodie.crop_type.variety";
+	d2rq:datatype xsd:string;
+	.
+
+# Table foodie.dashboard_configuration
+map:foodie_dashboard_configuration a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "DashboardConfiguration/@@foodie.dashboard_configuration.dashboard_configuration_id@@";
+	d2rq:class foodie-es:DashboardConfiguration;
+	d2rq:classDefinitionLabel "DashboardConfiguration";
+	.
+map:foodie_dashboard_configuration__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_dashboard_configuration;
+	d2rq:property rdfs:label;
+	d2rq:pattern "DashboardConfiguration #@@foodie.dashboard_configuration.dashboard_configuration_id@@";
+	.
+map:foodie_dashboard_configuration_window_title a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_dashboard_configuration;
+	d2rq:property foodie-es:windowTitle;
+	d2rq:column "foodie.dashboard_configuration.window_title";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_dashboard_configuration_row_position a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_dashboard_configuration;
+	d2rq:property foodie-es:rowPosition;
+	d2rq:column "foodie.dashboard_configuration.row_position";
+	d2rq:datatype xsd:decimal;
+	.
+map:foodie_dashboard_configuration_col_position a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_dashboard_configuration;
+	d2rq:property foodie-es:colPosition;
+	d2rq:column "foodie.dashboard_configuration.col_position";
+	d2rq:datatype xsd:decimal;
+	.
+map:foodie_dashboard_configuration_relative_width a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_dashboard_configuration;
+	d2rq:property foodie-es:relativeWidth;
+	d2rq:column "foodie.dashboard_configuration.relative_width";
+	d2rq:datatype xsd:double;
+	.
+map:foodie_dashboard_configuration_relative_heigth a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_dashboard_configuration;
+	d2rq:property foodie-es:relativeHeigth;
+	d2rq:column "foodie.dashboard_configuration.relative_heigth";
+	d2rq:datatype xsd:double;
+	.
+map:foodie_dashboard_configuration_input_type a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_dashboard_configuration;
+	d2rq:property foodie-es:inputType;
+	d2rq:column "foodie.dashboard_configuration.input_type";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_dashboard_configuration_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_dashboard_configuration;
+	d2rq:property foodie-es:configurationName;
+	d2rq:column "foodie.dashboard_configuration.name";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_dashboard_configuration_widget_id__ref a d2rq:PropertyBridge;				### reference to the widget instance
+	d2rq:belongsToClassMap map:foodie_dashboard_configuration;
+	d2rq:property foodie-es:dashboardConfigurationWidget;
+	d2rq:refersToClassMap map:foodie_widget;
+	d2rq:join "foodie.dashboard_configuration.widget_id => foodie.widget.widget_id";
+	.
+map:foodie_dashboard_configuration_holding_id__ref a d2rq:PropertyBridge;				### reference to the holding_view instance
+	d2rq:belongsToClassMap map:foodie_dashboard_configuration;
+	d2rq:property foodie-es:dashboardConfigurationHolding;
+	d2rq:refersToClassMap map:foodie_holding_view;
+	d2rq:join "foodie.dashboard_configuration.holding_id => foodie.holding_view.holding_id";
+	.
+
+# Table foodie.form_of_treatment_value
+map:foodie_form_of_treatment_value a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "FormOfTreatmentValue/@@foodie.form_of_treatment_value.form_of_treatment_value_id@@";
+	d2rq:class foodie:FormOfTreatmentValue;
+	d2rq:classDefinitionLabel "FormOfTreatmentValue";
+	.
+map:foodie_form_of_treatment_value__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_form_of_treatment_value;
+	d2rq:property rdfs:label;
+	d2rq:pattern "FormOfTreatmentValue #@@foodie.form_of_treatment_value.form_of_treatment_value_id@@";
+	.
+map:foodie_form_of_treatment_value_form_of_treatment_value_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_form_of_treatment_value;
+	d2rq:property foodie-es:formOfTreatmentValueName;
+	d2rq:column "foodie.form_of_treatment_value.form_of_treatment_value_name";
+	d2rq:datatype xsd:string;
+	.
+
+# Table foodie.goidnaich_model
+map:foodie_goidnaich_model a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "GoidnaichModel/@@foodie.goidnaich_model.temperature@@";
+	d2rq:class foodie-es:GoidnaichModel;
+	d2rq:classDefinitionLabel "GoidnaichModel";
+	.
+map:foodie_goidnaich_model__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_goidnaich_model;
+	d2rq:property rdfs:label;
+	d2rq:pattern "GoidnaichModel #@@foodie.goidnaich_model.temperature@@";
+	.
+map:foodie_goidnaich_model_humidity_lt_75 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_goidnaich_model;
+	d2rq:property foodie-es:goidnaichModelHumidity_lt_75;
+	d2rq:column "foodie.goidnaich_model.humidity_lt_75";
+	d2rq:datatype xsd:double;
+	.
+map:foodie_goidnaich_model_humidity_get_75 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_goidnaich_model;
+	d2rq:property foodie-es:goidnaichModelHumidity_get_75;
+	d2rq:column "foodie.goidnaich_model.humidity_get_75";
+	d2rq:datatype xsd:double;
+	.
+
+# Table foodie.holding_machine
+#map:foodie_holding_machine a d2rq:ClassMap;
+#	d2rq:dataStorage map:database;
+#	d2rq:uriPattern "HoldingMachine/@@foodie.holding_machine.holding_machine_id@@";
+#	d2rq:class foodie-es:HoldingMachine;
+#	d2rq:classDefinitionLabel "HoldingMachine";
+#	.
+#map:foodie_holding_machine__label a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_holding_machine;
+#	d2rq:property rdfs:label;
+#	d2rq:pattern "HoldingMachine #@@foodie.holding_machine.holding_machine_id@@";
+#	.
+#map:foodie_holding_machine_machine_type_id__ref a d2rq:PropertyBridge;					### reference to the machine_type instance
+#	d2rq:belongsToClassMap map:foodie_holding_machine;
+#	d2rq:property foodie-es:holdingMachineMachineType;
+#	d2rq:refersToClassMap map:foodie_machine_type;
+#	d2rq:join "foodie.holding_machine.machine_type_id => foodie.machine_type.machine_type_id";
+#	.
+#map:foodie_holding_machine_holding_id__ref a d2rq:PropertyBridge;					### reference to the holding_view instance
+#	d2rq:belongsToClassMap map:foodie_holding_machine;
+#	d2rq:property foodie-es:holdingMachineHolding;
+#	d2rq:refersToClassMap map:foodie_holding_view;
+#	d2rq:join "foodie.holding_machine.holding_id => foodie.holding_view.holding_id";
+#	.	
+map:foodie_holding_view_machine_type_id__ref a d2rq:PropertyBridge;					### reference to the machine_type instance
+	d2rq:belongsToClassMap map:foodie_holding_view;
+	d2rq:property foodie:machine;
+	d2rq:refersToClassMap map:foodie_machine_type;
+	d2rq:join "foodie.holding_machine.machine_type_id => foodie.machine_type.machine_type_id";
+	d2rq:join "foodie.holding_machine.holding_id => foodie.holding_view.holding_id";
+	.
+
+
+
+# Table foodie.holding_tractor
+#map:foodie_holding_tractor a d2rq:ClassMap;
+#	d2rq:dataStorage map:database;
+#	d2rq:uriPattern "HoldingTractor/@@foodie.holding_tractor.holding_tractor_id@@";
+#	d2rq:class foodie-es:HoldingTractor;
+#	d2rq:classDefinitionLabel "HoldingTractor";
+#	.
+#map:foodie_holding_tractor__label a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_holding_tractor;
+#	d2rq:property rdfs:label;
+#	d2rq:pattern "HoldingTractor #@@foodie.holding_tractor.holding_tractor_id@@";
+#	.
+#map:foodie_holding_tractor_tractor_type_id__ref a d2rq:PropertyBridge;						### reference to the tractor_type instance
+#	d2rq:belongsToClassMap map:foodie_holding_tractor;
+#	d2rq:property foodie-es:holdingTractorTractorType;
+#	d2rq:refersToClassMap map:foodie_tractor_type;
+#	d2rq:join "foodie.holding_tractor.tractor_type_id => foodie.tractor_type.tractor_type_id";
+#	.
+#map:foodie_holding_tractor_holding_id__ref a d2rq:PropertyBridge;						### reference to the holding_view instance
+#	d2rq:belongsToClassMap map:foodie_holding_tractor;
+#	d2rq:property foodie-es:holdingTractorHolding;
+#	d2rq:refersToClassMap map:foodie_holding_view;
+#	d2rq:join "foodie.holding_tractor.holding_id => foodie.holding_view.holding_id";
+#	.	
+map:foodie_holding_view_tractor_type_id__ref a d2rq:PropertyBridge;						### reference to the tractor_type instance
+	d2rq:belongsToClassMap map:foodie_holding_view;
+	d2rq:property foodie:tractor;
+	d2rq:refersToClassMap map:foodie_tractor_type;
+	d2rq:join "foodie.holding_tractor.tractor_type_id => foodie.tractor_type.tractor_type_id";
+	d2rq:join "foodie.holding_tractor.holding_id => foodie.holding_view.holding_id";
+	.
+
+
+# Table foodie.input_type_parameter
+map:foodie_input_type_parameter a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "InputTypeParameter/@@foodie.input_type_parameter.input_type_parameter_id@@";
+	d2rq:class foodie-es:InputTypeParameter;
+	d2rq:classDefinitionLabel "InputTypeParameter";
+	.
+map:foodie_input_type_parameter__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_input_type_parameter;
+	d2rq:property rdfs:label;
+	d2rq:pattern "InputTypeParameter #@@foodie.input_type_parameter.input_type_parameter_id@@";
+	.
+map:foodie_input_type_parameter_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_input_type_parameter;
+	d2rq:property rdfs:label;
+	d2rq:column "foodie.input_type_parameter.name";
+	.
+map:foodie_input_type_parameter_value a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_input_type_parameter;
+	d2rq:property rdf:value;
+	d2rq:propertyDefinitionLabel "input_type_parameter value";
+	d2rq:column "foodie.input_type_parameter.value";
+	.
+map:foodie_input_type_parameter_dashboard_configuration_id__ref a d2rq:PropertyBridge;						### reference to the dashboard_configuration instance
+	d2rq:belongsToClassMap map:foodie_input_type_parameter;
+	d2rq:property foodie-es:inputTypeParameterDashboardConfiguration;
+	d2rq:refersToClassMap map:foodie_dashboard_configuration;
+	d2rq:join "foodie.input_type_parameter.dashboard_configuration_id => foodie.dashboard_configuration.dashboard_configuration_id";
+	.
+
+# Table foodie.intervention_file
+#map:foodie_intervention_file a d2rq:ClassMap;
+#	d2rq:dataStorage map:database;
+#	d2rq:uriPattern "InterventionFile/@@foodie.intervention_file.intervention_file_id@@";
+#	d2rq:class foodie-es:InterventionFile;
+#	d2rq:classDefinitionLabel "InterventionFile";
+#	.
+#map:foodie_intervention_file__label a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_intervention_file;
+#	d2rq:property rdfs:label;
+#	d2rq:pattern "InterventionFile #@@foodie.intervention_file.intervention_file_id@@";
+#	.
+#map:foodie_intervention_file_file_id__ref a d2rq:PropertyBridge;						### reference to the file_view instance
+#	d2rq:belongsToClassMap map:foodie_intervention_file;
+#	d2rq:property foodie-es:interventionFileFile;
+#	d2rq:refersToClassMap map:foodie_file_view;
+#	d2rq:join "foodie.intervention_file.file_id => foodie.file_view.file_id";
+#	.
+#map:foodie_intervention_file_intervention_id__ref a d2rq:PropertyBridge;						### reference to the intervention_view instance
+#	d2rq:belongsToClassMap map:foodie_intervention_file;
+#	d2rq:property foodie-es:interventionFileIntervention;
+#	d2rq:refersToClassMap map:foodie_intervention_view;
+#	d2rq:join "foodie.intervention_file.intervention_id => foodie.intervention_view.intervention_id";
+#	.
+map:foodie_intervention_view_file_id__ref a d2rq:PropertyBridge;						### reference to the file_view instance
+	d2rq:belongsToClassMap map:foodie_intervention_view;
+	d2rq:property foodie-es:interventionFile;
+	d2rq:refersToClassMap map:foodie_file_view;
+	d2rq:join "foodie.intervention_file.file_id => foodie.file_view.file_id";
+	d2rq:join "foodie.intervention_file.intervention_id => foodie.intervention_view.intervention_id";
+	.
+map:foodie_file_view_intervention_id__ref a d2rq:PropertyBridge;						### reference to the intervention_view instance
+	d2rq:belongsToClassMap map:foodie_file_view;
+	d2rq:property foodie-es:fileIntervention;
+	d2rq:refersToClassMap map:foodie_intervention_view;
+	d2rq:join "foodie.intervention_file.intervention_id => foodie.intervention_view.intervention_id";
+	d2rq:join "foodie.intervention_file.file_id => foodie.file_view.file_id";
+	.
+	
+
+			
+# Table foodie.intervention_machine
+#map:foodie_intervention_machine a d2rq:ClassMap;
+#	d2rq:dataStorage map:database;
+#	d2rq:uriPattern "InterventionMachine/@@foodie.intervention_machine.intervention_machine_id@@";
+#	d2rq:class foodie-es:InterventionMachine;
+#	d2rq:classDefinitionLabel "InterventionMachine";
+#	.
+#map:foodie_intervention_machine__label a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_intervention_machine;
+#	d2rq:property rdfs:label;
+#	d2rq:pattern "InterventionMachine #@@foodie.intervention_machine.intervention_machine_id@@";
+#	.
+#map:foodie_intervention_machine_intervention_id__ref a d2rq:PropertyBridge;						### reference to the intervention_view instance
+#	d2rq:belongsToClassMap map:foodie_intervention_machine;
+#	d2rq:property foodie-es:interventionMachineIntervention;
+#	d2rq:refersToClassMap map:foodie_intervention_view;
+#	d2rq:join "foodie.intervention_machine.intervention_id => foodie.intervention_view.intervention_id";
+#	.
+#map:foodie_intervention_machine_machine_type_id__ref a d2rq:PropertyBridge;						### reference to the machine_type instance
+#	d2rq:belongsToClassMap map:foodie_intervention_machine;
+#	d2rq:property foodie-es:interventionMachineMachineType;
+#	d2rq:refersToClassMap map:foodie_machine_type;
+#	d2rq:join "foodie.intervention_machine.machine_type_id => foodie.machine_type.machine_type_id";
+#	.		
+#map:foodie_machine_type_intervention_id__ref a d2rq:PropertyBridge;						### NOT NEEDED reference to the intervention_view instance
+#	d2rq:belongsToClassMap map:foodie_machine_type;
+#	d2rq:property foodie-es:machineIntervention;
+#	d2rq:refersToClassMap map:foodie_intervention_view;
+#	d2rq:join "foodie.intervention_machine.intervention_id => foodie.intervention_view.intervention_id";
+#	d2rq:join "foodie.intervention_machine.machine_type_id => foodie.machine_type.machine_type_id";
+#	.
+map:foodie_intervention_view_machine_type_id__ref a d2rq:PropertyBridge;						### reference to the machine_type instance
+	d2rq:belongsToClassMap map:foodie_intervention_view;
+	d2rq:property foodie:machine;
+	d2rq:refersToClassMap map:foodie_machine_type;
+	d2rq:join "foodie.intervention_machine.machine_type_id => foodie.machine_type.machine_type_id";
+	d2rq:join "foodie.intervention_machine.intervention_id => foodie.intervention_view.intervention_id";
+	.		
+
+	
+# Table foodie.intervention_management_zone
+#map:foodie_intervention_management_zone a d2rq:ClassMap;
+#	d2rq:dataStorage map:database;
+#	d2rq:uriPattern "InterventionManagementZone/@@foodie.intervention_management_zone.intervention_management_zone_id@@";
+#	d2rq:class foodie-es:InterventionManagementZone;
+#	d2rq:classDefinitionLabel "InterventionManagementZone";
+#	.
+#map:foodie_intervention_management_zone__label a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_intervention_management_zone;
+#	d2rq:property rdfs:label;
+#	d2rq:pattern "intervention_management_zone #@@foodie.intervention_management_zone.intervention_management_zone_id@@";
+#	.
+#map:foodie_intervention_management_zone_intervention_id__ref a d2rq:PropertyBridge;						### reference to the intervention_view instance
+#	d2rq:belongsToClassMap map:foodie_intervention_management_zone;
+#	d2rq:property foodie-es:interventionManagementZoneIntervention;
+#	d2rq:refersToClassMap map:foodie_intervention_view;
+#	d2rq:join "foodie.intervention_management_zone.intervention_id => foodie.intervention_view.intervention_id";
+#	.	
+#map:foodie_intervention_management_zone_management_zone_id__ref a d2rq:PropertyBridge;						### reference to the management_zone_view instance
+#	d2rq:belongsToClassMap map:foodie_intervention_management_zone;
+#	d2rq:property foodie-es:interventionManagementZoneManagementZone;
+#	d2rq:refersToClassMap map:foodie_management_zone_view;
+#	d2rq:join "foodie.intervention_management_zone.management_zone_id => foodie.management_zone_view.management_zone_id";
+#	.		
+#map:foodie_management_zone_view_intervention_id__ref a d2rq:PropertyBridge;						### NOT NEEDED reference to the intervention_view instance
+#	d2rq:belongsToClassMap map:foodie_management_zone_view;
+#	d2rq:property foodie-es:interventionManagementZoneIntervention;
+#	d2rq:refersToClassMap map:foodie_intervention_view;
+#	d2rq:join "foodie.intervention_management_zone.intervention_id => foodie.intervention_view.intervention_id";
+#	d2rq:join "foodie.intervention_management_zone.management_zone_id => foodie.management_zone_view.management_zone_id";
+#	.	
+map:foodie_intervention_view_management_zone_id__ref a d2rq:PropertyBridge;						### reference to the management_zone_view instance
+	d2rq:belongsToClassMap map:foodie_intervention_view;
+	d2rq:property foodie:interventionZone;
+	d2rq:refersToClassMap map:foodie_management_zone_view;
+	d2rq:join "foodie.intervention_management_zone.management_zone_id => foodie.management_zone_view.management_zone_id";
+	d2rq:join "foodie.intervention_management_zone.intervention_id => foodie.intervention_view.intervention_id";
+	.	
+	
+# Table foodie.intervention_operator
+#map:foodie_intervention_operator a d2rq:ClassMap;
+#	d2rq:dataStorage map:database;
+#	d2rq:uriPattern "InterventionOperator/@@foodie.intervention_operator.operator_id@@";
+#	d2rq:class foodie-es:InterventionOperator;
+#	d2rq:classDefinitionLabel "InterventionOperator";
+#	.
+#map:foodie_intervention_operator__label a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_intervention_operator;
+#	d2rq:property rdfs:label;
+#	d2rq:pattern "InterventionOperator #@@foodie.intervention_operator.operator_id@@";
+#	.
+#
+#map:foodie_intervention_operator_cl_responsible_party_id__ref a d2rq:PropertyBridge;			### reference to the cl_responsible_party instance
+#	d2rq:belongsToClassMap map:foodie_intervention_operator;
+#	d2rq:property foodie-es:interventionOperatorCl_responsibleParty;
+#	d2rq:refersToClassMap map:foodie_cl_responsible_party;
+#	d2rq:join "foodie.intervention_operator.cl_responsible_party_id => foodie.cl_responsible_party.cl_responsible_party_id";
+#	.
+#map:foodie_intervention_operator_intervention_id__ref a d2rq:PropertyBridge;						### reference to the intervention_view instance
+#	d2rq:belongsToClassMap map:foodie_intervention_operator;
+#	d2rq:property foodie-es:interventionOperatorIntervention;
+#	d2rq:refersToClassMap map:foodie_intervention_view;
+#	d2rq:join "foodie.intervention_operator.intervention_id => foodie.intervention_view.intervention_id";
+#	.
+#map:foodie_cl_responsible_party_intervention_id__ref a d2rq:PropertyBridge;						### NOT NEEDED reference to the intervention_view instance
+#	d2rq:belongsToClassMap map:foodie_cl_responsible_party;
+#	d2rq:property foodie-es:clResponsiblePartyIntervention;
+#	d2rq:refersToClassMap map:foodie_intervention_view;
+#	d2rq:join "foodie.intervention_operator.intervention_id => foodie.intervention_view.intervention_id";
+#	d2rq:join "foodie.intervention_operator.cl_responsible_party_id => foodie.cl_responsible_party.cl_responsible_party_id";
+#	.
+map:foodie_intervention_view_operator_cl_responsible_party_id__ref a d2rq:PropertyBridge;			### reference to the cl_responsible_party instance
+	d2rq:belongsToClassMap map:foodie_intervention_view;
+	d2rq:property foodie:operator;
+	d2rq:refersToClassMap map:foodie_cl_responsible_party;
+	d2rq:join "foodie.intervention_operator.cl_responsible_party_id => foodie.cl_responsible_party.cl_responsible_party_id";
+	d2rq:join "foodie.intervention_operator.intervention_id => foodie.intervention_view.intervention_id";
+	.
+
+	
+# Table foodie.intervention_supervisor
+#map:foodie_intervention_supervisor a d2rq:ClassMap;
+#	d2rq:dataStorage map:database;
+#	d2rq:uriPattern "InterventionSupervisor/@@foodie.intervention_supervisor.supervisor_id@@";
+#	d2rq:class foodie-es:InterventionSupervisor;
+#	d2rq:classDefinitionLabel "InterventionSupervisor";
+#	.
+#map:foodie_intervention_supervisor__label a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_intervention_supervisor;
+#	d2rq:property rdfs:label;
+#	d2rq:pattern "InterventionSupervisor #@@foodie.intervention_supervisor.supervisor_id@@";
+#	.
+#map:foodie_intervention_supervisor_cl_responsible_party_id__ref a d2rq:PropertyBridge;			### reference to the cl_responsible_party instance
+#	d2rq:belongsToClassMap map:foodie_intervention_supervisor;
+#	d2rq:property foodie-es:interventionSupervisorCl_responsibleParty;
+#	d2rq:refersToClassMap map:foodie_cl_responsible_party;
+#	d2rq:join "foodie.intervention_supervisor.cl_responsible_party_id => foodie.cl_responsible_party.cl_responsible_party_id";
+#	.	
+#map:foodie_intervention_supervisor_intervention_id__ref a d2rq:PropertyBridge;						### reference to the intervention_view instance
+#	d2rq:belongsToClassMap map:foodie_intervention_supervisor;
+#	d2rq:property foodie-es:interventionSupervisorIntervention;
+#	d2rq:refersToClassMap map:foodie_intervention_view;
+#	d2rq:join "foodie.intervention_supervisor.intervention_id => foodie.intervention_view.intervention_id";
+#	.
+#map:foodie_cl_responsible_party_intervention_id__ref a d2rq:PropertyBridge;						### reference to the intervention_view instance
+#	d2rq:belongsToClassMap map:foodie_cl_responsible_party;
+#	d2rq:property foodie-es:clResponsiblePartyIntervention;
+#	d2rq:refersToClassMap map:foodie_intervention_view;
+#	d2rq:join "foodie.intervention_supervisor.intervention_id => foodie.intervention_view.intervention_id";
+#	d2rq:join "foodie.intervention_supervisor.cl_responsible_party_id => foodie.cl_responsible_party.cl_responsible_party_id";
+#	.
+map:foodie_intervention_view_supervisor_cl_responsible_party_id__ref a d2rq:PropertyBridge;			### reference to the cl_responsible_party instance
+	d2rq:belongsToClassMap map:foodie_intervention_view;
+	d2rq:property foodie:supervisor;
+	d2rq:refersToClassMap map:foodie_cl_responsible_party;
+	d2rq:join "foodie.intervention_supervisor.cl_responsible_party_id => foodie.cl_responsible_party.cl_responsible_party_id";
+	d2rq:join "foodie.intervention_supervisor.intervention_id => foodie.intervention_view.intervention_id";
+	.	
+	
+	
+# Table foodie.intervention_tractor
+#map:foodie_intervention_tractor a d2rq:ClassMap;
+#	d2rq:dataStorage map:database;
+#	d2rq:uriPattern "InterventionTractor/@@foodie.intervention_tractor.intervention_tractor_id@@";
+#	d2rq:class foodie-es:InterventionTractor;
+#	d2rq:classDefinitionLabel "InterventionTractor";
+#	.
+#map:foodie_intervention_tractor__label a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_intervention_tractor;
+#	d2rq:property rdfs:label;
+#	d2rq:pattern "InterventionTractor #@@foodie.intervention_tractor.intervention_tractor_id@@";
+#	.
+#map:foodie_intervention_tractor_tractor_type_id__ref a d2rq:PropertyBridge;							### reference to the tractor_type instance
+#	d2rq:belongsToClassMap map:foodie_intervention_tractor;
+#	d2rq:property foodie-es:interventionTractorTractorType;
+#	d2rq:refersToClassMap map:foodie_tractor_type;
+#	d2rq:join "foodie.intervention_tractor.tractor_type_id => foodie.tractor_type.tractor_type_id";
+#	.
+#map:foodie_intervention_tractor_intervention_id__ref a d2rq:PropertyBridge;						### reference to the intervention_view instance
+#	d2rq:belongsToClassMap map:foodie_intervention_tractor;
+#	d2rq:property foodie-es:interventionTractorIntervention;
+#	d2rq:refersToClassMap map:foodie_intervention_view;
+#	d2rq:join "foodie.intervention_tractor.intervention_id => foodie.intervention_view.intervention_id";
+#	.	
+#map:foodie_tractor_type_intervention_id__ref a d2rq:PropertyBridge;						### NOT NEEDED reference to the intervention_view instance
+#	d2rq:belongsToClassMap map:foodie_tractor_type;
+#	d2rq:property foodie-es:tractorIntervention;
+#	d2rq:refersToClassMap map:foodie_intervention_view;
+#	d2rq:join "foodie.intervention_tractor.intervention_id => foodie.intervention_view.intervention_id";
+#	d2rq:join "foodie.intervention_tractor.tractor_type_id => foodie.tractor_type.tractor_type_id";
+#	.	
+map:foodie_intervention_view_tractor_type_id__ref a d2rq:PropertyBridge;							### reference to the tractor_type instance
+	d2rq:belongsToClassMap map:foodie_intervention_view;
+	d2rq:property foodie:tractor;
+	d2rq:refersToClassMap map:foodie_tractor_type;
+	d2rq:join "foodie.intervention_tractor.tractor_type_id => foodie.tractor_type.tractor_type_id";
+	d2rq:join "foodie.intervention_tractor.intervention_id => foodie.intervention_view.intervention_id";
+	.
+
+
+# Table foodie.intervention_type_value
+map:foodie_intervention_type_value a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "InterventionTypeValue/@@foodie.intervention_type_value.intervention_type_value_id@@";
+	d2rq:class foodie-es:InterventionTypeValue;
+	d2rq:classDefinitionLabel "InterventionTypeValue";
+	.
+map:foodie_intervention_type_value__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_intervention_type_value;
+	d2rq:property rdfs:label;
+	d2rq:pattern "InterventionTypeValue #@@foodie.intervention_type_value.intervention_type_value_id@@";
+	.
+map:foodie_intervention_type_value_intervention_type_value_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_intervention_type_value;
+	d2rq:property foodie-es:interventionTypeValueName;
+	d2rq:column "foodie.intervention_type_value.intervention_type_value_name";
+	d2rq:datatype xsd:string;
+	.
+
+# Table foodie.machine_type
+map:foodie_machine_type a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "MachineType/@@foodie.machine_type.machine_type_id@@";
+	d2rq:class foodie:MachineType;
+	d2rq:classDefinitionLabel "MachineType";
+	.
+map:foodie_machine_type__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_machine_type;
+	d2rq:property rdfs:label;
+	d2rq:pattern "MachineType #@@foodie.machine_type.machine_type_id@@";
+	.
+map:foodie_machine_type_machine_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_machine_type;
+	d2rq:property foodie:code;
+	d2rq:column "foodie.machine_type.machine_code";
+	d2rq:datatype xsd:string;
+	.
+
+# Table foodie.origin_type_value
+map:foodie_origin_type_value a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "OriginTypeValue/@@foodie.origin_type_value.origin_type_value_id@@";
+	d2rq:class foodie:OriginTypeValue;
+	d2rq:classDefinitionLabel "OriginTypeValue";
+	.
+map:foodie_origin_type_value__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_origin_type_value;
+	d2rq:property rdfs:label;
+	d2rq:pattern "OriginTypeValue #@@foodie.origin_type_value.origin_type_value_id@@";
+	.
+map:foodie_origin_type_value_origin_type_value_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_origin_type_value;
+	d2rq:property foodie-es:originTypeValueName;
+	d2rq:column "foodie.origin_type_value.origin_type_value_name";
+	d2rq:datatype xsd:string;
+	.
+
+# Table foodie.pest
+map:foodie_pest a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Pest/@@foodie.pest.pest_id@@";
+	d2rq:class foodie-es:Pest;
+	d2rq:classDefinitionLabel "Pest";
+	.
+map:foodie_pest__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_pest;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Pest #@@foodie.pest.pest_id@@";
+	.
+map:foodie_pest_pest_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_pest;
+	d2rq:property foodie-es:pestName;
+	d2rq:column "foodie.pest.pest_name";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_pest_scientific_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_pest;
+	d2rq:property foodie-es:scientificName;
+	d2rq:column "foodie.pest.scientific_name";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_pest_symptoms a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_pest;
+	d2rq:property foodie-es:symptoms;
+	d2rq:column "foodie.pest.symptoms";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_pest_dissemination a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_pest;
+	d2rq:property foodie-es:dissemination;
+	d2rq:column "foodie.pest.dissemination";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_pest_survival a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_pest;
+	d2rq:property foodie-es:survival;
+	d2rq:column "foodie.pest.survival";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_pest_control a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_pest;
+	d2rq:property foodie-es:control;
+	d2rq:column "foodie.pest.control";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_pest_morphological_description a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_pest;
+	d2rq:property foodie-es:morphologicalDescription;
+	d2rq:column "foodie.pest.morphological_description";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_pest_creation_date a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_pest;
+	d2rq:property foodie:creationDateTime;
+	d2rq:column "foodie.pest.creation_date";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_pest_end_date a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_pest;
+	d2rq:property foodie-es:endDateTime;
+	d2rq:column "foodie.pest.end_date";
+	d2rq:datatype xsd:dateTime;
+	.
+
+# Table foodie.pest_result_value
+map:foodie_pest_result_value a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "PestResultValue/@@foodie.pest_result_value.pest_result_value_id@@";
+	d2rq:class foodie-es:PestResultValue;
+	d2rq:classDefinitionLabel "PestResultValue";
+	.
+map:foodie_pest_result_value__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_pest_result_value;
+	d2rq:property rdfs:label;
+	d2rq:pattern "pest_result_value #@@foodie.pest_result_value.pest_result_value_id@@";
+	.
+map:foodie_pest_result_value_presence a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_pest_result_value;
+	d2rq:property foodie-es:presence;
+	d2rq:column "foodie.pest_result_value.presence";
+	d2rq:valueRegex "boolean";
+	.
+map:foodie_pest_result_value_result a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_pest_result_value;
+	d2rq:property foodie-es:result;
+	d2rq:column "foodie.pest_result_value.result";
+	d2rq:datatype xsd:double;
+	.
+map:foodie_pest_result_value_creation_date a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_pest_result_value;
+	d2rq:property foodie:creationDateTime;
+	d2rq:column "foodie.pest_result_value.creation_date";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_pest_result_value_end_date a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_pest_result_value;
+	d2rq:property foodie-es:endDateTime;
+	d2rq:column "foodie.pest_result_value.end_date";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_pest_result_value_pest_id__ref a d2rq:PropertyBridge;					### reference to the pest instance
+	d2rq:belongsToClassMap map:foodie_pest_result_value;
+	d2rq:property foodie-es:pestResultValuePest;
+	d2rq:refersToClassMap map:foodie_pest;
+	d2rq:join "foodie.pest_result_value.pest_id => foodie.pest.pest_id";
+	.
+map:foodie_pest_result_value_management_zone_id__ref a d2rq:PropertyBridge;					### reference to the management_zone_view instance
+	d2rq:belongsToClassMap map:foodie_pest_result_value;
+	d2rq:property foodie-es:pestResultValueManagementZone;
+	d2rq:refersToClassMap map:foodie_management_zone_view;
+	d2rq:join "foodie.pest_result_value.management_zone_id => foodie.management_zone_view.management_zone_id";
+	.	
+
+# Table foodie.product
+map:foodie_product a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Product/@@foodie.product.product_id@@";
+	d2rq:class foodie:Product;
+	d2rq:classDefinitionLabel "Product";
+	.
+map:foodie_product__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_product;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Product #@@foodie.product.product_id@@";
+	.
+map:foodie_product_description a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_product;
+	d2rq:property foodie:description;
+	d2rq:column "foodie.product.description";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_product_safety_instructions a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_product;
+	d2rq:property foodie:safetyInstructions;
+	d2rq:column "foodie.product.safety_instructions";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_product_storage_handling a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_product;
+	d2rq:property foodie:storageHandling;
+	d2rq:column "foodie.product.storage_handling";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_product_product_type a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_product;
+	d2rq:property foodie:productType;
+	d2rq:column "foodie.product.product_type";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_product_price a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_product;
+	d2rq:property foodie:price;
+	d2rq:column "foodie.product.price";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_product_reg_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_product;
+	d2rq:property foodie:registrationCode;
+	d2rq:column "foodie.product.reg_code";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_product_product_kind_value_id__ref a d2rq:PropertyBridge;							###reference to the product_kind_value instance
+	d2rq:belongsToClassMap map:foodie_product;
+	d2rq:property foodie:productKind;
+	d2rq:refersToClassMap map:foodie_product_kind_value;
+	d2rq:join "foodie.product.product_kind_value_id => foodie.product_kind_value.product_kind_value_id";
+	.
+
+# Table foodie.product_code
+map:foodie_product_code a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ProductCode/@@foodie.product_code.product_code_id@@";
+	d2rq:class foodie-es:ProductCode;
+	d2rq:classDefinitionLabel "ProductCode";
+	.
+map:foodie_product_code__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_product_code;
+	d2rq:property rdfs:label;
+	d2rq:pattern "ProductCode #@@foodie.product_code.product_code_id@@";
+	.
+map:foodie_product_code_product_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_product_code;
+	d2rq:property foodie:productCode;
+	d2rq:column "foodie.product_code.product_code";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_product_code_country_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_product_code;
+	d2rq:property foodie-es:countryCode;
+	d2rq:column "foodie.product_code.country_code";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_product_code_product_id__ref a d2rq:PropertyBridge;						### reference to the product instance
+	d2rq:belongsToClassMap map:foodie_product_code;
+	d2rq:property foodie-es:productCodeProduct;
+	d2rq:refersToClassMap map:foodie_product;
+	d2rq:join "foodie.product_code.product_id => foodie.product.product_id";
+	.
+
+# Table foodie.product_kind_value
+map:foodie_product_kind_value a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ProductKindValue/@@foodie.product_kind_value.product_kind_value_id@@";
+	d2rq:class foodie:ProductKindValue;
+	d2rq:classDefinitionLabel "ProductKindValue";
+	.
+map:foodie_product_kind_value__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_product_kind_value;
+	d2rq:property rdfs:label;
+	d2rq:pattern "ProductKindValue #@@foodie.product_kind_value.product_kind_value_id@@";
+	.
+map:foodie_product_kind_value_product_kind_value_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_product_kind_value;
+	d2rq:property foodie-es:productKindValueName;
+	d2rq:column "foodie.product_kind_value.product_kind_value_name";
+	d2rq:datatype xsd:string;
+	.
+
+# Table foodie.product_manufacturer
+#map:foodie_product_manufacturer a d2rq:ClassMap;
+#	d2rq:dataStorage map:database;
+#	d2rq:uriPattern "ProductManufacturer/@@foodie.product_manufacturer.product_manufacturer_id@@";
+#	d2rq:class foodie-es:ProductManufacturer;
+#	d2rq:classDefinitionLabel "ProductManufacturer";
+#	.
+#map:foodie_product_manufacturer__label a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_product_manufacturer;
+#	d2rq:property rdfs:label;
+#	d2rq:pattern "ProductManufacturer #@@foodie.product_manufacturer.product_manufacturer_id@@";
+#	.
+#map:foodie_product_manufacturer_product_id__ref a d2rq:PropertyBridge;									### reference to the product instance
+#	d2rq:belongsToClassMap map:foodie_product_manufacturer;
+#	d2rq:property foodie-es:productManufacturerProduct;
+#	d2rq:refersToClassMap map:foodie_product;
+#	d2rq:join "foodie.product_manufacturer.product_id => foodie.product.product_id";
+#	.
+#map:foodie_product_manufacturer_cl_responsible_party_id__ref a d2rq:PropertyBridge;			### reference to the cl_responsible_party instance
+#	d2rq:belongsToClassMap map:foodie_product_manufacturer;
+#	d2rq:property foodie-es:productManufacturerCl_responsibleParty;
+#	d2rq:refersToClassMap map:foodie_cl_responsible_party;
+#	d2rq:join "foodie.product_manufacturer.cl_responsible_party_id => foodie.cl_responsible_party.cl_responsible_party_id";
+#	.
+#map:foodie_cl_responsible_party_product_id__ref a d2rq:PropertyBridge;									### NOT NEEDED reference to the product instance
+#	d2rq:belongsToClassMap map:foodie_cl_responsible_party;
+#	d2rq:property foodie:manufacturer;
+#	d2rq:refersToClassMap map:foodie_product;
+#	d2rq:join "foodie.product_manufacturer.product_id => foodie.product.product_id";
+#	d2rq:join "foodie.product_manufacturer.cl_responsible_party_id => foodie.cl_responsible_party.cl_responsible_party_id";
+#	.
+map:foodie_product_manufacturer_cl_responsible_party_id__ref a d2rq:PropertyBridge;			### reference to the cl_responsible_party instance
+	d2rq:belongsToClassMap map:foodie_product;
+	d2rq:property foodie:manufacturer;
+	d2rq:refersToClassMap map:foodie_cl_responsible_party;
+	d2rq:join "foodie.product_manufacturer.cl_responsible_party_id => foodie.cl_responsible_party.cl_responsible_party_id";
+	d2rq:join "foodie.product_manufacturer.product_id => foodie.product.product_id";
+	.
+
+
+# Table foodie.product_name
+map:foodie_product_name a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ProductName/@@foodie.product_name.product_name_id@@";
+	d2rq:class foodie-es:ProductName;
+	d2rq:classDefinitionLabel "ProductName";
+	.
+map:foodie_product_name__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_product_name;
+	d2rq:property rdfs:label;
+	d2rq:pattern "ProductName #@@foodie.product_name.product_name_id@@";
+	.
+map:foodie_product_name_product_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_product_name;
+	d2rq:property foodie:productName;
+	d2rq:column "foodie.product_name.product_name";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_product_name_country_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_product_name;
+	d2rq:property foodie-es:countryCode;
+	d2rq:column "foodie.product_name.country_code";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_product_name_product_id__ref a d2rq:PropertyBridge;					### reference to the product instance
+	d2rq:belongsToClassMap map:foodie_product_name;
+	d2rq:property foodie-es:productNameProduct;
+	d2rq:refersToClassMap map:foodie_product;
+	d2rq:join "foodie.product_name.product_id => foodie.product.product_id";
+	.
+
+
+# create instances for foodie.product_preparation_product_quantity
+map:foodie_product_preparation_product_quantity a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ProductPreparation/@@foodie.product_preparation.product_preparation_id@@/productQuantity";
+	d2rq:class iso19103:Measure;
+	d2rq:classDefinitionLabel "Measure";	
+	.
+map:foodie.product_preparation_product_quantity_value a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_product_preparation_product_quantity;
+	d2rq:property iso19103:value;
+	d2rq:column "foodie.product_preparation.product_quantity_value";
+	d2rq:datatype xsd:decimal;
+	.
+map:foodie.product_preparation_product_quantity_uom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_product_preparation_product_quantity;
+	d2rq:property iso19103:uom;
+	d2rq:column "foodie.product_preparation.product_quantity_uom_name";
+	d2rq:datatype xsd:string;
+	.
+	
+# create instances for foodie.product_preparation_solvent_quantity
+map:foodie_product_preparation_solvent_quantity a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ProductPreparation/@@foodie.product_preparation.product_preparation_id@@/solventQuantity";
+	d2rq:class iso19103:Measure;
+	d2rq:classDefinitionLabel "Measure";	
+	.
+map:foodie.product_preparation_solvent_quantity_value a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_product_preparation_solvent_quantity;
+	d2rq:property iso19103:value;
+	d2rq:column "foodie.product_preparation.solvent_quantity_value";
+	d2rq:datatype xsd:decimal;
+	.
+map:foodie.product_preparation_solvent_quantity_uom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_product_preparation_solvent_quantity;
+	d2rq:property iso19103:uom;
+	d2rq:column "foodie.product_preparation.solvent_quantity_uom_name";
+	d2rq:datatype xsd:string;
+	.
+
+# create instances for foodie.product_preparation_safety_period
+map:foodie_product_preparation_safety_period a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ProductPreparation/@@foodie.product_preparation.product_preparation_id@@/safetyPeriod";
+	d2rq:class iso19108:Period;
+	d2rq:classDefinitionLabel "Period";	
+	.
+map:foodie_product_preparation_safety_period_begin a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_product_preparation_safety_period;
+	d2rq:property iso19108:begin;
+	d2rq:column "foodie.product_preparation.safety_period_begin";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_product_preparation_safety_period_end a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_product_preparation_safety_period;
+	d2rq:property iso19108:end;
+	d2rq:column "foodie.product_preparation.safety_period_end";
+	d2rq:datatype xsd:dateTime;
+	.
+
+# Table foodie.product_preparation
+map:foodie_product_preparation a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ProductPreparation/@@foodie.product_preparation.product_preparation_id@@";
+	d2rq:class foodie:ProductPreparation;
+	d2rq:classDefinitionLabel "ProductPreparation";
+	.
+map:foodie_product_preparation__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_product_preparation;
+	d2rq:property rdfs:label;
+	d2rq:pattern "ProductPreparation #@@foodie.product_preparation.product_preparation_id@@";
+	.
+#map:foodie_product_preparation_product_quantity_value a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_product_preparation;
+#	d2rq:property foodie:productQuantity;
+#	d2rq:column "foodie.product_preparation.product_quantity_value";
+#	d2rq:datatype xsd:double;
+#	.
+#map:foodie_product_preparation_product_quantity_uom_name a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_product_preparation;
+#	d2rq:property foodie-es:productQuantityUomName;
+#	d2rq:column "foodie.product_preparation.product_quantity_uom_name";
+#	d2rq:datatype xsd:string;
+#	.
+map:foodie_product_preparation_product_quantity_ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_product_preparation;
+	d2rq:property foodie:productQuantity;
+	d2rq:uriPattern "ProductPreparation/@@foodie.product_preparation.product_preparation_id@@/productQuantity";
+	.
+
+#map:foodie_product_preparation_solvent_quantity_value a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_product_preparation;
+#	d2rq:property foodie-es:solventQuantityValue;		## or foodie:solventQuantity??		
+#	d2rq:column "foodie.product_preparation.solvent_quantity_value";
+#	d2rq:datatype xsd:double;
+#	.
+#map:foodie_product_preparation_solvent_quantity_uom_name a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_product_preparation;
+#	d2rq:property foodie-es:solventQuantityUomName;
+#	d2rq:column "foodie.product_preparation.solvent_quantity_uom_name";
+#	d2rq:datatype xsd:string;
+#	.
+map:foodie_product_preparation_solvent_quantity_ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_product_preparation;
+	d2rq:property foodie:solventQuantity;
+	d2rq:uriPattern "ProductPreparation/@@foodie.product_preparation.product_preparation_id@@/solventQuantity";
+	.
+
+#map:foodie_product_preparation_safety_period_begin a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_product_preparation;
+#	d2rq:property foodie-es:safetyPeriodBegin;					###or foodie-safetyPeriod??
+#	d2rq:column "foodie.product_preparation.safety_period_begin";
+#	d2rq:datatype xsd:dateTime;
+#	.
+#map:foodie_product_preparation_safety_period_end a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_product_preparation;
+#	d2rq:property foodie-es:safetyPeriodEnd;			###or foodie-safetyPeriod??
+#	d2rq:column "foodie.product_preparation.safety_period_end";
+#	d2rq:datatype xsd:dateTime;
+#	.
+map:foodie_product_preparation_safety_period_ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_product_preparation;
+	d2rq:property foodie:safetyPeriod;
+	d2rq:uriPattern "ProductPreparation/@@foodie.product_preparation.product_preparation_id@@/safetyPeriod";
+	.
+	
+map:foodie_product_preparation_description a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_product_preparation;
+	d2rq:property foodie:description;
+	d2rq:column "foodie.product_preparation.description";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_product_preparation_safety_period_units a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_product_preparation;
+	d2rq:property foodie-es:safetyPeriodUnits;                                ###this is new because according to model safetyperiod is a Period (as modelled above)
+	d2rq:column "foodie.product_preparation.safety_period";
+	d2rq:datatype xsd:decimal;
+	.
+
+map:foodie_product_preparation_product_id__ref a d2rq:PropertyBridge;				### reference to the product instance
+	d2rq:belongsToClassMap map:foodie_product_preparation;
+	d2rq:property foodie:preparationProduct;
+	d2rq:refersToClassMap map:foodie_product;
+	d2rq:join "foodie.product_preparation.product_id => foodie.product.product_id";
+	.
+map:foodie_product_preparation_treatment_plan_id__ref a d2rq:PropertyBridge;						### reference to the treatment_plan instance
+	d2rq:belongsToClassMap map:foodie_product_preparation;
+	d2rq:property foodie:preparationPlan;
+	d2rq:refersToClassMap map:foodie_treatment_plan;
+	d2rq:join "foodie.product_preparation.treatment_plan_id => foodie.treatment_plan.treatment_plan_id";
+	.
+
+
+# Table foodie.product_registration_code
+map:foodie_product_registration_code a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ProductRegistrationCode/@@foodie.product_registration_code.product_registration_code_id@@";
+	d2rq:class foodie-es:ProductRegistrationCode;
+	d2rq:classDefinitionLabel "ProductRegistrationCode";
+	.
+map:foodie_product_registration_code__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_product_registration_code;
+	d2rq:property rdfs:label;
+	d2rq:pattern "ProductRegistrationCode #@@foodie.product_registration_code.product_registration_code_id@@";
+	.
+map:foodie_product_registration_code_registration_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_product_registration_code;
+	d2rq:property foodie:registrationCode;
+	d2rq:column "foodie.product_registration_code.registration_code";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_product_registration_code_country_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_product_registration_code;
+	d2rq:property foodie-es:countryCode;
+	d2rq:column "foodie.product_registration_code.country_code";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_product_registration_code_product_id__ref a d2rq:PropertyBridge;				### reference to the product instance
+	d2rq:belongsToClassMap map:foodie_product_registration_code;
+	d2rq:property foodie-es:productRegistrationCodeProduct;
+	d2rq:refersToClassMap map:foodie_product;
+	d2rq:join "foodie.product_registration_code.product_id => foodie.product.product_id";
+	.
+
+# Table foodie.product_sub_type
+#map:foodie_product_sub_type a d2rq:ClassMap;
+#	d2rq:dataStorage map:database;
+#	d2rq:uriPattern "ProductSubType/@@foodie.product_sub_type.product_sub_type_id@@";
+#	d2rq:class foodie-es:ProductSubType;
+#	d2rq:classDefinitionLabel "ProductSubType";
+#	.
+#map:foodie_product_sub_type__label a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_product_sub_type;
+#	d2rq:property rdfs:label;
+#	d2rq:pattern "ProductSubType #@@foodie.product_sub_type.product_sub_type_id@@";
+#	.
+#map:foodie_product_sub_type_product_sub_type a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_product_sub_type;
+#	d2rq:property foodie:productSubType;	
+#	d2rq:column "foodie.product_sub_type.product_sub_type";
+#	d2rq:datatype xsd:string;
+#	.
+#map:foodie_product_sub_type_product_id__ref a d2rq:PropertyBridge;									### reference to the product instance
+#	d2rq:belongsToClassMap map:foodie_product_sub_type;
+#	d2rq:property foodie-es:productSubTypeProduct;
+#	d2rq:refersToClassMap map:foodie_product;
+#	d2rq:join "foodie.product_sub_type.product_id => foodie.product.product_id";
+#	.
+map:foodie_product_sub_type__ref a d2rq:PropertyBridge;									### reference to the product instance
+	d2rq:belongsToClassMap map:foodie_product;
+	d2rq:property foodie-es:productSubType;
+	d2rq:column "foodie.product_sub_type.product_sub_type";
+	d2rq:join "foodie.product_sub_type.product_id => foodie.product.product_id";
+	.
+
+
+# create instances for foodie.product_type_production_amount
+map:foodie_production_type_production_amount a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ProductionType/@@foodie.production_type.production_type_id@@/productionAmount";
+	d2rq:class iso19103:Measure;
+	d2rq:classDefinitionLabel "Measure";	
+	.
+map:foodie_production_type_production_amount_value a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_production_type_production_amount;
+	d2rq:property iso19103:value;
+	d2rq:column "foodie.production_type.production_amount_value";
+	d2rq:datatype xsd:decimal;
+	.
+map:foodie_production_type_production_amount_uom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_production_type_production_amount;
+	d2rq:property iso19103:uom;
+	d2rq:column "foodie.production_type.production_amount_uom_name";
+	d2rq:datatype xsd:string;
+	.
+	
+
+# Table foodie.production_type
+map:foodie_production_type a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ProductionType/@@foodie.production_type.production_type_id@@";
+	d2rq:class foodie:ProductionType;
+	d2rq:classDefinitionLabel "ProductionType";
+	.
+map:foodie_production_type__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_production_type;
+	d2rq:property rdfs:label;
+	d2rq:pattern "ProductionType #@@foodie.production_type.production_type_id@@";
+	.
+map:foodie_production_type_production_date a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_production_type;
+	d2rq:property foodie:productionDate;
+	d2rq:column "foodie.production_type.production_date";
+	d2rq:datatype xsd:date;
+	.
+map:foodie_production_type_variety a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_production_type;
+	d2rq:property foodie:variety;
+	d2rq:column "foodie.production_type.variety";
+	d2rq:datatype xsd:string;
+	.
+#map:foodie_production_type_production_amount_value a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_production_type;
+#	d2rq:property foodie-es:productionAmountValue;
+#	d2rq:column "foodie.production_type.production_amount_value";
+#	d2rq:datatype xsd:double;
+#	.
+#map:foodie_production_type_production_amount_uom_name a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_production_type;
+#	d2rq:property foodie-es:productionAmountUomName;
+#	d2rq:column "foodie.production_type.production_amount_uom_name";
+#	d2rq:datatype xsd:string;
+#	.
+map:foodie_product_type_production_amount_ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_production_type;
+	d2rq:property foodie:productionAmount;
+	d2rq:uriPattern "ProductionType/@@foodie.production_type.production_type_id@@/productionAmount";
+	.
+	
+	
+
+# Table foodie.production_type_management_zone
+#map:foodie_production_type_management_zone a d2rq:ClassMap;
+#	d2rq:dataStorage map:database;
+#	d2rq:uriPattern "ProductionTypeManagementZone/@@foodie.production_type_management_zone.production_type_id@@";
+#	d2rq:class foodie-es:ProductionTypeManagementZone;
+#	d2rq:classDefinitionLabel "ProductionTypeManagementZone";
+#	.
+#map:foodie_production_type_management_zone__label a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_production_type_management_zone;
+#	d2rq:property rdfs:label;
+#	d2rq:pattern "ProductionTypeManagementZone #@@foodie.production_type_management_zone.production_type_id@@";
+#	.
+#map:foodie_production_type_management_zone_campaign_type_id__ref a d2rq:PropertyBridge;													### reference to the campaign_type instance
+#	d2rq:belongsToClassMap map:foodie_production_type_management_zone;
+#	d2rq:property foodie-es:productionTypeManagementZoneCampaignType;
+#	d2rq:refersToClassMap map:foodie_campaign_type;
+#	d2rq:join "foodie.production_type_management_zone.campaign_type_id => foodie.campaign_type.campaign_type_id";			
+#	.
+#map:foodie_production_type_management_zone_management_zone_id__ref a d2rq:PropertyBridge;													### reference to the management_zone_view instance
+#	d2rq:belongsToClassMap map:foodie_production_type_management_zone;
+#	d2rq:property foodie-es:productionTypeManagementZoneManagementZone;
+#	d2rq:refersToClassMap map:foodie_management_zone_view;
+#	d2rq:join "foodie.production_type_management_zone.management_zone_id => foodie.management_zone_view.management_zone_id";			
+#	.
+###this table is strange, is just an extension of production_type because PK is also production_type_id, so we need just to add the two properties
+map:foodie_production_type_campaign_type_id__ref a d2rq:PropertyBridge;													### reference to the campaign_type instance
+	d2rq:belongsToClassMap map:foodie_production_type;
+	d2rq:property foodie-es:productionTypeCampaignType;
+	d2rq:refersToClassMap map:foodie_campaign_type;
+	d2rq:join "foodie.production_type_management_zone.campaign_type_id => foodie.campaign_type.campaign_type_id";	
+	d2rq:join "foodie.production_type_management_zone.production_type_id => foodie.production_type.production_type_id";			
+	.
+map:foodie_production_type_management_zone_id__ref a d2rq:PropertyBridge;													### reference to the management_zone_view instance
+	d2rq:belongsToClassMap map:foodie_production_type;
+	d2rq:property foodie-es:productionTypeManagementZone;
+	d2rq:refersToClassMap map:foodie_management_zone_view;
+	d2rq:join "foodie.production_type_management_zone.management_zone_id => foodie.management_zone_view.management_zone_id";	
+	d2rq:join "foodie.production_type_management_zone.production_type_id => foodie.production_type.production_type_id";			
+	.
+	
+	
+# Table foodie.site_responsible_party
+#map:foodie_site_responsible_party a d2rq:ClassMap;
+#	d2rq:dataStorage map:database;
+#	d2rq:uriPattern "SiteResponsibleParty/@@foodie.site_responsible_party.site_responsible_party_id@@";
+#	d2rq:class foodie-es:SiteResponsibleParty;
+#	d2rq:classDefinitionLabel "SiteResponsibleParty";
+#	.
+#map:foodie_site_responsible_party__label a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_site_responsible_party;
+#	d2rq:property rdfs:label;
+#	d2rq:pattern "SiteResponsibleParty #@@foodie.site_responsible_party.site_responsible_party_id@@";
+#	.
+#map:foodie_site_responsible_party_cl_responsible_party_id__ref a d2rq:PropertyBridge;									### reference to the cl_responsible_party instance
+#	d2rq:belongsToClassMap map:foodie_site_responsible_party;
+#	d2rq:property foodie-es:siteResponsiblePartyClResponsibleParty;
+#	d2rq:refersToClassMap map:foodie_cl_responsible_party;
+#	d2rq:join "foodie.site_responsible_party.cl_responsible_party_id => foodie.cl_responsible_party.cl_responsible_party_id";
+#	.
+#map:foodie_site_responsible_party_site_id__ref a d2rq:PropertyBridge;									### reference to the site_view instance
+#	d2rq:belongsToClassMap map:foodie_site_responsible_party;
+#	d2rq:property foodie-es:siteResponsiblePartySite;
+#	d2rq:refersToClassMap map:foodie_site_view;
+#	d2rq:join "foodie.site_responsible_party.site_id => foodie.site_view.site_id";
+#	.	
+#map:foodie_cl_responsible_party_site_id__ref a d2rq:PropertyBridge;									### NOT NEEDED reference to the site_view instance
+#	d2rq:belongsToClassMap map:foodie_cl_responsible_party;
+#	d2rq:property foodie-es:clResponsiblePartySite;
+#	d2rq:refersToClassMap map:foodie_site_view;
+#	d2rq:join "foodie.site_responsible_party.site_id => foodie.site_view.site_id";
+#	d2rq:join "foodie.site_responsible_party.cl_responsible_party_id => foodie.cl_responsible_party.cl_responsible_party_id";
+#	.	
+map:foodie_site_view_cl_responsible_party_id__ref a d2rq:PropertyBridge;									### reference to the cl_responsible_party instance
+	d2rq:belongsToClassMap map:foodie_site_view;
+	d2rq:property foodie-es:siteResponsibleParty;
+	d2rq:refersToClassMap map:foodie_cl_responsible_party;
+	d2rq:join "foodie.site_responsible_party.cl_responsible_party_id => foodie.cl_responsible_party.cl_responsible_party_id";
+	d2rq:join "foodie.site_responsible_party.site_id => foodie.site_view.site_id";
+	.
+
+
+# Table foodie.station_close
+map:foodie_station_close a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "StationClose/@@foodie.station_close.station_close_id@@";
+	d2rq:class foodie-es:StationClose;
+	d2rq:classDefinitionLabel "StationClose";
+	.
+map:foodie_station_close__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_station_close;
+	d2rq:property rdfs:label;
+	d2rq:pattern "StationClose #@@foodie.station_close.station_close_id@@";
+	.
+map:foodie_station_close_end_date a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_station_close;
+	d2rq:property foodie-es:endDateTime;
+	d2rq:column "foodie.station_close.end_date";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_station_close_relevant a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_station_close;
+	d2rq:property foodie-es:relevant;
+	d2rq:column "foodie.station_close.relevant";
+	d2rq:valueRegex "boolean";
+	.
+map:foodie_station_close_station_id__ref a d2rq:PropertyBridge;									### reference to the station_view instance
+	d2rq:belongsToClassMap map:foodie_station_close;
+	d2rq:property foodie-es:stationCloseStation;
+	d2rq:refersToClassMap map:foodie_station_view;
+	d2rq:join "foodie.station_close.station_id => foodie.station_view.station_id";
+	.	
+map:foodie_station_close_management_zone_id__ref a d2rq:PropertyBridge;									### reference to the management_zone_view instance
+	d2rq:belongsToClassMap map:foodie_station_close;
+	d2rq:property foodie-es:stationCloseManagementZone;
+	d2rq:refersToClassMap map:foodie_management_zone_view;
+	d2rq:join "foodie.station_close.management_zone_id => foodie.management_zone_view.management_zone_id";
+	.	
+		
+# Table foodie.tractor_type
+map:foodie_tractor_type a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "TractorType/@@foodie.tractor_type.tractor_type_id@@";
+	d2rq:class foodie:TractorType;
+	d2rq:classDefinitionLabel "TractorType";
+	.
+map:foodie_tractor_type__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_tractor_type;
+	d2rq:property rdfs:label;
+	d2rq:pattern "TractorType #@@foodie.tractor_type.tractor_type_id@@";
+	.
+map:foodie_tractor_type_tractor_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_tractor_type;
+	d2rq:property foodie:code;
+	d2rq:column "foodie.tractor_type.tractor_code";
+	d2rq:datatype xsd:string;
+	.
+
+
+# create instances for foodie.treatment_quantity
+map:foodie_treatment_quantity a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Treatment/@@foodie.treatment.treatment_id@@/quantity";
+	d2rq:class iso19103:Measure;
+	d2rq:classDefinitionLabel "Measure";	
+	.
+map:foodie_treatment_quantity_value a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment_quantity;
+	d2rq:property iso19103:value;
+	d2rq:column "foodie.treatment.quantity_value";
+	d2rq:datatype xsd:decimal;
+	.
+map:foodie_treatment_quantity_uom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment_quantity;
+	d2rq:property iso19103:uom;
+	d2rq:column "foodie.treatment.quantity_uom_name";
+	d2rq:datatype xsd:string;
+	.
+# create instances for foodie.treatment_motion_speed
+map:foodie_treatment_motion_speed a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Treatment/@@foodie.treatment.treatment_id@@/motionSpeed";
+	d2rq:class iso19103:Measure;
+	d2rq:classDefinitionLabel "Measure";	
+	.
+map:foodie_treatment_motion_speed_value a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment_motion_speed;
+	d2rq:property iso19103:value;
+	d2rq:column "foodie.treatment.motion_speed_value";
+	d2rq:datatype xsd:decimal;
+	.
+map:foodie_treatment_motion_speed_uom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment_motion_speed;
+	d2rq:property iso19103:uom;
+	d2rq:column "foodie.treatment.motion_speed_oum_name";
+	d2rq:datatype xsd:string;
+	.
+# create instances for foodie.treatment_pressure
+map:foodie_treatment_pressure a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Treatment/@@foodie.treatment.treatment_id@@/pressure";
+	d2rq:class iso19103:Measure;
+	d2rq:classDefinitionLabel "Measure";	
+	.
+map:foodie_treatment_pressure_value a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment_pressure;
+	d2rq:property iso19103:value;
+	d2rq:column "foodie.treatment.pressure_value";
+	d2rq:datatype xsd:decimal;
+	.
+map:foodie_treatment_pressure_uom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment_pressure;
+	d2rq:property iso19103:uom;
+	d2rq:column "foodie.treatment.pressure_uom_name";
+	d2rq:datatype xsd:string;
+	.
+# create instances for foodie.treatment_flow_adjustment
+map:foodie_treatment_flow_adjustment a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Treatment/@@foodie.treatment.treatment_id@@/flowAdjustment";
+	d2rq:class iso19103:Measure;
+	d2rq:classDefinitionLabel "Measure";	
+	.
+map:foodie_treatment_flow_adjustment_value a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment_flow_adjustment;
+	d2rq:property iso19103:value;
+	d2rq:column "foodie.treatment.flow_adjustment_value";
+	d2rq:datatype xsd:decimal;
+	.
+map:foodie_treatment_flow_adjustment_uom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment_flow_adjustment;
+	d2rq:property iso19103:uom;
+	d2rq:column "foodie.treatment.flow_adjustment_uom_name";
+	d2rq:datatype xsd:string;
+	.
+# create instances for foodie.treatment_application_width
+map:foodie_treatment_application_width a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Treatment/@@foodie.treatment.treatment_id@@/applicationWidth";
+	d2rq:class iso19103:Measure;
+	d2rq:classDefinitionLabel "Measure";	
+	.
+map:foodie_treatment_application_width_value a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment_application_width;
+	d2rq:property iso19103:value;
+	d2rq:column "foodie.treatment.application_width_value";
+	d2rq:datatype xsd:decimal;
+	.
+map:foodie_treatment_application_width_uom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment_application_width;
+	d2rq:property iso19103:uom;
+	d2rq:column "foodie.treatment.application_width_uom_name";
+	d2rq:datatype xsd:string;
+	.
+# create instances for foodie.treatment_area_dose_minimum
+map:foodie_treatment_area_dose_minimum a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Treatment/@@foodie.treatment.treatment_id@@/areaDose/minimum";
+	d2rq:class iso19103:Measure;
+	d2rq:classDefinitionLabel "Measure";	
+	.
+map:foodie_treatment_area_dose_minimum_value a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment_area_dose_minimum;
+	d2rq:property iso19103:value;
+	d2rq:column "foodie.treatment.area_dose_minimum_value";
+	d2rq:datatype xsd:decimal;
+	.
+map:foodie_treatment_area_dose_minimum_uom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment_area_dose_minimum;
+	d2rq:property iso19103:uom;
+	d2rq:column "foodie.treatment.area_dose_minimum_uom_name";
+	d2rq:datatype xsd:string;
+	.
+# create instances for foodie.treatment_area_dose_maximum
+map:foodie_treatment_area_dose_maximum a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Treatment/@@foodie.treatment.treatment_id@@/areaDose/maximum";
+	d2rq:class iso19103:Measure;
+	d2rq:classDefinitionLabel "Measure";	
+	.
+map:foodie_treatment_area_dose_maximum_value a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment_area_dose_maximum;
+	d2rq:property iso19103:value;
+	d2rq:column "foodie.treatment.area_dose_maximum_value";
+	d2rq:datatype xsd:decimal;
+	.
+map:foodie_treatment_area_dose_maximum_uom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment_area_dose_maximum;
+	d2rq:property iso19103:uom;
+	d2rq:column "foodie.treatment.area_dose_maximum_uom_name";
+	d2rq:datatype xsd:string;
+	.
+###this requires double redirection. Also note that I fixed the ontology as we noticed, DoseUnit cannot be a codelist, I treated as DataType
+# create instances for foodie.treatment_area_dose
+map:foodie_treatment_area_dose a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Treatment/@@foodie.treatment.treatment_id@@/areaDose";
+	d2rq:class foodie:DoseUnit;
+	d2rq:classDefinitionLabel "DoseUnit";	
+	.
+map:foodie_treatment_area_dose_minimum_ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment_area_dose;
+	d2rq:property foodie:minimumDose;
+	d2rq:uriPattern "Treatment/@@foodie.treatment.treatment_id@@/areaDose/minimum";
+	.
+map:foodie_treatment_area_dose_maximum_ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment_area_dose;
+	d2rq:property foodie:maximumDose;
+	d2rq:uriPattern "Treatment/@@foodie.treatment.treatment_id@@/areaDose/maximum";
+	.
+# create instances for foodie.treatment_revolutions
+map:foodie_treatment_revolutions a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Treatment/@@foodie.treatment.treatment_id@@/revolutions";
+	d2rq:class iso19103:Measure;
+	d2rq:classDefinitionLabel "Measure";	
+	.
+map:foodie_treatment_revolutions_value a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment_revolutions;
+	d2rq:property iso19103:value;
+	d2rq:column "foodie.treatment.revolutions_value";
+	d2rq:datatype xsd:decimal;
+	.
+map:foodie_treatment_revolutions_uom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment_revolutions;
+	d2rq:property iso19103:uom;
+	d2rq:column "foodie.treatment.revolutions_oum_name";
+	d2rq:datatype xsd:string;
+	.
+
+
+# Table foodie.treatment
+map:foodie_treatment a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Treatment/@@foodie.treatment.treatment_id@@";
+	d2rq:class foodie:Treatment;
+	d2rq:classDefinitionLabel "Treatment";
+	.
+map:foodie_treatment__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Treatment #@@foodie.treatment.treatment_id@@";
+	.
+map:foodie_treatment_price a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment;
+	d2rq:property foodie:price;
+	d2rq:column "foodie.treatment.price";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_treatment_quantity_ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment;
+	d2rq:property foodie:quantity;
+	d2rq:uriPattern "Treatment/@@foodie.treatment.treatment_id@@/quantity";
+	.
+map:foodie_treatment_motion_speed_ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment;
+	d2rq:property foodie:motionSpeed;
+	d2rq:uriPattern "Treatment/@@foodie.treatment.treatment_id@@/motionSpeed";
+	.
+map:foodie_treatment_pressure_ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment;
+	d2rq:property foodie:pressure;
+	d2rq:uriPattern "Treatment/@@foodie.treatment.treatment_id@@/pressure";
+	.
+map:foodie_treatment_flow_adjustment_ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment;
+	d2rq:property foodie:flowAdjustment;
+	d2rq:uriPattern "Treatment/@@foodie.treatment.treatment_id@@/flowAdjustment";
+	.
+map:foodie_treatment_application_width_ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment;
+	d2rq:property foodie:applicationWidth;
+	d2rq:uriPattern "Treatment/@@foodie.treatment.treatment_id@@/applicationWidth";
+	.
+map:foodie_treatment_area_dose_ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment;
+	d2rq:property foodie:areaDose;
+	d2rq:uriPattern "Treatment/@@foodie.treatment.treatment_id@@/areaDose";
+	.
+
+#map:foodie_treatment_quantity_value a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_treatment;
+#	d2rq:property foodie-es:quantityValue;
+#	d2rq:column "foodie.treatment.quantity_value";
+#	d2rq:datatype xsd:double;
+#	.
+#map:foodie_treatment_quantity_uom_name a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_treatment;
+#	d2rq:property foodie-es:quantityUomName;
+#	d2rq:column "foodie.treatment.quantity_uom_name";
+#	d2rq:datatype xsd:string;
+#	.
+#map:foodie_treatment_motion_speed_value a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_treatment;
+#	d2rq:property foodie-es:motionSpeedValue;
+#	d2rq:column "foodie.treatment.motion_speed_value";
+#	d2rq:datatype xsd:double;
+#	.
+#map:foodie_treatment_motion_speed_oum_name a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_treatment;
+#	d2rq:property foodie-es:motionSpeedUomName;
+#	d2rq:column "foodie.treatment.motion_speed_oum_name";
+#	d2rq:datatype xsd:string;
+#	.
+#map:foodie_treatment_pressure_value a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_treatment;
+#	d2rq:property foodie-es:pressureValue;
+#	d2rq:column "foodie.treatment.pressure_value";
+#	d2rq:datatype xsd:double;
+#	.
+#map:foodie_treatment_pressure_uom_name a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_treatment;
+#	d2rq:property foodie-es:treatmentPressureUomName;
+#	d2rq:column "foodie.treatment.pressure_uom_name";
+#	d2rq:datatype xsd:string;
+#	.
+#map:foodie_treatment_flow_adjustment_value a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_treatment;
+#	d2rq:property foodie-es:flowAdjustmentValue;
+#	d2rq:column "foodie.treatment.flow_adjustment_value";
+#	d2rq:datatype xsd:double;
+#	.
+#map:foodie_treatment_flow_adjustment_uom_name a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_treatment;
+#	d2rq:property foodie-es:flowAdjustmentUomName;
+#	d2rq:column "foodie.treatment.flow_adjustment_uom_name";
+#	d2rq:datatype xsd:string;
+#	.
+#map:foodie_treatment_application_width_value a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_treatment;
+#	d2rq:property foodie-es:applicationWidthValue;
+#	d2rq:column "foodie.treatment.application_width_value";
+#	d2rq:datatype xsd:double;
+#	.
+#map:foodie_treatment_application_width_uom_name a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_treatment;
+#	d2rq:property foodie-es:applicationWidthUomName;
+#	d2rq:column "foodie.treatment.application_width_uom_name";
+#	d2rq:datatype xsd:string;
+#	.
+#map:foodie_treatment_area_dose_minimum_value a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_treatment;
+#	d2rq:property foodie-es:areaDoseMinimumValue;
+#	d2rq:column "foodie.treatment.area_dose_minimum_value";
+#	d2rq:datatype xsd:double;
+#	.
+#map:foodie_treatment_area_dose_minimum_uom_name a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_treatment;
+#	d2rq:property foodie-es:areaDoseMinimumUomName;
+#	d2rq:column "foodie.treatment.area_dose_minimum_uom_name";
+#	d2rq:datatype xsd:string;
+#	.
+#map:foodie_treatment_area_dose_maximum_value a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_treatment;
+#	d2rq:property foodie-es:areaDoseMaximumValue;
+#	d2rq:column "foodie.treatment.area_dose_maximum_value";
+#	d2rq:datatype xsd:double;
+#	.
+#map:foodie_treatment_area_dose_maximum_uom_name a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_treatment;
+#	d2rq:property foodie-es:areaDoseMaximumUomName;
+#	d2rq:column "foodie.treatment.area_dose_maximum_uom_name";
+#	d2rq:datatype xsd:string;
+#	.
+
+
+map:foodie_treatment_treatment_description a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment;
+	d2rq:property foodie:treatmentDescription;
+	d2rq:column "foodie.treatment.treatment_description";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_treatment_spreadersinfo a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment;
+	d2rq:property foodie-es:spreadersinfo;
+	d2rq:column "foodie.treatment.spreadersinfo";
+	d2rq:datatype xsd:string;
+	.
+
+map:foodie_treatment_revolutions_ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment;
+	d2rq:property foodie-es:revolutions;
+	d2rq:uriPattern "Treatment/@@foodie.treatment.treatment_id@@/revolutions";
+	.
+#map:foodie_treatment_revolutions_value a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_treatment;
+#	d2rq:property foodie-es:revolutionsValue;
+#	d2rq:column "foodie.treatment.revolutions_value";
+#	d2rq:datatype xsd:double;
+#	.
+#map:foodie_treatment_revolutions_oum_name a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_treatment;
+#	d2rq:property foodie-es:revolutionsUomName;
+#	d2rq:column "foodie.treatment.revolutions_oum_name";
+#	d2rq:datatype xsd:string;
+#	.
+
+map:foodie_treatment_treatment_plan_id__ref a d2rq:PropertyBridge;    				###reference to treatment_plan instance
+	d2rq:belongsToClassMap map:foodie_treatment;
+	d2rq:property foodie:plan;
+	d2rq:refersToClassMap map:foodie_treatment_plan;
+	d2rq:join "foodie.treatment.treatment_plan_id => foodie.treatment_plan.treatment_plan_id";
+	.
+map:foodie_treatment_form_of_treatment_value_id__ref a d2rq:PropertyBridge;								###reference to form_of_treatment_value instance
+	d2rq:belongsToClassMap map:foodie_treatment;
+	d2rq:property foodie:formOfTreatment;
+	d2rq:refersToClassMap map:foodie_form_of_treatment_value;
+	d2rq:join "foodie.treatment.form_of_treatment_value_id => foodie.form_of_treatment_value.form_of_treatment_value_id";
+	.
+#####this mapping should be checked, in fact all properties of treatment in theory are extension of intervention (treatment subclassof intervention)  
+#####still need to think if all these properties should be mapped directly to intervention.
+map:foodie_treatment_intervention_id__ref a d2rq:PropertyBridge;								###reference to intervention_view instance
+	d2rq:belongsToClassMap map:foodie_treatment;
+	d2rq:property foodie-es:treatmentIntervention;
+	d2rq:refersToClassMap map:foodie_intervention_view;
+	d2rq:join "foodie.treatment.intervention_id => foodie.intervention_view.intervention_id";
+	.
+	
+
+# Table foodie.treatment_plan
+map:foodie_treatment_plan a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "TreatmentPlan/@@foodie.treatment_plan.treatment_plan_id@@";
+	d2rq:class foodie:TreatmentPlan;
+	d2rq:classDefinitionLabel "TreatmentPlan";
+	.
+map:foodie_treatment_plan__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment_plan;
+	d2rq:property rdfs:label;
+	d2rq:pattern "TreatmentPlan #@@foodie.treatment_plan.treatment_plan_id@@";
+	.
+map:foodie_treatment_plan_treatment_plan_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment_plan;
+	d2rq:property foodie:treatmentPlanCode;
+	d2rq:column "foodie.treatment_plan.treatment_plan_code";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_treatment_plan_description a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment_plan;
+	d2rq:property foodie:description;
+	d2rq:column "foodie.treatment_plan.description";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_treatment_plan_treatment_plan_creation a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment_plan;
+	d2rq:property foodie:treatmentPlanCreation;
+	d2rq:column "foodie.treatment_plan.treatment_plan_creation";
+	d2rq:datatype xsd:dateTime;
+	.
+map:foodie_treatment_plan_notes a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment_plan;
+	d2rq:property foodie:notes;
+	d2rq:column "foodie.treatment_plan.notes";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_treatment_plan_treatment_plan_type_value_id__ref a d2rq:PropertyBridge;					### reference to treatment_plan_type_value instance
+	d2rq:belongsToClassMap map:foodie_treatment_plan;
+	d2rq:property foodie-es:treatmentPlanTreatmentPlanTypeValue;
+	d2rq:refersToClassMap map:foodie_treatment_plan_type_value;
+	d2rq:join "foodie.treatment_plan.treatment_plan_type_value_id => foodie.treatment_plan_type_value.treatment_plan_type_value_id";
+	.
+
+# Table foodie.treatment_plan_campaign
+#map:foodie_treatment_plan_campaign a d2rq:ClassMap;
+#	d2rq:dataStorage map:database;
+#	d2rq:uriPattern "TreatmentPlanCampaign/@@foodie.treatment_plan_campaign.treatment_plan_campaign_id@@";
+#	d2rq:class foodie-es:TreatmentPlanCampaign;
+#	d2rq:classDefinitionLabel "TreatmentPlanCampaign";
+#	.
+#map:foodie_treatment_plan_campaign__label a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:foodie_treatment_plan_campaign;
+#	d2rq:property rdfs:label;
+#	d2rq:pattern "TreatmentPlanCampaign #@@foodie.treatment_plan_campaign.treatment_plan_campaign_id@@";
+#	.
+#map:foodie_treatment_plan_campaign_campaign_type_id__ref a d2rq:PropertyBridge;						### reference to campaign_type instance
+#	d2rq:belongsToClassMap map:foodie_treatment_plan_campaign;
+#	d2rq:property foodie-es:treatmentPlanCampaignCampaignType;
+#	d2rq:refersToClassMap map:foodie_campaign_type;
+#	d2rq:join "foodie.treatment_plan_campaign.campaign_type_id => foodie.campaign_type.campaign_type_id";
+#	.
+#map:foodie_treatment_plan_campaign_treatment_plan_id__ref a d2rq:PropertyBridge;					### reference to treatment_plan instance
+#	d2rq:belongsToClassMap map:foodie_treatment_plan_campaign;
+#	d2rq:property foodie-es:treatmentPlanCampaignTreatmentPlan;
+#	d2rq:refersToClassMap map:foodie_treatment_plan;
+#	d2rq:join "foodie.treatment_plan_campaign.treatment_plan_id => foodie.treatment_plan.treatment_plan_id";
+#	.
+#map:foodie_campaign_type_treatment_plan_id__ref a d2rq:PropertyBridge;					### NOT NEEDED reference to treatment_plan instance
+#	d2rq:belongsToClassMap map:foodie_campaign_type;
+#	d2rq:property foodie-es:campaignTypeTreatmentPlan;
+#	d2rq:refersToClassMap map:foodie_treatment_plan;
+#	d2rq:join "foodie.treatment_plan_campaign.treatment_plan_id => foodie.treatment_plan.treatment_plan_id";
+#	d2rq:join "foodie.treatment_plan_campaign.campaign_type_id => foodie.campaign_type.campaign_type_id";
+#	.
+map:foodie_treatment_plan_campaign_type_id__ref a d2rq:PropertyBridge;						### reference to campaign_type instance
+	d2rq:belongsToClassMap map:foodie_treatment_plan;
+	d2rq:property foodie:campaign;
+	d2rq:refersToClassMap map:foodie_campaign_type;
+	d2rq:join "foodie.treatment_plan_campaign.campaign_type_id => foodie.campaign_type.campaign_type_id";
+	d2rq:join "foodie.treatment_plan_campaign.treatment_plan_id => foodie.treatment_plan.treatment_plan_id";
+	.
+
+
+# Table foodie.treatment_plan_type_value
+map:foodie_treatment_plan_type_value a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "TreatmentPlanTypeValue/@@foodie.treatment_plan_type_value.treatment_plan_type_value_id@@";
+	d2rq:class foodie-es:TreatmentPlanTypeValue;
+	d2rq:classDefinitionLabel "TreatmentPlanTypeValue";
+	.
+map:foodie_treatment_plan_type_value__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment_plan_type_value;
+	d2rq:property rdfs:label;
+	d2rq:pattern "TreatmentPlanTypeValue #@@foodie.treatment_plan_type_value.treatment_plan_type_value_id@@";
+	.
+map:foodie_treatment_plan_type_value_treatment_plan_type_value_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_treatment_plan_type_value;
+	d2rq:property foodie-es:treatmentPlanTypeValueName;
+	d2rq:column "foodie.treatment_plan_type_value.treatment_plan_type_value_name";
+	d2rq:datatype xsd:string;
+	.
+
+# Table foodie.widget
+map:foodie_widget a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Widget/@@foodie.widget.widget_id@@";
+	d2rq:class foodie-es:Widget;
+	d2rq:classDefinitionLabel "Widget";
+	.
+map:foodie_widget__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_widget;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Widget #@@foodie.widget.widget_id@@";
+	.
+map:foodie_widget_image_path a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_widget;
+	d2rq:property foodie-es:imagePath;
+	d2rq:column "foodie.widget.image_path";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_widget_tooltip_text a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_widget;
+	d2rq:property foodie-es:tooltipText;
+	d2rq:column "foodie.widget.tooltip_text";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_widget_configuration_file_path a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_widget;
+	d2rq:property foodie-es:configurationFilePath;
+	d2rq:column "foodie.widget.configuration_file_path";
+	d2rq:datatype xsd:string;
+	.
+
+# Table foodie.widget_specific_parameter
+map:foodie_widget_specific_parameter a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "WidgetSpecificParameter/@@foodie.widget_specific_parameter.widget_specific_parameter_id@@";
+	d2rq:class foodie-es:WidgetSpecificParameter;
+	d2rq:classDefinitionLabel "WidgetSpecificParameter";
+	.
+map:foodie_widget_specific_parameter__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_widget_specific_parameter;
+	d2rq:property rdfs:label;
+	d2rq:pattern "WidgetSpecificParameter #@@foodie.widget_specific_parameter.widget_specific_parameter_id@@";
+	.
+map:foodie_widget_specific_parameter_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_widget_specific_parameter;
+	d2rq:property foodie-es:widgetParameterName;
+	d2rq:column "foodie.widget_specific_parameter.name";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_widget_specific_parameter_value a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:foodie_widget_specific_parameter;
+	d2rq:property rdf:value;
+	d2rq:column "foodie.widget_specific_parameter.value";
+	d2rq:datatype xsd:string;
+	.
+map:foodie_widget_specific_parameter_dashboard_configuration_id__ref a d2rq:PropertyBridge;						### refrence to dashboard_configuration instance
+	d2rq:belongsToClassMap map:foodie_widget_specific_parameter;
+	d2rq:property foodie-es:widgetSpecificParameterDashboardConfiguration;
+	d2rq:refersToClassMap map:foodie_dashboard_configuration;
+	d2rq:join "foodie.widget_specific_parameter.dashboard_configuration_id => foodie.dashboard_configuration.dashboard_configuration_id";
+	.
+
+
+

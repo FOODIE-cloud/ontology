@@ -1,0 +1,283 @@
+@prefix map: <#> .
+@prefix db: <> .
+@prefix vocab: <vocab/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix d2rq: <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
+@prefix jdbc: <http://d2rq.org/terms/jdbc/> .
+@prefix otm: <http://w3id.org/foodie/otm#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix common: <http://portele.de/ont/inspire/baseInspire#> .
+
+map:database a d2rq:Database;
+	d2rq:jdbcDriver "org.postgresql.Driver";
+	d2rq:jdbcDSN "jdbc:postgresql://localhost/olu";
+	d2rq:username "sam";
+	d2rq:password "psnc";
+	.
+
+# create instances for roadlink_view_geometry
+map:roadlink_view_geometry a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "RoadLink/@@roadlink_view.inspireid@@/geometry";
+	d2rq:class geo:Geometry;
+	d2rq:classDefinitionLabel "Geometry";	
+	.
+map:roadlink_view_geometry_asWKT a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadlink_view_geometry;
+	d2rq:property geo:asWKT;
+	d2rq:column "roadlink_view.centerlinegeometry";
+	d2rq:datatype geo:wktLiteral;
+	.
+
+
+# Table roadlink_view
+map:roadlink_view a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "RoadLink/@@roadlink_view.inspireid@@";
+	d2rq:class otm:RoadLink;
+	d2rq:classDefinitionLabel "RoadLink";
+	.
+map:roadlink_view__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadlink_view;
+	d2rq:property rdfs:label;
+	d2rq:pattern "RoadLink #@@roadlink_view.inspireid@@";
+	.
+	
+
+map:roadlink_view_sourceid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadlink_view;
+	d2rq:property otm:sourceId;
+	d2rq:column "roadlink_view.sourceid";
+	d2rq:datatype xsd:decimal;
+	.
+	
+map:roadlink_view_beginlifespanversion a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadlink_view;
+	d2rq:property prov:generatedAtTime;
+	d2rq:column "roadlink_view.beginlifespanversion";
+	d2rq:datatype xsd:dateTime;
+	.
+
+map:roadlink_view_endlifespanversion a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadlink_view;
+	d2rq:property prov:invalidatedAtTime;
+	d2rq:column "roadlink_view.endlifespanversion";
+	d2rq:datatype xsd:dateTime;
+	.
+map:roadlink_view_validfrom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadlink_view;
+	d2rq:property common:validFrom;
+	d2rq:column "roadlink_view.validfrom";
+	d2rq:datatype xsd:dateTime;
+	.
+map:roadlink_view_validto a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadlink_view;
+	d2rq:property common:validTo;
+	d2rq:column "roadlink_view.validto";
+	d2rq:datatype xsd:dateTime;
+	.
+map:roadlink_view_fictitious a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadlink_view;
+	d2rq:property otm:fictitious;
+	d2rq:column "roadlink_view.fictitious";
+	d2rq:datatype xsd:boolean;
+	.
+	
+	
+map:roadlink_view_centerlinegeometry a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadlink_view;
+	d2rq:property otm:centerLineGeometry;
+	d2rq:uriPattern "RoadLink/@@roadlink_view.inspireid@@/geometry";
+	.
+
+
+map:roadlink_view_direction a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadlink_view;
+	d2rq:property otm:direction;
+	d2rq:column "roadlink_view.direction";
+	d2rq:datatype xsd:string;
+	.	
+	
+
+map:roadlink_view_fromroadnode a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadlink_view;
+	d2rq:property otm:fromRoadNode;
+	d2rq:uriPattern "RoadNode/@@roadlink_view.fromroadnode@@";
+	.
+map:roadlink_view_toroadnode a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadlink_view;
+	d2rq:property otm:toRoadNode;
+	d2rq:uriPattern "RoadNode/@@roadlink_view.toroadnode@@";
+	.
+	
+	
+map:roadlink_view_roadname a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadlink_view;
+	d2rq:property otm:roadName;
+	d2rq:column "roadlink_view.roadname";
+	d2rq:datatype xsd:string;
+	.
+map:roadlink_view_nationalroadcode a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadlink_view;
+	d2rq:property otm:nationalRoadCode;
+	d2rq:column "roadlink_view.nationalroadcode";
+	d2rq:datatype xsd:string;
+	.
+map:roadlink_view_functionalroadclass a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadlink_view;
+	d2rq:property otm:functionalRoadClass;
+	d2rq:column "roadlink_view.functionalroadclass";
+	d2rq:datatype xsd:string;
+	.
+map:roadlink_view_formofway a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadlink_view;
+	d2rq:property otm:formOfWay;
+	d2rq:column "roadlink_view.formofway";
+	d2rq:datatype xsd:string;
+	.
+map:roadlink_view_roadsurfacecategory a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadlink_view;
+	d2rq:property otm:roadSurfaceCategory;
+	d2rq:column "roadlink_view.roadsurfacecategory";
+	d2rq:datatype xsd:string;
+	.
+map:roadlink_view_speedlimit a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadlink_view;
+	d2rq:property otm:speedLimit;
+	d2rq:column "roadlink_view.speedlimit";
+	d2rq:datatype xsd:decimal;
+	.	
+map:roadlink_view_capacity a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadlink_view;
+	d2rq:property otm:capacity;
+	d2rq:column "roadlink_view.capacity";
+	d2rq:datatype xsd:decimal;
+	.	
+map:roadlink_view_maximuheight a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadlink_view;
+	d2rq:property otm:maximumHeight;
+	d2rq:column "roadlink_view.maximuheight";
+	d2rq:datatype xsd:double;
+	.	
+map:roadlink_view_maximumtotalweight a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadlink_view;
+	d2rq:property otm:maximumTotalWeight;
+	d2rq:column "roadlink_view.maximumtotalweight";
+	d2rq:datatype xsd:double;
+	.	
+map:roadlink_view_maximumwidth a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadlink_view;
+	d2rq:property otm:maximumWidth;
+	d2rq:column "roadlink_view.maximumwidth";
+	d2rq:datatype xsd:double;
+	.	
+map:roadlink_view_vehicletype a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadlink_view;
+	d2rq:property otm:vehicleType;
+	d2rq:column "roadlink_view.vehicletype";
+	d2rq:datatype xsd:string;
+	.
+map:roadlink_view_z_order a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadlink_view;
+	d2rq:property otm:zOrder;
+	d2rq:column "roadlink_view.z_order";
+	d2rq:datatype xsd:decimal;
+	.
+map:roadlink_view_length_m a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadlink_view;
+	d2rq:property otm:lengthM;
+	d2rq:column "roadlink_view.length_m";
+	d2rq:datatype xsd:double;
+	.
+map:roadlink_view_trafficvolumeforaverageday a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadlink_view;
+	d2rq:property otm:trafficVolumeForAverageDay;
+	d2rq:column "roadlink_view.trafficvolumeforaverageday";
+	d2rq:datatype xsd:double;
+	.
+
+
+
+
+# create instances for roadnode_view_geometry
+map:roadnode_view_geometry a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "RoadNode/@@roadnode_view.inspireid@@/geometry";
+	d2rq:class geo:Geometry;
+	d2rq:classDefinitionLabel "Geometry";	
+	.
+map:roadnode_view_geometry_asWKT a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadnode_view_geometry;
+	d2rq:property geo:asWKT;
+	d2rq:column "roadnode_view.geometry";
+	d2rq:datatype geo:wktLiteral;
+	.
+
+
+# Table roadnode_view
+map:roadnode_view a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "RoadNode/@@roadnode_view.inspireid@@";
+	d2rq:class otm:RoadNode;
+	d2rq:classDefinitionLabel "RoadNode";
+	.
+map:roadnode_view__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadnode_view;
+	d2rq:property rdfs:label;
+	d2rq:pattern "RoadNode #@@roadnode_view.inspireid@@";
+	.
+
+map:roadnode_view_beginlifespanversion a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadnode_view;
+	d2rq:property prov:generatedAtTime;
+	d2rq:column "roadnode_view.beginlifespanversion";
+	d2rq:datatype xsd:dateTime;
+	.
+map:roadnode_view_endlifespanversion a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadnode_view;
+	d2rq:property prov:invalidatedAtTime;
+	d2rq:column "roadnode_view.endlifespanversion";
+	d2rq:datatype xsd:dateTime;
+	.
+map:roadnode_view_validfrom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadnode_view;
+	d2rq:property common:validFrom;
+	d2rq:column "roadnode_view.validfrom";
+	d2rq:datatype xsd:dateTime;
+	.
+map:roadnode_view_validto a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadnode_view;
+	d2rq:property common:validTo;
+	d2rq:column "roadnode_view.validto";
+	d2rq:datatype xsd:dateTime;
+	.
+map:roadnode_view_fictitious a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadnode_view;
+	d2rq:property otm:fictitious;
+	d2rq:column "roadnode_view.fictitious";
+	d2rq:datatype xsd:boolean;
+	.
+
+
+map:roadnode_view_hasGeometry a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadnode_view;
+	d2rq:property geo:hasGeometry;
+	d2rq:uriPattern "RoadNode/@@roadnode_view.inspireid@@/geometry";
+	.
+
+
+map:roadnode_view_geographicalname a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadnode_view;
+	d2rq:property otm:geographicalName;
+	d2rq:column "roadnode_view.geographicalname";
+	d2rq:datatype xsd:string;     
+	.
+map:roadnode_view_formofroadnode a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:roadnode_view;
+	d2rq:property otm:formOfRoadNode;
+	d2rq:column "roadnode_view.formofroadnode";
+	d2rq:datatype xsd:string;     
+	.	
