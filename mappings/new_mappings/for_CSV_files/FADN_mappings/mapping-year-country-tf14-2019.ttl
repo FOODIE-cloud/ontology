@@ -1,0 +1,1859 @@
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix  rml: <http://semweb.mmlab.be/ns/rml#> .
+@prefix ql: <http://semweb.mmlab.be/ns/ql#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix rrx: <http://www.w3.org/ns/r2rml-ext#>.
+@prefix rrxf: <http://www.w3.org/ns/r2rml-ext/functions/def/>.
+@prefix ogc: <http://www.opengis.net/ont/geosparql#>.
+@prefix schema: <http://schema.org/>.
+@prefix : <http://w3id.org/foodie/fadn#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix qb: <http://purl.org/linked-data/cube#> .
+@prefix sdmx:    <http://purl.org/linked-data/sdmx#> .
+@prefix sdmx-concept:    <http://purl.org/linked-data/sdmx/2009/concept#> .
+@prefix sdmx-dimension:  <http://purl.org/linked-data/sdmx/2009/dimension#> .
+@prefix sdmx-attribute:  <http://purl.org/linked-data/sdmx/2009/attribute#> .
+@prefix sdmx-measure:    <http://purl.org/linked-data/sdmx/2009/measure#> .
+@prefix sdmx-metadata:   <http://purl.org/linked-data/sdmx/2009/metadata#> .
+@prefix sdmx-code:       <http://purl.org/linked-data/sdmx/2009/code#> .
+@prefix sdmx-subject:    <http://purl.org/linked-data/sdmx/2009/subject#> .
+@prefix dcterms:         <http://purl.org/dc/terms/>.
+@prefix skos:           <http://www.w3.org/2004/02/skos/core#> .
+@prefix interval: <http://reference.data.gov.uk/def/intervals/> .
+@prefix admingeo: <http://data.ordnancesurvey.co.uk/ontology/admingeo/> .
+@prefix nuts: <http://nuts.geovocab.org/id/> .
+@prefix org:      <http://www.w3.org/ns/org#> .
+@prefix foaf:           <http://xmlns.com/foaf/0.1/> .
+@prefix locn:	<http://www.w3.org/ns/locn#> .
+@base <http://w3id.org/foodie/fadn#> .
+
+
+#----------Data Set--------------------------------------
+
+
+<#year.country.tf14.dataset>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/FADN/fadn20190531_original_files/Preprocessed2019/YEAR.COUNTRY.TF14/tf14_csv/year.country.tf14.dataset_2019.csv";
+	rml:referenceFormulation ql:CSV;
+
+];
+rr:subjectMap [
+	rml:reference "uri";
+	rr:class qb:DataSet;
+];
+
+rr:predicateObjectMap [
+	rr:predicate rdfs:label ;
+	rr:objectMap [
+		rr:termType rr:Literal;
+		rml:reference "label";
+		rr:language "en" ;
+	];
+];
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant qb:structure ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+		rml:reference "structure";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant dcterms:publisher ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+		rml:reference "publisher";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant dcterms:source ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+		rml:reference "source";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant owl:versionInfo ];
+	rr:objectMap [
+		rr:termType rr:Literal;
+		rml:reference "versionInfo";
+	];
+];
+rr:predicateObjectMap [
+    rr:predicateMap [ rr:constant qb:slice ];
+    rr:objectMap [
+			rr:parentTriplesMap <#year.country.tf14.slices.codes>;
+		]
+]
+.
+#----------------Data Structure-------------------------
+
+<#year.country.tf14.datastructure>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/FADN/fadn20190531_original_files/Preprocessed2019/YEAR.COUNTRY.TF14/tf14_csv/year.country.tf14.datastructure_2019.csv";
+	rml:referenceFormulation ql:CSV;
+
+];
+rr:subjectMap [
+	rml:reference "uri";
+	rr:class qb:DataStructureDefinition;
+];
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant qb:component ];
+	rr:objectMap [
+		rr:parentTriplesMap <#dimension1>;
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant qb:component ];
+	rr:objectMap [
+		rr:parentTriplesMap <#dimension2>;
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant qb:component ];
+	rr:objectMap [
+		rr:parentTriplesMap <#dimension3>;
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant qb:component ];
+	rr:objectMap [
+		rr:parentTriplesMap <#measures>;
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant qb:sliceKey ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+		rml:reference "sliceKey";
+	];
+].
+
+<#dimension1>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/FADN/fadn20190531_original_files/Preprocessed2019/YEAR.COUNTRY.TF14/tf14_csv/year.country.tf14.datastructure_2019.csv";
+	rml:referenceFormulation ql:CSV;
+
+];
+rr:subjectMap [
+  rr:termType rr:BlankNode;
+  #rr:class qb:ComponentSpecification;
+];
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant qb:dimension ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+		rml:reference "dimension1";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant qb:order ];
+	rr:objectMap [
+		rr:datatype  xsd:int;
+		rml:reference "dimension1Order";
+	];
+];
+.
+
+
+<#dimension2>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/FADN/fadn20190531_original_files/Preprocessed2019/YEAR.COUNTRY.TF14/tf14_csv/year.country.tf14.datastructure_2019.csv";
+	rml:referenceFormulation ql:CSV;
+
+];
+rr:subjectMap [
+  rr:termType rr:BlankNode;
+  #rr:class qb:ComponentSpecification;
+];
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant qb:dimension ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+		rml:reference "dimension2";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant qb:order ];
+	rr:objectMap [
+		rr:datatype  xsd:int;
+		rml:reference "dimension2Order";
+	];
+];
+rr:predicateObjectMap [
+    rr:predicateMap [ rr:constant qb:componentAttachment ];
+    rr:objectMap [
+      rr:termType rr:IRI;
+			rr:constant qb:Slice
+		];
+]
+.
+
+<#dimension3>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/FADN/fadn20190531_original_files/Preprocessed2019/YEAR.COUNTRY.TF14/tf14_csv/year.country.tf14.datastructure_2019.csv";
+	rml:referenceFormulation ql:CSV;
+
+];
+rr:subjectMap [
+  rr:termType rr:BlankNode;
+  #rr:class qb:ComponentSpecification;
+];
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant qb:dimension ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+		rml:reference "dimension3";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant qb:order ];
+	rr:objectMap [
+		rr:datatype  xsd:int;
+		rml:reference "dimension3Order";
+	];
+];
+rr:predicateObjectMap [
+    rr:predicateMap [ rr:constant qb:componentAttachment ];
+    rr:objectMap [
+      rr:termType rr:IRI;
+			rr:constant qb:Slice
+		];
+]
+.
+
+<#measures>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/FADN/fadn20190531_original_files/Preprocessed2019/YEAR.COUNTRY.TF14/tf14_csv/year.country.tf14.datastructure_2019.csv";
+	rml:referenceFormulation ql:CSV;
+
+];
+rr:subjectMap [
+  rr:termType rr:BlankNode;
+  #rr:class qb:ComponentSpecification;
+];
+rr:predicateObjectMap [
+    rr:predicateMap [ rr:constant qb:measure ];
+    rr:objectMap [
+			rr:parentTriplesMap <#year.country.tf14.measures>;
+		]
+]
+.
+
+#---------Measures---------------------
+
+<#year.country.tf14.measures>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/FADN/fadn20190531_original_files/Preprocessed2019/YEAR.COUNTRY.TF14/tf14_csv/year.country.tf14.measures_2019.csv";
+	rml:referenceFormulation ql:CSV;
+
+];
+rr:subjectMap [
+	rml:reference "uri";
+	rr:class rdf:Property, qb:MeasureProperty;
+];
+
+rr:predicateObjectMap [
+  rr:predicate rdfs:label;
+	rr:objectMap [
+	  rr:termType rr:Literal;
+		rml:reference "label";
+		rr:language "en"
+	]
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant rdfs:subPropertyOf ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+		rml:reference "subPropertyOf";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant sdmx-attribute:unitMeasure ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+		rml:reference "unitMeasure";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant rdfs:range ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+		rml:reference "range";
+	];
+].
+
+# -- Dimensions  ----------------------------
+
+<#year.country.tf14.dimensions>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/FADN/fadn20190531_original_files/Preprocessed2019/YEAR.COUNTRY.TF14/tf14_csv/year.country.tf14.dimensions_2019.csv";
+	rml:referenceFormulation ql:CSV;
+
+];
+rr:subjectMap [
+	rml:reference "uri";
+	rr:class rdf:Property, qb:DimensionProperty;
+];
+
+rr:predicateObjectMap [
+	rr:predicate rdfs:label ;
+	rr:objectMap [
+		rr:termType rr:Literal;
+		rml:reference "label";
+		rr:language "en" ;
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant rdfs:subPropertyOf ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+		rml:reference "subPropertyOf";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant rdfs:range  ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+		rml:reference "range";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant qb:concept ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+		rml:reference "concept";
+	];
+].
+
+#---------------------Organization-------------
+
+<#year.country.tf14.organisation>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/FADN/fadn20190531_original_files/Preprocessed2019/YEAR.COUNTRY.TF14/tf14_csv/year.country.tf14.organisation_2019.csv";
+	rml:referenceFormulation ql:CSV;
+
+];
+rr:subjectMap [
+	rml:reference "uri";
+	rr:class org:Organization, foaf:Agent;
+];
+
+rr:predicateObjectMap [
+  rr:predicate rdfs:label;
+	rr:objectMap [
+	  rr:termType rr:Literal;
+		rml:reference "label";
+		rr:language "en" ;
+	];
+]
+.
+
+# -- Slices  ----------------------------
+
+<#year.country.tf14.slices.codes>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/FADN/fadn20190531_original_files/Preprocessed2019/YEAR.COUNTRY.TF14/tf14_csv/year.country.tf14.slices.codes_2019.csv";
+	rml:referenceFormulation ql:CSV;
+	rml:iterator "year.country.tf14.slices.codes";
+];
+rr:subjectMap [
+	rr:template "http://w3id.org/foodie/fadn/year-country-tf14#{YEAR}_{TF14CODE}";
+	rr:class qb:Slice;
+];
+rr:predicateObjectMap [
+  rr:predicate rdfs:label;
+	rr:objectMap [
+	  rr:termType rr:Literal;
+		rr:template "{YEAR} {TF14CODE}"
+	]
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :refYear ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+		rr:template "http://reference.data.gov.uk/id/year/{YEAR}"
+		]
+];
+rr:predicateObjectMap [
+    rr:predicateMap [ rr:constant qb:sliceStructure ];
+    rr:objectMap [
+			rr:parentTriplesMap <#year.country.tf14.sliceKey>;
+		]
+];
+rr:predicateObjectMap [
+    rr:predicateMap [ rr:constant :refTf14 ];
+    rr:objectMap [
+			rr:parentTriplesMap <#year.country.tf14.tf14Values>;
+			rr:joinCondition [
+        rr:child "TF14";
+        rr:parent "label";
+      ];
+		]
+];
+rr:predicateObjectMap [
+    rr:predicateMap [ rr:constant qb:observation ];
+    rr:objectMap [
+			rr:parentTriplesMap <#YEAR.COUNTRY.TF14.OBSERVATIONS-fixed-codes>;
+			rr:joinCondition [
+        rr:child "YEAR";
+        rr:parent "YEAR";
+      ];
+      rr:joinCondition [
+        rr:child "TF14";
+        rr:parent "TF14";
+      ];
+	]
+]
+.
+
+# -- Slice Key  ----------------------------
+
+<#year.country.tf14.sliceKey>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/FADN/fadn20190531_original_files/Preprocessed2019/YEAR.COUNTRY.TF14/tf14_csv/year.country.tf14.sliceKey_2019.csv";
+	rml:referenceFormulation ql:CSV;
+
+];
+rr:subjectMap [
+	rml:reference "uri";
+	rr:class qb:SliceKey;
+];
+
+rr:predicateObjectMap [
+  rr:predicate rdfs:label;
+	rr:objectMap [
+	  rr:termType rr:Literal;
+		rml:reference "label";
+		rr:language "en"
+	]
+];
+rr:predicateObjectMap [
+  rr:predicate rdfs:comment;
+	rr:objectMap [
+	  rr:termType rr:Literal;
+		rml:reference "comment";
+		rr:language "en"
+	]
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant qb:componentProperty ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+		rml:reference "componentProperty1";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant qb:componentProperty ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+		rml:reference "componentProperty2";
+	];
+];
+.
+
+
+# -- TF14 values  ----------------------------
+
+<#year.country.tf14.tf14Values>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/FADN/fadn20190531_original_files/Preprocessed2019/YEAR.COUNTRY.TF14/tf14_csv/year.country.tf14.tf14Values_2019.csv";
+	rml:referenceFormulation ql:CSV;
+
+];
+rr:subjectMap [
+	rml:reference "uri";
+	rr:class skos:Concept, sdmx:Concept;
+];
+
+rr:predicateObjectMap [
+  rr:predicate skos:prefLabel;
+	rr:objectMap [
+	  rr:termType rr:Literal;
+		rml:reference "label";
+		rr:language "en"
+	]
+];
+.
+#---------- Observations --------------------------------------
+
+<#YEAR.COUNTRY.TF14.OBSERVATIONS-fixed-codes>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/FADN/fadn20190531_original_files/Preprocessed2019/YEAR.COUNTRY.TF14/tf14_csv/YEAR.COUNTRY.TF14_preprocessed_2019.csv";
+	rml:referenceFormulation ql:CSV;
+	rml:iterator "YEAR.COUNTRY.TF14.OBSERVATIONS-fixed-codes";
+];
+rr:subjectMap [
+	rr:template "http://w3id.org/foodie/fadn/year-country-tf14#{YEAR}_{TF14CODE}-{COUNTRYCODE}";
+	rr:class qb:Observation;
+];
+rr:predicateObjectMap [
+  rr:predicateMap [ rr:constant qb:dataSet ];
+	rr:objectMap [
+	  rr:parentTriplesMap <#year.country.tf14.dataset> ;
+	]
+];
+rr:predicateObjectMap [
+  rr:predicate rdfs:label;
+	rr:objectMap [
+	  rr:termType rr:Literal;
+		rr:template "{YEAR} {COUNTRY} {TF14}" ;
+	]
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :refCountry ];
+	rr:objectMap [
+		rr:termType  rr:IRI ;
+		rr:template "http://nuts.geovocab.org/id/{COUNTRYCODE}";
+	]
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SYS02 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SYS02";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SYS03 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SYS03";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SYS04 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SYS04";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE005 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE005";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE010 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE010";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE011 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE011";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE015 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE015";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE016 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE016";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE020 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE020";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE021 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE021";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE025 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE025";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE030 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE030";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE035 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE035";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE041 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE041";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE042 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE042";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE046 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE046";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE050 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE050";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE054 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE054";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE055 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE055";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE060 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE060";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE065 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE065";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE071 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE071";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE072 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE072";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE073 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE073";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE074 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE074";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE075 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE075";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE080 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE080";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE085 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE085";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE086 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE086";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE087 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE087";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE090 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE090";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE095 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE095";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE100 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE100";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE105 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE105";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE110 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE110";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE110D ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE110D";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE110N ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE110N";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE115 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE115";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE115D ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE115D";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE115N ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE115N";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE120 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE120";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE120D ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE120D";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE120N ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE120N";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE125 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE125";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE125D ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE125D";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE125N ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE125N";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE126 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE126";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE126D ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE126D";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE126N ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE126N";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE127 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE127";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE127D ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE127D";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE127N ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE127N";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE131 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE131";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE132 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE132";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE132D ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE132D";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE132N ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE132N";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE135 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE135";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE136 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE136";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE136D ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE136D";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE136N ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE136N";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE140 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE140";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE145 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE145";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE146 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE146";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE150 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE150";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE155 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE155";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE160 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE160";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE165 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE165";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE170 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE170";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE175 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE175";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE180 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE180";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE185 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE185";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE190 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE190";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE195 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE195";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE200 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE200";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE206 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE206";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE207 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE207";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE207D ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE207D";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE207N ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE207N";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE211 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE211";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE216 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE216";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE220 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE220";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE225 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE225";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE230 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE230";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE235 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE235";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE240 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE240";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE245 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE245";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE251 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE251";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE256 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE256";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE260 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE260";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE265 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE265";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE270 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE270";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE275 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE275";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE281 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE281";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE284 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE284";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE284D ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE284D";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE284N ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE284N";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE285 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE285";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE290 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE290";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE295 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE295";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE296 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE296";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE297 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE297";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE298 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE298";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE300 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE300";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE305 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE305";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE309 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE309";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE309D ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE309D";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE309N ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE309N";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE310 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE310";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE315 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE315";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE320 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE320";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE325 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE325";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE330 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE330";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE331 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE331";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE336 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE336";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE340 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE340";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE345 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE345";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE350 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE350";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE356 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE356";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE360 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE360";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE365 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE365";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE370 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE370";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE375 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE375";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE380 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE380";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE381 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE381";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE390 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE390";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE395 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE395";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE405 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE405";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE406 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE406";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE407 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE407";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE408 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE408";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE409 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE409";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE410 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE410";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE415 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE415";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE420 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE420";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE425 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE425";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE425D ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE425D";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE425N ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE425N";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE430 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE430";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE430D ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE430D";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE430N ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE430N";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE436 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE436";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE437 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE437";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE441 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE441";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE446 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE446";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE450 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE450";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE455 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE455";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE460 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE460";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE465 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE465";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE470 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE470";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE475 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE475";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE476 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE476";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE480 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE480";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE485 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE485";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE490 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE490";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE495 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE495";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE501 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE501";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE506 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE506";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE510 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE510";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE516 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE516";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE521 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE521";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE526 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE526";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE530 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE530";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE532 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE532";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE532D ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE532D";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE532N ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE532N";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE600 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE600";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE605 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE605";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE610 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE610";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE611 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE611";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE612 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE612";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE613 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE613";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE615 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE615";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE616 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE616";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE617 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE617";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE618 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE618";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE619 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE619";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE621 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE621";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE622 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE622";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE623 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE623";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE624 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE624";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE625 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE625";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE626 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE626";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE630 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE630";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE631 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE631";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE632 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE632";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE640 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE640";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE650 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE650";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE699 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE699";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE700 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE700";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant :SE750 ];
+	rr:objectMap [
+		rr:datatype  xsd:double;
+		rml:reference "SE750";
+	];
+].
