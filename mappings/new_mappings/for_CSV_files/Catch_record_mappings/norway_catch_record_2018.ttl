@@ -1,0 +1,1007 @@
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix  rml: <http://semweb.mmlab.be/ns/rml#> .
+@prefix ql: <http://semweb.mmlab.be/ns/ql#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@base <http://geotriples.eu/base>.
+@prefix rrx: <http://www.w3.org/ns/r2rml-ext#>.
+@prefix rrxf: <http://www.w3.org/ns/r2rml-ext/functions/def/>.
+@prefix geo: <http://www.opengis.net/ont/geosparql#>.
+@prefix schema: <http://schema.org/>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix catchrecord: <http://www.ontologydesignpatterns.org/cp/owl/fsdas/catchrecord.owl#>.
+@prefix catchrecord-norway: <http://w3id.org/foodie/open/catchrecord/norway#>.
+@prefix vessel: <http://w3id.org/foodie/open/vessels#>.
+@prefix gear: <http://w3id.org/foodie/open/gear#>.
+@prefix fdir: <http://w3id.org/foodie/open/FDIR#>.
+#@prefix fao: <http://w3id.org/foodie/open/catchrecord/norway/FAO#>.
+@prefix taxonomic: <http://www.fao.org/aims/aos/fi/species_taxonomic.owl#>.
+#@prefix product: <http://w3id.org/foodie/open/catchrecord/norway/product#>.
+#@prefix catch_size_group: <http://w3id.org/foodie/open/catchrecord/norway/catchSizeGroup#>.
+@prefix dc: <http://purl.org/dc/terms/>.
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix dbo: <http://dbpedia.org/ontology/>.
+@prefix lcc-cr: <https://www.omg.org/spec/LCC/Countries/CountryRepresentation#> .
+
+
+
+################## Latitude and Longitude for Lokasjon #####################
+
+<#catchdata_2018.geometry_lokasjon>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/Catchrecord_norway/corrected_data/catchdata_2018_corrected_v2.csv";
+	rml:referenceFormulation ql:CSV;
+	#rml:iterator "catchdata_2018";
+];
+rr:subjectMap [
+	rr:template "http://w3id.org/foodie/open/catchrecord/norway/2018/{seq}/lokasjon/geometry";
+	rr:class geo:Geometry; 
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant geo:asWKT ];
+	rr:objectMap [
+		rr:datatype geo:wktLiteral;
+		rr:template "POINT({Lon -lokasjon} {Lat -lokasjon})";
+	];
+];
+.
+################## Latitude and Longitude for hovedomrade #####################
+
+<#catchdata_2018.geometry_hovedomrade>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/Catchrecord_norway/corrected_data/catchdata_2018_corrected_v2.csv";
+	rml:referenceFormulation ql:CSV;
+	#rml:iterator "catchdata_2018";
+];
+rr:subjectMap [
+	rr:template "http://w3id.org/foodie/open/catchrecord/norway/2018/{seq}/hovedomrade/geometry";
+	rr:class geo:Geometry; 
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant geo:asWKT ];
+	rr:objectMap [
+		rr:datatype geo:wktLiteral;
+		rr:template "POINT({Lon -hovedomrade} {Lat -hovedomrade})";
+	];
+];
+.
+
+############################# Fisherman data ###################
+
+<#catchdata_2018.fisherman-record>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/Catchrecord_norway/corrected_data/catchdata_2018_corrected_v2.csv";
+	rml:referenceFormulation ql:CSV;
+	#rml:iterator "catchdata_2018";
+];
+
+rr:subjectMap [
+	rr:template "http://w3id.org/foodie/open/catchrecord/norway/fisherman/{Fisker ID}";
+	rr:class foaf:Person; 
+];
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant dc:identifier ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Fisker ID";
+	];
+];
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant dbo:municipalityCode ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+		rr:template "https://www.omg.org/spec/LCC/Countries/Regions/ISO3166-2-SubdivisionCodes-NO/NO-{Fiskerkommune (kode)}";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant rdfs:label ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Fisker ID";
+	];
+];
+.
+
+############################## Vessel data ################
+
+<#catchdata_2018.vessel-record>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/Catchrecord_norway/corrected_data/catchdata_2018_corrected_v2.csv";
+	rml:referenceFormulation ql:CSV;
+	#rml:iterator "catchdata_2018";
+];
+
+rr:subjectMap [
+	rr:template "http://w3id.org/foodie/open/catchrecord/norway/vessels/{Fartoy ID}";
+	rr:class vessel:Vessel; 
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant dc:identifier ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Fartoy ID";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant vessel:radioCallSignal ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Radiokallesignal (seddel)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant rdfs:label ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Fartoynavn";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant vessel:vesselType ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+    rr:template "http://w3id.org/foodie/open/vessels/type/{Fartoytype (kode)}";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant vessel:lenghtGroup ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+    rr:template "http://w3id.org/foodie/open/vessels/length/{Lengdegruppe (kode)}";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant vessel:quotaType ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+    rr:template "http://w3id.org/foodie/open/vessels/length/{Lengdegruppe (kode)}";
+	];
+];
+
+.
+
+############################## Vessel type ################
+
+<#catchdata_2018.vessel-type>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/Catchrecord_norway/corrected_data/catchdata_2018_corrected_v2.csv";
+	rml:referenceFormulation ql:CSV;
+	#rml:iterator "catchdata_2018";
+];
+
+rr:subjectMap [
+	rr:template "http://w3id.org/foodie/open/vessels/type/{Fartoytype (kode)}";
+	rr:class  vessel:Vessel; 
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant dc:identifier ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Fartoytype (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant rdfs:label ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Fartoytype";
+	];
+];
+.
+
+############################## Vessel length ################
+
+<#catchdata_2018.vessel-length>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/Catchrecord_norway/corrected_data/catchdata_2018_corrected_v2.csv";
+	rml:referenceFormulation ql:CSV;
+	#rml:iterator "catchdata_2018";
+];
+
+rr:subjectMap [
+	rr:template "http://w3id.org/foodie/open/vessels/length/{Lengdegruppe (kode)}";
+	rr:class  vessel:Vessel; 
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant dc:identifier ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Lengdegruppe (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant rdfs:label ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Lengdegruppe";
+	];
+];
+.
+
+############################## Vessel quota ################
+
+<#catchdata_2018.vessel-quota>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/Catchrecord_norway/corrected_data/catchdata_2018_corrected_v2.csv";
+	rml:referenceFormulation ql:CSV;
+	#rml:iterator "catchdata_2018";
+];
+
+rr:subjectMap [
+	rr:template "http://w3id.org/foodie/open/vessels/quota/{Kvotetype (kode)}";
+	rr:class  vessel:Vessel; 
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant dc:identifier ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Kvotetype (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant rdfs:label ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Kvotetype";
+	];
+];
+.
+
+############################# Gear Type ####################
+
+<#catchdata_2018.gear-type>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/Catchrecord_norway/corrected_data/catchdata_2018_corrected_v2.csv";
+	rml:referenceFormulation ql:CSV;
+	#rml:iterator "catchdata_2018";
+];
+
+rr:subjectMap [
+	rr:template "http://w3id.org/foodie/open/catchrecord/norway/gearType/{Redskap (kode)}";
+	rr:class  gear:Gear; 
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant dc:identifier ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Redskap (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant rdfs:label ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Redskap";
+	];
+];
+.
+############################# Gear Group ################
+
+<#catchdata_2018.gear-group>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/Catchrecord_norway/corrected_data/catchdata_2018_corrected_v2.csv";
+	rml:referenceFormulation ql:CSV;
+	#rml:iterator "catchdata_2018";
+];
+
+rr:subjectMap [
+	rr:template "http://w3id.org/foodie/open/catchrecord/norway/gearGroup/{Redskap - gruppe (kode)}";
+	rr:class  gear:Gear; 
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant dc:identifier ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Redskap - gruppe (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant rdfs:label ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Redskap - gruppe";
+	];
+];
+.
+############################ Main Gear Group ################
+
+<#catchdata_2018.main-gear-group>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/Catchrecord_norway/corrected_data/catchdata_2018_corrected_v2.csv";
+	rml:referenceFormulation ql:CSV;
+	#rml:iterator "catchdata_2018";
+];
+
+rr:subjectMap [
+	rr:template "http://w3id.org/foodie/open/catchrecord/norway/mainGearGroup/{Redskap - hovedgruppe (kode)}";
+	rr:class  gear:Gear; 
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant dc:identifier ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Redskap - hovedgruppe (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant rdfs:label ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Redskap - hovedgruppe";
+	];
+];
+.
+
+############################ Catch Area ################
+
+<#catchdata_2018.catch-area>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/Catchrecord_norway/corrected_data/catchdata_2018_corrected_v2.csv";
+	rml:referenceFormulation ql:CSV;
+	#rml:iterator "catchdata_2018";
+];
+
+rr:subjectMap [
+	rr:template "http://w3id.org/foodie/open/catchrecord/norway/catchArea/{Fangstfelt (kode)}";
+	rr:class  catchrecord-norway:CatchArea; 
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant dc:identifier ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Fangstfelt (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant rdfs:label ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Fangstfelt (kode)";
+	];
+];
+.
+
+############################ Main Catch Area ################
+
+<#catchdata_2018.main-catch-area>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/Catchrecord_norway/corrected_data/catchdata_2018_corrected_v2.csv";
+	rml:referenceFormulation ql:CSV;
+	#rml:iterator "catchdata_2018";
+];
+
+rr:subjectMap [
+	rr:template "http://w3id.org/foodie/open/catchrecord/norway/mainCatchArea/{Hovedomrade (kode)}";
+	rr:class  catchrecord-norway:MainCatchArea; 
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant dc:identifier ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Hovedomrade (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant rdfs:label ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Hovedomrade";
+	];
+];
+.
+
+
+
+########################### FDIR ################
+
+<#catchdata_2018.FDIR>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/Catchrecord_norway/corrected_data/catchdata_2018_corrected_v2.csv";
+	rml:referenceFormulation ql:CSV;
+	#rml:iterator "catchdata_2018";
+];
+
+rr:subjectMap [
+	rr:template "http://w3id.org/foodie/open/FDIR/{Art - FDIR (kode)}";
+	rr:class  fdir:FdirSpecies; 
+];
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant fdir:hasCodeFDIR ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Art - FDIR (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant rdfs:label ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Art - FDIR";
+	];
+];
+.
+
+########################### FAO ################
+
+<#catchdata_2018.FAO>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/Catchrecord_norway/corrected_data/catchdata_2018_corrected_v2.csv";
+	rml:referenceFormulation ql:CSV;
+#	rml:iterator "catchdata_2018";
+];
+
+rr:subjectMap [
+	rr:template "http://www.fao.org/aims/aos/fi/species_taxonomic.owl#{Art FAO (kode)}";
+	rr:class  taxonomic:Species; 
+];
+
+#rr:predicateObjectMap [
+#	rr:predicateMap [ rr:constant catchrecord:hasCodeFAO ];
+#	rr:objectMap [
+#		rr:datatype  xsd:string;
+#		rml:reference "Art FAO (kode)";
+#	];
+#];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant rdfs:label ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Art FAO";
+	];
+];
+.
+
+########################### Product state ################
+
+<#catchdata_2018.product_state>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/Catchrecord_norway/corrected_data/catchdata_2018_corrected_v2.csv";
+	rml:referenceFormulation ql:CSV;
+	#rml:iterator "catchdata_2018";
+];
+
+rr:subjectMap [
+	rr:template "http://w3id.org/foodie/open/catchrecord/norway/productState/{Produkttilstand (kode)}";
+	rr:class  catchrecord-norway:ProductState; 
+];
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant dc:identifier ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Produkttilstand (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant rdfs:label ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Produkttilstand";
+	];
+];
+.
+
+########################### Conservation Method ################
+
+<#catchdata_2018.conservation_method>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/Catchrecord_norway/corrected_data/catchdata_2018_corrected_v2.csv";
+	rml:referenceFormulation ql:CSV;
+	#rml:iterator "catchdata_2018";
+];
+
+rr:subjectMap [
+	rr:template "http://w3id.org/foodie/open/catchrecord/norway/conservationMethod/{Konserveringsmate (kode)}";
+	rr:class  catchrecord-norway:ConservationMethod; 
+];
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant dc:identifier ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Konserveringsmate (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant rdfs:label ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Konserveringsmate";
+	];
+];
+.
+
+########################### Quality ################
+
+<#catchdata_2018.quality>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/Catchrecord_norway/corrected_data/catchdata_2018_corrected_v2.csv";
+	rml:referenceFormulation ql:CSV;
+	#rml:iterator "catchdata_2018";
+];
+
+rr:subjectMap [
+	rr:template "http://w3id.org/foodie/open/catchrecord/norway/quality/{Kvalitet (kode)}";
+	rr:class  catchrecord-norway:Quality; 
+];
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant dc:identifier ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Kvalitet (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant rdfs:label ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Kvalitet";
+	];
+];
+.
+
+########################## Catch Size Group ################
+
+<#catchdata_2018.catch_size_group>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/Catchrecord_norway/corrected_data/catchdata_2018_corrected_v2.csv";
+	rml:referenceFormulation ql:CSV;
+	#rml:iterator "catchdata_2018";
+];
+
+rr:subjectMap [
+	rr:template "http://w3id.org/foodie/open/catchrecord/norway/catchSizeGroup/{Storrelsesgruppering (kode)}";
+	rr:class  catchrecord-norway:CatchSizeGroup; 
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant dc:identifier ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Storrelsesgruppering (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant rdfs:label ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Storrelsesgruppering (kode)";
+	];
+];
+.
+
+########################## Catch Utilization  ################
+
+<#catchdata_2018.catch_utilization>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/Catchrecord_norway/corrected_data/catchdata_2018_corrected_v2.csv";
+	rml:referenceFormulation ql:CSV;
+	#rml:iterator "catchdata_2018";
+];
+
+rr:subjectMap [
+	rr:template "http://w3id.org/foodie/open/catchrecord/norway/catchUtilization/{Anvendelse (kode)}";
+	rr:class  catchrecord-norway:CatchUtilization; 
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant dc:identifier ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Anvendelse (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant rdfs:label ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Anvendelse";
+	];
+];
+.
+
+########################## Sales association Id ################
+
+<#catchdata_2018.sales_association_id>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/Catchrecord_norway/corrected_data/catchdata_2018_corrected_v2.csv";
+	rml:referenceFormulation ql:CSV;
+	#rml:iterator "catchdata_2018";
+];
+
+rr:subjectMap [
+	rr:template "http://w3id.org/foodie/open/catchrecord/norway/saleAssociationId/{Salgslag ID}";
+	rr:class  foaf:Organisation; 
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant dc:identifier ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Salgslag (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant rdfs:label ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Salgslag";
+	];
+];
+.
+
+########################## receiver Id ################
+
+<#catchdata_2018.receiver_id>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/Catchrecord_norway/corrected_data/catchdata_2018_corrected_v2.csv";
+	rml:referenceFormulation ql:CSV;
+	#rml:iterator "catchdata_2018";
+];
+
+rr:subjectMap [
+	rr:template "http://w3id.org/foodie/open/catchrecord/norway/receiverId/{Mottaker ID}";
+	rr:class  foaf:Agent; 
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant dc:identifier ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Mottaker ID";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant rdfs:label ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Mottaker ID";
+	];
+];
+.
+
+########################## Landing Municipality ################
+
+<#catchdata_2018.landing_municipality>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/Catchrecord_norway/corrected_data/catchdata_2018_corrected_v2.csv";
+	rml:referenceFormulation ql:CSV;
+	#rml:iterator "catchdata_2018";
+];
+
+rr:subjectMap [
+	rr:template "https://www.omg.org/spec/LCC/Countries/Regions/ISO3166-2-SubdivisionCodes-NO/NO-{Landingskommune (kode)}";
+	rr:class lcc-cr:CountrySubdivision, lcc-cr:GeographicRegionIdentifier; 
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant lcc-cr:hasTag ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Landingskommune (kode)";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant rdfs:label ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Landingskommune";
+	];
+];
+.
+####################### CATCH RECORD NORWAY ##############
+
+<#catchdata_2018.catch-record>
+
+rml:logicalSource [
+	rml:source "/Users/sam/Downloads/Catchrecord_norway/corrected_data/catchdata_2018_corrected_v2.csv";
+	rml:referenceFormulation ql:CSV;
+	#rml:iterator "catchdata_2018";
+];
+
+rr:subjectMap [
+	rr:template "http://w3id.org/foodie/open/catchrecord/norway/2018/{seq}"; 
+	rr:class catchrecord:CatchRecord;
+];
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant dc:identifier ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Dokumentnummer";
+	];
+];
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:saleDate ];
+	rr:objectMap [
+		rr:datatype  xsd:datetime;
+		rml:reference "Dokument salgsdato";
+	];
+];
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:saleAssociationID ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+    rr:template "http://w3id.org/foodie/open/catchrecord/norway/saleAssociationId/{Salgslag ID}";
+	];
+];
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:receiverID ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+    rr:template "http://w3id.org/foodie/open/catchrecord/norway/receiverId/{Mottaker ID}";
+	];
+];
+
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:landingMunicipalityCode ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+		rr:template "https://www.omg.org/spec/LCC/Countries/Regions/ISO3166-2-SubdivisionCodes-NO/NO-{Landingskommune (kode)}";
+	];
+];
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:landingRegionCode ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+		rr:template "https://www.omg.org/spec/LCC/Countries/Regions/ISO3166-2-SubdivisionCodes-NO/NO-{Landingsfylke (kode)}";
+	];
+];
+
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:landingCountryCode ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+#		rr:template "https://www.omg.org/spec/LCC/Countries/ISO3166-1-CountryCodes/{Landingsnasjon}";
+		rr:template "https://www.omg.org/spec/LCC/Countries/ISO3166-1-CountryCodes/{Landingsnasjon (kode)}";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:productionFacility ];
+	rr:objectMap [
+		rr:datatype  xsd:string;
+		rml:reference "Produksjonsanlegg";
+	];
+];
+
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:catchLandingTime ];
+	rr:objectMap [
+		rr:datatype  xsd:dateTime;
+		rml:reference "Landingsklokkeslett";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:isCatchRecordForFDIR ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+		rr:template "http://w3id.org/foodie/open/FDIR/{Art - FDIR (kode)}";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord:isCatchRecordFor ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+		rr:template "http://www.fao.org/aims/aos/fi/species_taxonomic.owl#{Art FAO (kode)}";
+	];
+];
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:withGearType ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+    rr:template "http://w3id.org/foodie/open/catchrecord/norway/gearType/{Redskap (kode)}";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:withGearGroup ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+    rr:template "http://w3id.org/foodie/open/catchrecord/norway/gearGroup/{Redskap - gruppe (kode)}";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:withMainGearGroup ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+    rr:template "http://w3id.org/foodie/open/catchrecord/norway/mainGearGroup/{Redskap - hovedgruppe (kode)}";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:productState ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+    rr:template "http://w3id.org/foodie/open/catchrecord/norway/productState/{Produkttilstand (kode)}";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:conservationMethod ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+    rr:template "http://w3id.org/foodie/open/catchrecord/norway/conservationMethod/{Konserveringsmate (kode)}";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:quality ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+    rr:template "http://w3id.org/foodie/open/catchrecord/norway/quality/{Kvalitet (kode)}";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:catchSizeGroup ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+    rr:template "http://w3id.org/foodie/open/catchrecord/norway/catchSizeGroup/{Storrelsesgruppering (kode)}";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:catchUtilization ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+    rr:template "http://w3id.org/foodie/open/catchrecord/norway/catchUtilization/{Anvendelse (kode)}";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:bruttoWeight ];
+	rr:objectMap [
+		rr:datatype  xsd:integer;
+		rml:reference "Bruttovekt";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:liveWeight ];
+	rr:objectMap [
+		rr:datatype  xsd:integer;
+		rml:reference "Rundvekt";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:documentUpdateTime ];
+	rr:objectMap [
+		rr:datatype  xsd:dateTime;
+		rml:reference "Oppdateringstidspunkt";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:unitPriceForBuyer ];
+	rr:objectMap [
+		rr:datatype  xsd:integer;
+		rml:reference "Enhetspris for kjoper";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:valueForBuyer ];
+	rr:objectMap [
+		rr:datatype  xsd:integer;
+		rml:reference "Belop for kjoper";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:unitPriceForFisherman ];
+	rr:objectMap [
+		rr:datatype  xsd:integer;
+		rml:reference "Enhetspris for fisker";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:valueForFisherman ];
+	rr:objectMap [
+		rr:datatype  xsd:integer;
+		rml:reference "Belop for fisker";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:supportAmount ];
+	rr:objectMap [
+		rr:datatype  xsd:integer;
+		rml:reference "Stottebelop";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:associationTax ];
+	rr:objectMap [
+		rr:datatype  xsd:integer;
+		rml:reference "Lagsavgift";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:seizedCatchValue ];
+	rr:objectMap [
+		rr:datatype  xsd:integer;
+		rml:reference "Inndradd fangstverdi";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:postponedPayment ];
+	rr:objectMap [
+		rr:datatype  xsd:integer;
+		rml:reference "Etterbetaling";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:catchValue ];
+	rr:objectMap [
+		rr:datatype  xsd:integer;
+		rml:reference "Fangstverdi";
+	];
+];
+
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:fromFisherman ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+		rr:template "http://w3id.org/foodie/open/catchrecord/norway/fisherman/{Fisker ID}";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:fromVessel ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+		rr:template "http://w3id.org/foodie/open/catchrecord/norway/vessels/{Fartoy ID}";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:fromCatchArea ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+		rr:template "http://w3id.org/foodie/open/catchrecord/norway/catchArea/{Fangstfelt (kode)}";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord-norway:fromMainCatchArea ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+		rr:template "http://w3id.org/foodie/open/catchrecord/norway/mainCatchArea/{Hovedomrade (kode)}";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant catchrecord:fromFishingArea ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+		rr:template "http://www.fao.org/aims/aos/fi/water_FAO_areas/marine#{Hovedomrade FAO (kode)}";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant geo:hasGeometry ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+		rr:template "http://w3id.org/foodie/open/catchrecord/norway/2018/{seq}/hovedomrade/geometry";
+	];
+];
+rr:predicateObjectMap [
+	rr:predicateMap [ rr:constant geo:defaultGeometry ];
+	rr:objectMap [
+		rr:termType rr:IRI;
+		rr:template "http://w3id.org/foodie/open/catchrecord/norway/2018/{seq}/lokasjon/geometry";
+	];
+];
+.
