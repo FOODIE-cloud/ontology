@@ -1,0 +1,294 @@
+@prefix geof: <http://www.opengis.net/def/function/geosparql/>.
+@prefix map: <#>.
+@prefix geo: <http://www.opengis.net/ont/geosparql#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix rrx: <http://www.w3.org/ns/r2rml-ext#>.
+@prefix rrxf: <http://www.w3.org/ns/r2rml-ext/functions/def/>.
+@prefix strdf: <http://strdf.di.uoa.gr/ontology#>.
+@prefix vocab: <ontology#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix lcc-cr: <https://www.omg.org/spec/LCC/Countries/CountryRepresentation#> .
+@prefix gn: <http://www.geonames.org/ontology#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix juso: <http://rdfs.co/juso#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix water_FAO_areas: <http://www.fao.org/aims/aos/fi/water_FAO_areas.owl#> .
+
+################## Geometry ###################
+
+map:FAO_water_area_geometry
+    rr:logicalTable [ rr:tableName "`FAO_AREAS`"; ];
+    rr:subjectMap [ rr:class geo:Geometry; rr:template "http://www.fao.org/aims/aos/fi/water_FAO_areas/marine/geometry#{`gid`}"; ];
+    rr:predicateObjectMap [
+        rr:predicate geo:isSimple;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:isSimple;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:coordinateDimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:coordinateDimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:spatialDimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:spatialDimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:asWKT;
+        rr:objectMap [
+            rr:datatype geo:wktLiteral;
+            rrx:function rrxf:asWKT;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:dimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:dimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:isEmpty;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:isEmpty;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:is3D;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:is3D;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    .
+############## FAO water areas ########
+
+    
+map:FAO_water_area
+    rr:logicalTable [ rr:tableName "`FAO_AREAS`"; ];
+    rr:subjectMap [ rr:class gn:Feature; 
+                    rr:template "http://www.fao.org/aims/aos/fi/water_FAO_areas/marine#{`F_CODE`}"; ];
+    
+    ### extra dynamic type####
+    rr:predicateObjectMap [
+        rr:predicate rdf:type; 
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://www.fao.org/aims/aos/fi/water_FAO_areas.owl#{`F_LEVEL`}"; ##fixed
+        ];
+    ];
+    
+    rr:predicateObjectMap [
+        rr:predicate geo:hasGeometry;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://www.fao.org/aims/aos/fi/water_FAO_areas/marine/geometry#{`gid`}";
+        ];
+    ];
+    
+    rr:predicateObjectMap [
+        rr:predicate water_FAO_areas:hasNameEN;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`NAME_EN`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate water_FAO_areas:hasNameES;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`NAME_ES`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate water_FAO_areas:hasNameFR;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`NAME_FR`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate water_FAO_areas:hasAreaSize;
+        rr:objectMap [
+            rr:datatype xsd:double;
+            rr:column "`SURFACE`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate water_FAO_areas:hasID;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rr:column "`FID`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate water_FAO_areas:hasCodeFAO;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`F_CODE`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate water_FAO_areas:isOfWaterType;
+        rr:objectMap [
+            rr:constant <http://www.fao.org/aims/aos/fi/water_FAO_areas.owl#Marine>
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`NAME_EN`";
+        ];
+    ];
+    
+     
+#    rr:predicateObjectMap [
+#        rr:predicate juso:first_level_administrative_division;
+#        rr:objectMap [
+#            rr:termType rr:IRI;
+#            rr:template "http://w3id.org/foodie/open/gadm36/country/administrativeUnit/{`ENGTYPE_1`}";
+#        ];
+#    ];
+#    rr:predicateObjectMap [
+#        rr:predicate owl:sameAs;
+#        rr:objectMap [
+#            rr:termType rr:IRI;
+#            rr:template "https://www.omg.org/spec/LCC/Countries/Regions/ISO3166-2-SubdivisionCodes/{`HASC_1`}";
+#        ];
+#    ];
+    .
+
+############### AREA #############
+
+map:FAO_water_area_major
+    rr:logicalTable [ rr:tableName "`FAO_AREAS`"; ];  
+    rr:subjectMap [ rr:template "http://www.fao.org/aims/aos/fi/water_FAO_areas/marine#{`F_AREA`}";  ];
+    
+		rr:predicateObjectMap [
+        rr:predicate water_FAO_areas:hasComponent;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://www.fao.org/aims/aos/fi/water_FAO_areas/marine#{`F_SUBAREA`}"; 
+        ];
+    ];
+	 .
+
+############### SUBAREA #############
+
+map:FAO_water_area_subarea
+    rr:logicalTable [ rr:tableName "`FAO_AREAS`"; ];  
+    rr:subjectMap [ rr:template "http://www.fao.org/aims/aos/fi/water_FAO_areas/marine#{`F_SUBAREA`}"; ];
+    
+		rr:predicateObjectMap [
+        rr:predicate water_FAO_areas:hasComponent;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://www.fao.org/aims/aos/fi/water_FAO_areas/marine#{`F_DIVISION`}"; 
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate water_FAO_areas:isComponentOf;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://www.fao.org/aims/aos/fi/water_FAO_areas/marine#{`F_AREA`}"; 
+        ];
+    ]; 
+    .
+    
+############### DIVISION #############
+
+map:FAO_water_area_division
+    rr:logicalTable [ rr:tableName "`FAO_AREAS`"; ];  
+    rr:subjectMap [ rr:template "http://www.fao.org/aims/aos/fi/water_FAO_areas/marine#{`F_DIVISION`}"; ];
+    
+		rr:predicateObjectMap [
+        rr:predicate water_FAO_areas:hasComponent;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://www.fao.org/aims/aos/fi/water_FAO_areas/marine#{`F_SUBDIVIS`}"; 
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate water_FAO_areas:isComponentOf;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://www.fao.org/aims/aos/fi/water_FAO_areas/marine#{`F_SUBAREA`}"; 
+        ];
+    ]; 
+    .
+    
+ ############### SUBDIVISION #############
+
+map:FAO_water_area_subdivision
+    rr:logicalTable [ rr:tableName "`FAO_AREAS`"; ];  
+    rr:subjectMap [ rr:template "http://www.fao.org/aims/aos/fi/water_FAO_areas/marine#{`F_SUBDIVIS`}"; ];
+    
+		rr:predicateObjectMap [
+        rr:predicate water_FAO_areas:hasComponent;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://www.fao.org/aims/aos/fi/water_FAO_areas/marine#{`F_SUBUNIT`}"; 
+        ];
+    ]; 
+    rr:predicateObjectMap [
+        rr:predicate water_FAO_areas:isComponentOf;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://www.fao.org/aims/aos/fi/water_FAO_areas/marine#{`F_DIVISION`}"; 
+        ];
+    ];
+    .
+    
+ ############### SUBUNIT #############
+
+map:FAO_water_area_subunit
+    rr:logicalTable [ rr:tableName "`FAO_AREAS`"; ];  
+    rr:subjectMap [ rr:template "http://www.fao.org/aims/aos/fi/water_FAO_areas/marine#{`F_SUBUNIT`}"; ];
+    
+    rr:predicateObjectMap [
+        rr:predicate water_FAO_areas:isComponentOf;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://www.fao.org/aims/aos/fi/water_FAO_areas/marine#{`F_SUBDIVIS`}"; 
+        ];
+    ];
+    .
