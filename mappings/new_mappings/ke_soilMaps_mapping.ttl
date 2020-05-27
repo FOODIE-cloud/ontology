@@ -1,0 +1,203 @@
+@prefix geof: <http://www.opengis.net/def/function/geosparql/>.
+@prefix map: <#>.                                              
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .   
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .        
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .        
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .             
+@prefix geo: <http://www.opengis.net/ont/geosparql#>.          
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.    
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.         
+@prefix rr: <http://www.w3.org/ns/r2rml#>.                     
+@prefix rrx: <http://www.w3.org/ns/r2rml-ext#>.                
+@prefix rrxf: <http://www.w3.org/ns/r2rml-ext/functions/def/>. 
+@prefix strdf: <http://strdf.di.uoa.gr/ontology#>.             
+@prefix iso19150-2: <http://def.seegrid.csiro.au/isotc211/iso19150/-2/2012/basic#> .
+@prefix foodie: <http://foodie-cloud.com/model/foodie#> .      
+@prefix foodie-cz: <http://foodie-cloud.com/model/foodie-cz#> .
+@prefix foodie-es: <http://foodie-cloud.com/model/foodie-es#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.              
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .              
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .        
+@prefix virtrdf: <http://www.openlinksw.com/schemas/virtrdf#> .
+@prefix common: <http://portele.de/ont/inspire/baseInspire#> . 
+@prefix iso19103: <http://def.seegrid.csiro.au/isotc211/iso19103/2005/basic#> .
+
+############################ Geometry ##############
+
+map:DSMW_Kenya_geometry
+    rr:logicalTable [ rr:tableName "`DSMW_Kenya`"; ];
+    rr:subjectMap [ rr:class geo:Geometry; rr:template "http://w3id.org/foodie/open/ke/soilMap/Geometry/{`gid`}"; ];
+    rr:predicateObjectMap [
+        rr:predicate geo:spatialDimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:spatialDimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:asWKT;
+        rr:objectMap [
+            rr:datatype geo:wktLiteral;
+            rrx:function rrxf:asWKT;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:dimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:dimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:isSimple;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:isSimple;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:isEmpty;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:isEmpty;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:is3D;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:is3D;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:coordinateDimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:coordinateDimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    .
+    
+################### UOM #############################
+
+map:DSMW_Kenya_UOM_sqkm
+	rr:logicalTable [ rr:tableName "`DSMW_Kenya`"; ];
+    rr:subjectMap [ rr:class iso19103:UnitOfMeasure; rr:constant <http://w3id.org/foodie/open/ke/soilMap/area_sqkm>; ];
+    
+    rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [
+            rr:constant "sqkm";
+        ];
+    ];
+ .     
+ 
+##################### Plot Area #####################
+
+map:DSMW_Kenya_plot_area
+    rr:logicalTable [ rr:tableName "`DSMW_Kenya`"; ];
+    rr:subjectMap [ rr:class iso19103:Area; rr:template "http://w3id.org/foodie/open/ke/soilMap/Plot/Area/{`gid`}"; ];
+    
+    rr:predicateObjectMap [
+        rr:predicate iso19103:value;
+        rr:objectMap [
+            rr:datatype xsd:double;
+            rr:column "`SQKM`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate iso19103:uom;
+        rr:objectMap [
+            rr:constant <http://w3id.org/foodie/open/africa/FAOSOIL/area_sqkm> ;
+        ];
+    ];
+    .    
+    
+    
+########################### Plot ######################
+    
+map:DSMW_Kenya_plot
+    rr:logicalTable [ rr:tableName "`DSMW_Kenya`"; ];
+    rr:subjectMap [ rr:class foodie:Plot; rr:template "http://w3id.org/foodie/open/ke/soilMap/Plot/{`gid`}"; ];
+    
+    rr:predicateObjectMap [
+         rr:predicate foodie:code;
+         rr:objectMap [
+             rr:datatype xsd:string;
+             rr:column "`SNUM`";
+       ];
+     ];
+		rr:predicateObjectMap [                                      
+    		rr:predicate rdfs:label;                                 
+    		rr:objectMap [                                           
+        		rr:datatype xsd:string;                              
+        		rr:template "kenya_soilMap_plot #{`gid`}({`FAOSOIL`})"; 
+    			];                                                       
+			];                                                           
+                                                           
+
+    
+    rr:predicateObjectMap [
+        rr:predicate foodie:soilProperty;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/open/africa/FAOSOIL/PropertyType/{`FAOSOIL`}";
+        ];
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate geof:sfWithin;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "https://www.omg.org/spec/LCC/Countries/ISO3166-1-CountryCodes/{`CNTNAME`}";
+        ];
+    ];
+    
+    rr:predicateObjectMap [
+        rr:predicate geo:hasGeometry;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/open/ke/soilMap/Geometry/{`gid`}";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate iso19103:measure;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/open/ke/soilMap/Plot/Area/{`gid`}";
+        ];
+    ];
+    .
+
+
+
+                                                                                                                                                                                              
