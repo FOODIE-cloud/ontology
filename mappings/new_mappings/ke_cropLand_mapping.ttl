@@ -1,0 +1,327 @@
+@prefix geof: <http://www.opengis.net/def/function/geosparql/>.
+@prefix map: <#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix geo:   <http://www.opengis.net/ont/geosparql#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix rrx: <http://www.w3.org/ns/r2rml-ext#>.
+@prefix rrxf: <http://www.w3.org/ns/r2rml-ext/functions/def/>.
+@prefix strdf: <http://strdf.di.uoa.gr/ontology#>.
+@prefix iso19150-2: <http://def.seegrid.csiro.au/isotc211/iso19150/-2/2012/basic#> .
+@prefix foodie: <http://foodie-cloud.com/model/foodie#> .
+@prefix foodie-cz: <http://foodie-cloud.com/model/foodie-cz#> .
+@prefix foodie-es: <http://foodie-cloud.com/model/foodie-es#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix virtrdf: <http://www.openlinksw.com/schemas/virtrdf#> .
+@prefix iso19103: <http://def.seegrid.csiro.au/isotc211/iso19103/2005/basic#> .
+@prefix common: <http://portele.de/ont/inspire/baseInspire#> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix olu: <http://w3id.org/foodie/olu#> .
+@prefix af-inspire:	<http://inspire.ec.europa.eu/schemas/af/3.0#> .
+
+################################# Geometry ####################################
+
+map:ke_crops_size_geometry
+    rr:logicalTable [ rr:tableName "`ke_crops_size`"; ];
+    rr:subjectMap [ rr:class geo:Geometry; rr:template "http://w3id.org/foodie/open/ke/cropLand/Geometry/{`gid`}"; ];
+    rr:predicateObjectMap [
+        rr:predicate geo:coordinateDimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:coordinateDimension;
+            rrx:argumentMap
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:isSimple;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:isSimple;
+            rrx:argumentMap
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:dimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:dimension;
+            rrx:argumentMap
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:asWKT;
+        rr:objectMap [
+            rr:datatype geo:wktLiteral;
+            rrx:function rrxf:asWKT;
+            rrx:argumentMap
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:spatialDimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:spatialDimension;
+            rrx:argumentMap
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:is3D;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:is3D;
+            rrx:argumentMap
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:isEmpty;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:isEmpty;
+            rrx:argumentMap
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    .
+
+#################### UOM #############################
+
+map:ke_crops_size_UOM_sqkm
+	rr:logicalTable [ rr:tableName "`ke_crops_size`"; ];
+    rr:subjectMap [ rr:class iso19103:UnitOfMeasure; rr:constant <http://w3id.org/foodie/open/ke/cropLand/area_sqkm>; ];
+
+    rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [
+            rr:constant "sqkm";
+        ];
+    ];
+ .
+
+############################ Site Area ###################
+
+map:ke_crops_size_site_area
+	rr:logicalTable [ rr:tableName "`ke_crops_size`"; ];
+    rr:subjectMap [ rr:class iso19103:Area; rr:template "http://w3id.org/foodie/open/ke/cropLand/Site/Area/{`gid`}"; ];
+
+    rr:predicateObjectMap [
+        rr:predicate iso19103:value;
+        rr:objectMap [
+        	rr:datatype xsd:double;
+            rr:column "`AREA_SQKM_`";
+        ];
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate iso19103:uom;
+        rr:objectMap [
+        	rr:constant <http://w3id.org/foodie/open/ke/cropLand/area_sqkm> ;
+        ];
+    ];
+   .
+
+################################################## SITE ####################################
+
+map:ke_crops_size_site
+    rr:logicalTable [ rr:tableName "`ke_crops_size`"; ];
+    rr:subjectMap [ rr:class af-inspire:Site; rr:template "http://w3id.org/foodie/open/ke/cropLand/Site/{`gid`}"; ];
+
+    rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:template "Kenya cropLand #{`LCCSCODE`}";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate foodie:code;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:template "{`LCCSCODE`}";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate common:identifierScheme;
+        rr:objectMap [
+            rr:constant <http://w3id.org/foodie/open/ke/cropLand/>;
+
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate prov:generatedAtTime;
+        rr:objectMap [
+            rr:datatype xsd:date;
+            rr:constant "2007-12-01";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:hasGeometry;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/open/ke/cropLand/Geometry/{`gid`}";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate iso19103:measure;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/open/ke/cropLand/Site/Area/{`gid`}";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate olu:specificLandUse;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/open/ke/cropLand/code/LandUseCover/{`CODE1`}";
+
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate olu:specificLandUse;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/open/ke/cropLand/code/LandUseCover/{`CODE2`}";
+
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate olu:specificLandUse;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/open/ke/cropLand/code/LandUseCover/{`CODE3`}";
+
+        ];
+    ];
+
+  .
+
+############################ Code 1 ###################
+
+map:ke_crops_size_code1
+	rr:logicalTable [ rr:tableName "`ke_crops_size`"; ];
+    rr:subjectMap [ rr:class skos:Concept; rr:template "http://w3id.org/foodie/open/ke/cropLand/code/LandUseCover/{`CODE1`}"; ];
+
+    rr:predicateObjectMap [
+        rr:predicate skos:prefLabel;
+        rr:objectMap [
+        	rr:datatype xsd:string;
+            rr:column "`CODE1_DESC`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate rdfs:comment;
+        rr:objectMap [
+        	rr:datatype xsd:string;
+          rr:constant "CODE 1";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate skos:inScheme;
+        rr:objectMap [
+          rr:constant <http://w3id.org/foodie/open/ke/cropLand/code/LandUseClassificationValue>;
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate skos:notation;
+        rr:objectMap [
+        	rr:datatype xsd:string;
+          rr:column "`CODE1`";
+        ];
+    ];
+   .
+
+############################ Code 2 ###################
+
+map:ke_crops_size_code2
+	rr:logicalTable [ rr:tableName "`ke_crops_size`"; ];
+    rr:subjectMap [ rr:class skos:Concept; rr:template "http://w3id.org/foodie/open/ke/cropLand/code/LandUseCover/{`CODE2`}"; ];
+
+    rr:predicateObjectMap [
+        rr:predicate skos:prefLabel;
+        rr:objectMap [
+        	rr:datatype xsd:string;
+            rr:column "`CODE2_DESC`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate rdfs:comment;
+        rr:objectMap [
+        	rr:datatype xsd:string;
+          rr:constant "CODE 2";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate skos:inScheme;
+        rr:objectMap [
+          rr:constant <http://w3id.org/foodie/open/ke/cropLand/code/LandUseClassificationValue>;
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate skos:notation;
+        rr:objectMap [
+        	rr:datatype xsd:string;
+          rr:column "`CODE2`";
+        ];
+    ];
+   .
+
+############################ Code 3 ###################
+
+map:ke_crops_size_code3
+	rr:logicalTable [ rr:tableName "`ke_crops_size`"; ];
+    rr:subjectMap [ rr:class skos:Concept; rr:template "http://w3id.org/foodie/open/ke/cropLand/code/LandUseCover/{`CODE3`}"; ];
+
+    rr:predicateObjectMap [
+        rr:predicate skos:prefLabel;
+        rr:objectMap [
+        	rr:datatype xsd:string;
+            rr:column "`CODE3_DESC`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate rdfs:comment;
+        rr:objectMap [
+        	rr:datatype xsd:string;
+          rr:constant "CODE 3";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate skos:inScheme;
+        rr:objectMap [
+          rr:constant <http://w3id.org/foodie/open/ke/cropLand/code/LandUseClassificationValue>;
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate skos:notation;
+        rr:objectMap [
+        	rr:datatype xsd:string;
+          rr:column "`CODE3`";
+        ];
+    ];
+   .

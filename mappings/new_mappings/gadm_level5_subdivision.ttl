@@ -1,0 +1,221 @@
+@prefix geof: <http://www.opengis.net/def/function/geosparql/>.
+@prefix map: <#>.
+@prefix geo: <http://www.opengis.net/ont/geosparql#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix rrx: <http://www.w3.org/ns/r2rml-ext#>.
+@prefix rrxf: <http://www.w3.org/ns/r2rml-ext/functions/def/>.
+@prefix strdf: <http://strdf.di.uoa.gr/ontology#>.
+@prefix vocab: <ontology#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix lcc-cr: <https://www.omg.org/spec/LCC/Countries/CountryRepresentation#> .
+@prefix dc: <http://purl.org/dc/terms/>.
+@prefix gn: <http://www.geonames.org/ontology#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix juso: <http://rdfs.co/juso#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+
+################## Geometry ###################
+
+map:gadm36_5_geometry
+    rr:logicalTable [ rr:tableName "`gadm36_5`"; ];
+    rr:subjectMap [ rr:class geo:Geometry; rr:template "http://w3id.org/foodie/open/gadm36/country/subdivision/level5/geometry/{`gid`}"; ];
+    rr:predicateObjectMap [
+        rr:predicate geo:isSimple;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:isSimple;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:coordinateDimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:coordinateDimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:spatialDimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:spatialDimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:asWKT;
+        rr:objectMap [
+            rr:datatype geo:wktLiteral;
+            rrx:function rrxf:asWKT;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:dimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:dimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:isEmpty;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:isEmpty;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:is3D;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:is3D;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    .
+############## Subdivision_level5 ########
+
+    
+map:gadm36_5_Subdivision_level5
+    rr:logicalTable [ rr:tableName "`gadm36_5`"; ];
+    rr:subjectMap [ rr:class gn:Feature, lcc-cr:CountrySubdivision; 
+                    rr:template "http://w3id.org/foodie/open/gadm36/country/subdivision/level5/{`GID_5`}"; ];
+    
+    ### extra dynamic type####
+    rr:predicateObjectMap [
+        rr:predicate rdf:type; ##fixed
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/open/gadm36/country/administrativeUnit#{`ENGTYPE_5`}"; ##fixed
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate dc:subject; 
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rr:constant 5;
+        ];
+    ];
+    
+    rr:predicateObjectMap [
+        rr:predicate geo:hasGeometry;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/open/gadm36/country/subdivision/level5/geometry/{`gid`}";
+        ];
+    ];
+#    rr:predicateObjectMap [
+#        rr:predicate skos:notation;
+#        rr:objectMap [
+#            rr:datatype xsd:string;
+#            rr:column "`HASC_5`";
+#        ];
+#   ];
+    rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`NAME_5`";
+        ];
+    ];
+    
+    rr:predicateObjectMap [
+        rr:predicate gn:parentCountry;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/open/gadm36/country/{`GID_0`}";
+        ];
+    ]; 
+    rr:predicateObjectMap [
+        rr:predicate gn:parentFeature;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/open/gadm36/country/subdivision/level4/{`GID_4`}";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate gn:parentADM1;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/open/gadm36/country/subdivision/level1/{`GID_1`}";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate gn:parentADM2;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/open/gadm36/country/subdivision/level2/{`GID_2`}";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate gn:parentADM3;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/open/gadm36/country/subdivision/level3/{`GID_3`}";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate gn:parentADM4;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/open/gadm36/country/subdivision/level4/{`GID_4`}";
+        ];
+    ];
+    
+#    rr:predicateObjectMap [
+#        rr:predicate juso:fifth_level_administrative_division;
+#        rr:objectMap [
+#            rr:termType rr:IRI;
+#            rr:template "http://w3id.org/foodie/open/gadm36/country/administrativeUnit/{`ENGTYPE_5`}";
+#        ];
+#    ];
+#    rr:predicateObjectMap [
+#        rr:predicate owl:sameAs;
+#        rr:objectMap [
+#            rr:termType rr:IRI;
+#            rr:template "https://www.omg.org/spec/LCC/Countries/Regions/ISO3166-2-SubdivisionCodes/{`HASC_1`}";
+#        ];
+#    ];
+    .
+
+############### Administrative Unit #############
+
+map:gadm36_5_Administrative_Unit
+    rr:logicalTable [ rr:tableName "`gadm36_5`"; ];
+    rr:subjectMap [ rr:class lcc-cr:GeographicRegionKind; rr:template "http://w3id.org/foodie/open/gadm36/country/administrativeUnit/{`ENGTYPE_5`}"; ];
+		
+		rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:template "{`ENGTYPE_5`}"; 
+        ];
+    ];
+    
+    .

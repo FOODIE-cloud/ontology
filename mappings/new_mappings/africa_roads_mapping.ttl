@@ -1,0 +1,230 @@
+@prefix geof: <http://www.opengis.net/def/function/geosparql/>.
+@prefix map: <#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix geo:   <http://www.opengis.net/ont/geosparql#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix rrx: <http://www.w3.org/ns/r2rml-ext#>.
+@prefix rrxf: <http://www.w3.org/ns/r2rml-ext/functions/def/>.
+@prefix strdf: <http://strdf.di.uoa.gr/ontology#>.
+@prefix iso19150-2: <http://def.seegrid.csiro.au/isotc211/iso19150/-2/2012/basic#> .
+@prefix foodie: <http://foodie-cloud.com/model/foodie#> .
+@prefix foodie-cz: <http://foodie-cloud.com/model/foodie-cz#> .
+@prefix foodie-es: <http://foodie-cloud.com/model/foodie-es#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix virtrdf: <http://www.openlinksw.com/schemas/virtrdf#> .
+@prefix iso19103: <http://def.seegrid.csiro.au/isotc211/iso19103/2005/basic#> .
+@prefix common: <http://portele.de/ont/inspire/baseInspire#> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix olu: <http://w3id.org/foodie/olu#> .
+@prefix af-inspire:	<http://inspire.ec.europa.eu/schemas/af/3.0#> .
+@prefix otm: <http://w3id.org/foodie/otm#> .
+@prefix lcc-cr: <https://www.omg.org/spec/LCC/Countries/CountryRepresentation#> .
+@prefix gn: <http://www.geonames.org/ontology#> .
+
+
+################## Geometry ###################
+
+map:africa_geometry
+    rr:logicalTable [ rr:tableName "`africa`"; ];
+    rr:subjectMap [ rr:class geo:Geometry; rr:template "http://w3id.org/foodie/open/GRIP/Africa/Geometry/{`gid`}"; ];
+    rr:predicateObjectMap [
+        rr:predicate geo:dimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:dimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:asWKT;
+        rr:objectMap [
+            rr:datatype geo:wktLiteral;
+            rrx:function rrxf:asWKT;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:spatialDimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:spatialDimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:coordinateDimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:coordinateDimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:isSimple;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:isSimple;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:is3D;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:is3D;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:isEmpty;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:isEmpty;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    .
+
+################################################################################
+    
+map:africa_RoadLink
+    rr:logicalTable [ rr:tableName "`africa`"; ];
+    rr:subjectMap [ rr:class otm:RoadLink; rr:template "http://w3id.org/foodie/open/GRIP/Africa/RoadLink/{`gid`}"; ];
+    
+    rr:predicateObjectMap [
+        rr:predicate otm:functionalRoadClass; 
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/open/GRIP/RoadType/{`GP_RTP`}";
+            
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geof:sfWithin;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/open/GRIP/Country/{`GP_RCY`}";
+        ];
+    ];
+    
+    rr:predicateObjectMap [
+        rr:predicate otm:geographicalName;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/open/GRIP/GeographicRegion/{`GP_RRG`}";
+        ];
+    ];
+    
+    rr:predicateObjectMap [
+        rr:predicate prov:generatedAtTime;
+        rr:objectMap [
+            #rr:datatype xsd:date;
+            rr:datatype xsd:gYear;
+            rr:column "`GP_RSY`";
+        ];
+    ];
+    
+    rr:predicateObjectMap [
+        rr:predicate otm:roadSurfaceCategory;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/open/GRIP/RoadSurface/{`GP_RSE`}";
+        ];
+    ];
+    
+    rr:predicateObjectMap [
+        rr:predicate otm:roadAvailability;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/open/GRIP/RoadAvailability/{`GP_RAV`}";
+        ];
+    ];
+    
+    rr:predicateObjectMap [
+        rr:predicate prov:hadPrimarySource;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/open/GRIP/Entity/{`GP_RSI`}";
+        ];
+    ];
+    
+    rr:predicateObjectMap [
+        rr:predicate geo:hasGeometry;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/open/GRIP/Africa/Geometry/{`gid`}";
+        ];
+    ];
+    
+    rr:predicateObjectMap [
+        rr:predicate otm:roadExistence;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/open/GRIP/RoadExistence/{`GP_REX`}";
+        ];
+    ];
+    .
+    
+    
+    #rr:predicateObjectMap [
+    #    rr:predicate vocab:has_gp_gripreg;
+    #    rr:objectMap [
+    #        rr:datatype xsd:integer;
+    #        rr:column "`gp_gripreg`";
+    #    ];
+    #];
+    
+    
+    
+    #rr:predicateObjectMap [
+    #    rr:predicate vocab:has_OBJECTID;
+    #    rr:objectMap [
+    #        rr:datatype xsd:integer;
+    #        rr:column "`OBJECTID`";
+    #    ];
+    #];
+    
+    
+    
+    
+    #rr:predicateObjectMap [
+    #    rr:predicate vocab:has_Shape_Leng;
+    #    rr:objectMap [
+    #        rr:datatype xsd:double;
+    #        rr:column "`Shape_Leng`";
+    #    ];
+    #];
+    
+    
+    
+    
+    
