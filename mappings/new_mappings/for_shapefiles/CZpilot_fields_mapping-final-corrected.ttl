@@ -1,1 +1,387 @@
+@prefix geof: <http://www.opengis.net/def/function/geosparql/>.
+@prefix map: <#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+#@prefix ogc: <http://www.opengis.net/ont/geosparql#>.
+@prefix geo:   <http://www.opengis.net/ont/geosparql#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix rrx: <http://www.w3.org/ns/r2rml-ext#>.
+@prefix rrxf: <http://www.w3.org/ns/r2rml-ext/functions/def/>.
+@prefix strdf: <http://strdf.di.uoa.gr/ontology#>.
+#@prefix vocab: <ontology#>.
+@prefix iso19150-2: <http://def.seegrid.csiro.au/isotc211/iso19150/-2/2012/basic#> .
+@prefix iso19103: <http://def.seegrid.csiro.au/isotc211/iso19103/2005/basic#> .
+@prefix foodie: <http://foodie-cloud.com/model/foodie#> .
+@prefix foodie-cz: <http://foodie-cloud.com/model/foodie-cz#> .
+@prefix foodie-es: <http://foodie-cloud.com/model/foodie-es#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix virtrdf: <http://www.openlinksw.com/schemas/virtrdf#> .
+@prefix common: <http://portele.de/ont/inspire/baseInspire#> .
 
+
+map:CZpilot_fields_2018eng1_geometry
+    rr:logicalTable [ rr:tableName "`CZpilot_fields_2018eng1`"; ];
+    rr:subjectMap [ rr:class geo:Geometry; rr:template "http://w3id.org/foodie/core/CZpilot_fields/Geometry/{`gid`}"; ];
+    
+    rr:predicateObjectMap [
+        rr:predicate geo:isEmpty;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:isEmpty;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:is3D;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:is3D;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:spatialDimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:spatialDimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:dimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:dimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:asWKT;
+        rr:objectMap [
+            #rr:datatype geo:wktLiteral;
+            rr:datatype virtrdf:Geometry;
+            rrx:function rrxf:asWKT;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:coordinateDimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:coordinateDimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:isSimple;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:isSimple;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    .
+################### plot ###################
+    
+map:CZpilot_fields_2018eng1_plot
+    rr:logicalTable [ rr:tableName "`CZpilot_fields_2018eng1`"; ];
+    rr:subjectMap [ rr:class foodie:Plot; rr:template "http://w3id.org/foodie/core/CZpilot_fields/Plot/{`gid`}"; ];
+    
+    
+    rr:predicateObjectMap [
+        rr:predicate foodie:crop;
+        rr:objectMap [ rr:parentTriplesMap map:CZpilot_fields_2018eng1_cropSpecies2017 ];
+    ];
+    
+    rr:predicateObjectMap [
+        rr:predicate foodie:crop;
+        rr:objectMap [ rr:parentTriplesMap map:CZpilot_fields_2018eng1_cropSpecies2018 ];
+    ];
+    
+    rr:predicateObjectMap [
+        rr:predicate foodie:crop;
+        rr:objectMap [ rr:parentTriplesMap map:CZpilot_fields_2018eng1_cropSpecies2019 ];
+    ];
+    
+    rr:predicateObjectMap [
+        rr:predicate foodie:shortId;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`ZKOD`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`FieldName`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate foodie:code;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`CTVDPB`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:hasGeometry;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/core/CZpilot_fields/Geometry/{`gid`}";
+        ];
+    ];
+    .
+    
+#################### UOM #############################
+
+map:CZpilot_fields_2018eng1_UOM_ha
+	rr:logicalTable [ rr:tableName "`CZpilot_fields_2018eng1`"; ];
+    rr:subjectMap [ rr:class iso19103:UnitOfMeasure; rr:constant <http://w3id.org/foodie/core/CZpilot_fields/area_ha>; ];
+    
+    rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [
+            rr:constant "ha";
+        ];
+    ];
+ .      
+#################### CropSpecies_Area ###############    
+
+map:CZpilot_fields_2018eng1_cropSpecies_area
+		rr:logicalTable [ rr:tableName "`CZpilot_fields_2018eng1`"; ];
+		rr:subjectMap [ rr:class iso19103:Area; rr:template "http://w3id.org/foodie/core/CZpilot_fields/CropSpecies/Area/{`gid`}"; ];
+
+		rr:predicateObjectMap [
+        rr:predicate iso19103:value;
+        rr:objectMap [
+            rr:datatype xsd:double;
+            rr:column "`AREA_GEO`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate iso19103:uom;
+        rr:objectMap [
+            rr:constant <http://w3id.org/foodie/core/CZpilot_fields/area_ha> ;
+        ];
+    ];
+    .
+
+#################### CropSpecies 2017 ###############
+
+map:CZpilot_fields_2018eng1_cropSpecies2017
+		rr:logicalTable [ rr:tableName "`CZpilot_fields_2018eng1`"; ];
+		#rr:logicalTable [ rr:sqlQuery """SELECT crop2017 FROM `CZpilot_fields_2018eng1`"""; ];
+		rr:subjectMap [ rr:class foodie:CropSpecies; rr:template "http://w3id.org/foodie/core/CZpilot_fields/CropSpecies/{`gid`}-2017"; ];
+		
+# 		rr:predicateObjectMap [
+#         rr:predicate foodie:cropArea;
+#         rr:objectMap [
+#             rr:datatype xsd:double;
+#             rr:column "`AREA_GEO`";
+#         ];
+#     ];
+		rr:predicateObjectMap [
+        rr:predicate iso19103:measure;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/core/CZpilot_fields/CropSpecies/Area/{`gid`}";
+        ];
+    ];
+	rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:template "{`FieldName`} crop species 2017";
+        ];
+    ];
+    rr:predicateObjectMap [
+			rr:predicate common:validFrom;
+			rr:objectMap [
+				rr:datatype xsd:dateTime;
+				rr:constant "2017-01-01T00:00:00";
+			];
+		];
+		rr:predicateObjectMap [
+			rr:predicate common:validTo;
+			rr:objectMap [
+				rr:datatype xsd:dateTime;
+				rr:constant "2017-12-31T23:59:59";
+			];
+		];
+    
+		rr:predicateObjectMap [
+        rr:predicate foodie:cropSpecies;
+        rr:objectMap [ rr:parentTriplesMap map:CZpilot_fields_2018eng1_cropType2017 ];
+    ];
+    .
+################# CropSpecies 2018 ##################
+
+map:CZpilot_fields_2018eng1_cropSpecies2018
+		rr:logicalTable [ rr:tableName "`CZpilot_fields_2018eng1`"; ];
+		#rr:logicalTable [ rr:sqlQuery """SELECT crop2017 FROM `CZpilot_fields_2018eng1`"""; ];
+		rr:subjectMap [ rr:class foodie:CropSpecies; rr:template "http://w3id.org/foodie/core/CZpilot_fields/CropSpecies/{`gid`}-2018"; ];
+		
+# 		rr:predicateObjectMap [
+#         rr:predicate foodie:cropArea;
+#         rr:objectMap [
+#             rr:datatype xsd:double;
+#             rr:column "`AREA_GEO`";
+#         ];
+#     ];
+    rr:predicateObjectMap [
+        rr:predicate iso19103:measure;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/core/CZpilot_fields/CropSpecies/Area/{`gid`}";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:template "{`FieldName`} crop species 2018";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate common:validFrom;
+        rr:objectMap [
+            rr:datatype xsd:dateTime;
+            rr:constant "2018-01-01T00:00:00";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate common:validTo;
+        rr:objectMap [
+            rr:datatype xsd:dateTime;
+            rr:constant "2018-12-31T23:59:59";
+        ];
+    ];
+    
+		rr:predicateObjectMap [
+        rr:predicate foodie:cropSpecies;
+        rr:objectMap [ rr:parentTriplesMap map:CZpilot_fields_2018eng1_cropType2018 ];
+    ];
+    .
+################# CropSpecies 2019 ##################
+    
+map:CZpilot_fields_2018eng1_cropSpecies2019
+		rr:logicalTable [ rr:tableName "`CZpilot_fields_2018eng1`"; ];
+		#rr:logicalTable [ rr:sqlQuery """SELECT crop2017 FROM `CZpilot_fields_2018eng1`"""; ];
+		rr:subjectMap [ rr:class foodie:CropSpecies; rr:template "http://w3id.org/foodie/core/CZpilot_fields/CropSpecies/{`gid`}-2019"; ];
+		
+# 		rr:predicateObjectMap [
+#         rr:predicate foodie:cropArea;
+#         rr:objectMap [
+#             rr:datatype xsd:double;
+#             rr:column "`AREA_GEO`";
+#         ];
+#     ];
+    rr:predicateObjectMap [
+        rr:predicate iso19103:measure;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/core/CZpilot_fields/CropSpecies/Area/{`gid`}";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:template "{`FieldName`} crop species 2019";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate common:validFrom;
+        rr:objectMap [
+            rr:datatype xsd:dateTime;
+            rr:constant "2019-01-01T00:00:00";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate common:validTo;
+        rr:objectMap [
+            rr:datatype xsd:dateTime;
+            rr:constant "2019-12-31T23:59:59";
+        ];
+    ];
+    
+		rr:predicateObjectMap [
+        rr:predicate foodie:cropSpecies;
+        rr:objectMap [ rr:parentTriplesMap map:CZpilot_fields_2018eng1_cropType2019 ];
+    ];
+    .
+################## CropType 2017 ##############
+
+map:CZpilot_fields_2018eng1_cropType2017
+		rr:logicalTable [ rr:tableName "`CZpilot_fields_2018eng1`"; ];
+		#rr:logicalTable [ rr:sqlQuery """SELECT crop2017 FROM `CZpilot_fields_2018eng1`"""; ];
+		rr:subjectMap [ rr:class foodie:CropType; rr:template "http://w3id.org/foodie/core/CZpilot_fields/CropType/{`crop2017`}"; ];
+		rr:predicateObjectMap [
+#       rr:predicate foodie:description;
+		rr:predicate rdfs:label;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`crop2017`";
+        ];
+    ];
+    .
+
+################## CropType 2018 ##############
+
+map:CZpilot_fields_2018eng1_cropType2018
+		rr:logicalTable [ rr:tableName "`CZpilot_fields_2018eng1`"; ];
+		#rr:logicalTable [ rr:sqlQuery """SELECT crop2017 FROM `CZpilot_fields_2018eng1`"""; ];
+		rr:subjectMap [ rr:class foodie:CropType; rr:template "http://w3id.org/foodie/core/CZpilot_fields/CropType/{`crop2018`}"; ];
+		rr:predicateObjectMap [
+#       rr:predicate foodie:description;
+		rr:predicate rdfs:label;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`crop2018`";
+        ];
+    ];
+    .
+################## CropType 2019 ##############
+
+map:CZpilot_fields_2018eng1_cropType2019
+		rr:logicalTable [ rr:tableName "`CZpilot_fields_2018eng1`"; ];
+		#rr:logicalTable [ rr:sqlQuery """SELECT crop2017 FROM `CZpilot_fields_2018eng1`"""; ];
+		rr:subjectMap [ rr:class foodie:CropType; rr:template "http://w3id.org/foodie/core/CZpilot_fields/CropType/{`crop2019`}"; ];
+		rr:predicateObjectMap [
+#       rr:predicate foodie:description;
+		rr:predicate rdfs:label;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`crop2019`";
+        ];
+    ];
+    .
