@@ -1,0 +1,391 @@
+@prefix geof: <http://www.opengis.net/def/function/geosparql/>.
+@prefix map: <#>.
+@prefix ogc: <http://www.opengis.net/ont/geosparql#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix rrx: <http://www.w3.org/ns/r2rml-ext#>.
+@prefix rrxf: <http://www.w3.org/ns/r2rml-ext/functions/def/>.
+@prefix strdf: <http://strdf.di.uoa.gr/ontology#>.
+@prefix vocab: <ontology#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+
+<#180308_pLPIS_WGS_geometry>
+    rr:logicalTable [ rr:tableName "`180308_pLPIS_WGS`"; ];
+    rr:subjectMap [ rr:class ogc:Geometry; rr:template "http://w3id.org/foodie/core/180308_pLPIS_WGS/Geometry/{`gid`}"; ];
+    rr:predicateObjectMap [
+        rr:predicate ogc:dimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:dimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate ogc:isSimple;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:isSimple;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate ogc:coordinateDimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:coordinateDimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate ogc:is3D;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:is3D;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate ogc:spatialDimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:spatialDimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate ogc:asWKT;
+        rr:objectMap [
+            rr:datatype ogc:wktLiteral;
+            rrx:function rrxf:asWKT;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate ogc:isEmpty;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:isEmpty;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    .
+<#180308_pLPIS_WGS>
+    rr:logicalTable [ rr:tableName "`180308_pLPIS_WGS`"; ];
+    rr:subjectMap [ rr:class <ontology#180308_pLPIS_WGS>; rr:template "http://w3id.org/foodie/core/180308_pLPIS_WGS/id/{`gid`}"; ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_VYM_III_AP;
+        rr:objectMap [
+            rr:datatype xsd:double;
+            rr:column "`VYM_III_AP`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_HLADINA3;
+        rr:objectMap [
+            rr:datatype xsd:double;
+            rr:column "`HLADINA3`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_VYMLFA_H2;
+        rr:objectMap [
+            rr:datatype xsd:double;
+            rr:column "`VYMLFA_H2`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_PLATNYOD;
+        rr:objectMap [
+            rr:datatype xsd:date;
+            rr:column "`PLATNYOD`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate ogc:hasGeometry;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/core/180308_pLPIS_WGS/Geometry/{`gid`}";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_VYMLFA_H4;
+        rr:objectMap [
+            rr:datatype xsd:double;
+            rr:column "`VYMLFA_H4`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_MAPOVYLIST;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`MAPOVYLIST`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_KULTURANAZ;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`KULTURANAZ`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_VYMVZCHU1;
+        rr:objectMap [
+            rr:datatype xsd:double;
+            rr:column "`VYMVZCHU1`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_FID_1;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rr:column "`FID_1`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_VYMLFA_H5;
+        rr:objectMap [
+            rr:datatype xsd:double;
+            rr:column "`VYMLFA_H5`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_KULTURAKOD;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`KULTURAKOD`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_PRISL_OPZL;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`PRISL_OPZL`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_VYMERA_ECP;
+        rr:objectMap [
+            rr:datatype xsd:double;
+            rr:column "`VYMERA_ECP`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_VYMLFA_H3;
+        rr:objectMap [
+            rr:datatype xsd:double;
+            rr:column "`VYMLFA_H3`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_OKRES_KOD;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rr:column "`OKRES_KOD`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_VYMERAM;
+        rr:objectMap [
+            rr:datatype xsd:double;
+            rr:column "`VYMERAM`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_VYMVZCHU;
+        rr:objectMap [
+            rr:datatype xsd:double;
+            rr:column "`VYMVZCHU`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_MPVYLST5;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`MPVYLST5`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_VYMMZCHU;
+        rr:objectMap [
+            rr:datatype xsd:double;
+            rr:column "`VYMMZCHU`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_VYMLFA_OA;
+        rr:objectMap [
+            rr:datatype xsd:double;
+            rr:column "`VYMLFA_OA`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_VY_ECP_ZME;
+        rr:objectMap [
+            rr:datatype xsd:double;
+            rr:column "`VY_ECP_ZME`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_ID_DPB;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rr:column "`ID_DPB`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_EKO;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rr:column "`EKO`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_KU_KOD;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rr:column "`KU_KOD`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_ZKOD_DPB;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`ZKOD_DPB`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_SVAZITOST;
+        rr:objectMap [
+            rr:datatype xsd:double;
+            rr:column "`SVAZITOST`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_HLADINA2;
+        rr:objectMap [
+            rr:datatype xsd:double;
+            rr:column "`HLADINA2`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_VYMLFA_H1;
+        rr:objectMap [
+            rr:datatype xsd:double;
+            rr:column "`VYMLFA_H1`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_UCOD_AKTUA;
+        rr:objectMap [
+            rr:datatype xsd:date;
+            rr:column "`UCOD_AKTUA`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_ID_UZ;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rr:column "`ID_UZ`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_VYSKA;
+        rr:objectMap [
+            rr:datatype xsd:double;
+            rr:column "`VYSKA`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_KULTURA;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rr:column "`KULTURA`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_VYMNAT_PTA;
+        rr:objectMap [
+            rr:datatype xsd:double;
+            rr:column "`VYMNAT_PTA`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_NKOD_DPB;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`NKOD_DPB`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_VYMLFA_OB;
+        rr:objectMap [
+            rr:datatype xsd:double;
+            rr:column "`VYMLFA_OB`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_FB_STAV;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rr:column "`FB_STAV`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_KULTURAOD;
+        rr:objectMap [
+            rr:datatype xsd:date;
+            rr:column "`KULTURAOD`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_VYMNAT_EVL;
+        rr:objectMap [
+            rr:datatype xsd:double;
+            rr:column "`VYMNAT_EVL`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_CTVEREC;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`CTVEREC`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_VYMLFA_S;
+        rr:objectMap [
+            rr:datatype xsd:double;
+            rr:column "`VYMLFA_S`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_HLADINA1;
+        rr:objectMap [
+            rr:datatype xsd:double;
+            rr:column "`HLADINA1`";
+        ];
+    ];
+    .

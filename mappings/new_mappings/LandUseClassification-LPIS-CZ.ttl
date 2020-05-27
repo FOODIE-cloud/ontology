@@ -1,0 +1,107 @@
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://w3id.org/foodie/open/cz/lpis/code/LandUseClassificationValue>
+        a                owl:Ontology ;
+        rdfs:label       "Czech LPIS Land Use Classsification"@en ;
+        dc:source        <http://eagri.cz/public/web/file/370047/ilpis_predtisky.pdf> ;
+        rdfs:comment		 "This ontology has been created using the Land Use classification values in Czech LPIS explained in the source" ;
+        dct:issued       "2018-11-22T10:00:00Z"^^xsd:dateTime ;
+        dct:modified     "2018-11-22T10:00:00Z"^^xsd:dateTime ;
+        dc:creator		   "Raul Palma" ;
+        dct:creator 		 <http://orcid.org/0000-0003-4289-4922> ;
+        dct:license 		 <http://creativecommons.org/licenses/by/4.0/> ;
+  			dc:rights 			 "This ontology is distributed under Creative Commons Attribution 4.0 License - http://creativecommons.org/licenses/by/4.0"@en .
+
+<http://w3id.org/foodie/open/cz/lpis/code/LandUseClassificationValue>
+        a               skos:ConceptScheme ;
+        dct:isFormatOf  "http://w3id.org/foodie/olu#LandUseClassificationValue" ;
+        skos:prefLabel  "Czech LPIS LandUseClassificationValue"@en .
+<http://w3id.org/foodie/open/cz/lpis/code/LandUseClassificationValue/B>
+        a               skos:Concept ;
+        skos:inScheme   "http://w3id.org/foodie/open/cz/lpis/code/LandUseClassificationValue" ;
+        skos:prefLabel  "Pond"@en ;
+        skos:prefLabel  "Rybník"@cz ;
+        skos:notation   "B"^^xsd:string .
+<http://w3id.org/foodie/open/cz/lpis/code/LandUseClassificationValue/C>
+        a               skos:Concept ;
+        skos:inScheme   "http://w3id.org/foodie/open/cz/lpis/code/LandUseClassificationValue" ;
+        skos:prefLabel  "Hopper"@en ;
+        skos:prefLabel  "Chmelnice"@cz ;
+        skos:notation   "C"^^xsd:string .
+<http://w3id.org/foodie/open/cz/lpis/code/LandUseClassificationValue/D>
+        a               skos:Concept ;
+        skos:inScheme   "http://w3id.org/foodie/open/cz/lpis/code/LandUseClassificationValue" ;
+        skos:prefLabel  "Rapidly growing trees"@en ;
+        skos:prefLabel  "Rychle rostoucí dřeviny"@cz ;
+        skos:notation   "D"^^xsd:string .
+<http://w3id.org/foodie/open/cz/lpis/code/LandUseClassificationValue/G>
+        a               skos:Concept ;
+        skos:inScheme   "http://w3id.org/foodie/open/cz/lpis/code/LandUseClassificationValue" ;
+        skos:prefLabel  "Grassland (on arable land)"@en ;
+        skos:prefLabel  "Travní porost (na orné půdě)"@cz ;
+        skos:notation   "G"^^xsd:string .
+<http://w3id.org/foodie/open/cz/lpis/code/LandUseClassificationValue/J>
+        a               skos:Concept ;
+        skos:inScheme   "http://w3id.org/foodie/open/cz/lpis/code/LandUseClassificationValue" ;
+        skos:prefLabel  "Another Permanent Culture"@en ;
+        skos:prefLabel  "Jiná trvalá kultura"@cz ;
+        skos:notation   "J"^^xsd:string .
+<http://w3id.org/foodie/open/cz/lpis/code/LandUseClassificationValue/K>
+        a               skos:Concept ;
+        skos:inScheme   "http://w3id.org/foodie/open/cz/lpis/code/LandUseClassificationValue" ;
+        skos:prefLabel  "School"@en ;
+        skos:prefLabel  "Školka"@cz ;
+        skos:notation   "K"^^xsd:string .
+<http://w3id.org/foodie/open/cz/lpis/code/LandUseClassificationValue/L>
+        a               skos:Concept ;
+        skos:inScheme   "http://w3id.org/foodie/open/cz/lpis/code/LandUseClassificationValue" ;
+        skos:prefLabel  "Forested land"@en ;
+        skos:prefLabel  "Zalesněná půda"@cz ;
+        skos:notation   "L"^^xsd:string .
+<http://w3id.org/foodie/open/cz/lpis/code/LandUseClassificationValue/M>
+        a               skos:Concept ;
+        skos:inScheme   "http://w3id.org/foodie/open/cz/lpis/code/LandUseClassificationValue" ;
+        skos:prefLabel  "Non-production area"@en ;
+        skos:prefLabel  "Mimoprodukční plocha"@cz ;
+        skos:notation   "M"^^xsd:string .
+<http://w3id.org/foodie/open/cz/lpis/code/LandUseClassificationValue/O>
+        a               skos:Concept ;
+        skos:inScheme   "http://w3id.org/foodie/open/cz/lpis/code/LandUseClassificationValue" ;
+        skos:prefLabel  "Other culture"@en ;
+        skos:prefLabel  "Jiná kultura"@cz ;
+        skos:notation   "O"^^xsd:string .
+<http://w3id.org/foodie/open/cz/lpis/code/LandUseClassificationValue/R>
+        a               skos:Concept ;
+        skos:inScheme   "http://w3id.org/foodie/open/cz/lpis/code/LandUseClassificationValue" ;
+        skos:prefLabel  "Standard arable land"@en ;
+        skos:prefLabel  "Standardní orná půda"@cz ;
+        skos:notation   "R"^^xsd:string .
+<http://w3id.org/foodie/open/cz/lpis/code/LandUseClassificationValue/S>
+        a               skos:Concept ;
+        skos:inScheme   "http://w3id.org/foodie/open/cz/lpis/code/LandUseClassificationValue" ;
+        skos:prefLabel  "Fruit orchard"@en ;
+        skos:prefLabel  "Ovocný sad"@cz ;
+        skos:notation   "S"^^xsd:string .
+<http://w3id.org/foodie/open/cz/lpis/code/LandUseClassificationValue/T>
+        a               skos:Concept ;
+        skos:inScheme   "http://w3id.org/foodie/open/cz/lpis/code/LandUseClassificationValue" ;
+        skos:prefLabel  "Permanent grassland"@en ;
+        skos:prefLabel  "Trvalý travní porost"@cz ;
+        skos:notation   "T"^^xsd:string .
+<http://w3id.org/foodie/open/cz/lpis/code/LandUseClassificationValue/U>
+        a               skos:Concept ;
+        skos:inScheme   "http://w3id.org/foodie/open/cz/lpis/code/LandUseClassificationValue" ;
+        skos:prefLabel  "Unreadable piece of field"@en ;
+        skos:prefLabel  "Úhor"@cz ;
+        skos:notation   "U"^^xsd:string .
+<http://w3id.org/foodie/open/cz/lpis/code/LandUseClassificationValue/V>
+        a               skos:Concept ;
+        skos:inScheme   "http://w3id.org/foodie/open/cz/lpis/code/LandUseClassificationValue" ;
+        skos:prefLabel  "Vineyards"@en ;
+        skos:prefLabel  "Vinice"@cz ;
+        skos:notation   "V"^^xsd:string .

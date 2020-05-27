@@ -1,0 +1,185 @@
+@prefix geof: <http://www.opengis.net/def/function/geosparql/>.
+@prefix map: <#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix rrx: <http://www.w3.org/ns/r2rml-ext#>.
+@prefix rrxf: <http://www.w3.org/ns/r2rml-ext/functions/def/>.
+@prefix strdf: <http://strdf.di.uoa.gr/ontology#>.
+@prefix iso19150-2: <http://def.seegrid.csiro.au/isotc211/iso19150/-2/2012/basic#> .
+@prefix foodie: <http://foodie-cloud.com/model/foodie#> .
+@prefix foodie-cz: <http://foodie-cloud.com/model/foodie-cz#> .
+@prefix foodie-es: <http://foodie-cloud.com/model/foodie-es#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix virtrdf: <http://www.openlinksw.com/schemas/virtrdf#> .
+@prefix common: <http://portele.de/ont/inspire/baseInspire#> .
+
+map:Soil_maps_BPEJ_WGSb_geometry
+
+    rr:logicalTable [ rr:tableName "`soils`"; ];
+    rr:subjectMap [ rr:class geo:Geometry; rr:template "http://w3id.org/foodie/open/cz/soil/Geometry/{`gid`}"; ];
+    rr:predicateObjectMap [
+        rr:predicate geo:coordinateDimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:coordinateDimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:isSimple;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:isSimple;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:spatialDimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:spatialDimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:dimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:dimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:asWKT;
+        rr:objectMap [
+            rr:datatype geo:wktLiteral;
+            rrx:function rrxf:asWKT;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:isEmpty;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:isEmpty;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:is3D;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:is3D;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    .
+
+map:Soil_maps_BPEJ_WGSb_plot 
+    rr:logicalTable [ rr:tableName "`soils`"; ];
+		rr:subjectMap [ rr:class foodie:Plot; rr:template "http://w3id.org/foodie/open/cz/soil/Plot/{`gid`}"; ];
+    
+    rr:predicateObjectMap [
+        rr:predicate geo:hasGeometry;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/open/cz/soil/Geometry/{`gid`}";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate foodie:code;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`bpej_20180`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate common:link;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:column "`bpej_20184`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate foodie:description;
+        rr:objectMap [
+             rr:datatype xsd:string;
+            rr:column "`hpj_popis_`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate foodie:soilProperty;
+        rr:objectMap [rr:parentTriplesMap map:Soil_maps_BPEJ_WGSb_PropertyType];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:template "soil_map_plot #{`gid`}({`soil_type`})";
+        ];
+    ];
+    .
+######################## PropetyType mapping ##################
+
+map:Soil_maps_BPEJ_WGSb_PropertyType
+		rr:logicalTable [ rr:tableName "`soils`"; ];
+		
+		rr:subjectMap [ rr:class foodie:PropertyType; rr:template "http://w3id.org/foodie/open/cz/soil/PropertyType/{`soil_type`}"; ];
+		
+		rr:predicateObjectMap [
+        rr:predicate foodie:propertyType;
+        rr:objectMap [ 
+        		rr:termType rr:IRI;
+            rr:constant <http://foodie-cloud.com/model/foodie/code/PropertyTypeValue/soilType>;
+        
+        ];
+        
+    ];
+    rr:predicateObjectMap [
+        rr:predicate foodie:propertyName;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`soil_type`";
+        ];
+        
+    ]; 
+    rr:predicateObjectMap [                                       
+        rr:predicate foodie:nonQuantitativeProperty
+        rr:objectMap [                                                        
+        		rr:datatype xsd:string;                               
+            rr:template "{`soil_type`} soil type";  
+        ];                                                        
+    ];                                                            
+    
+    .

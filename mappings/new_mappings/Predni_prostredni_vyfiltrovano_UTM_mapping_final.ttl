@@ -1,0 +1,225 @@
+@prefix geof: <http://www.opengis.net/def/function/geosparql/>.
+@prefix map: <#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix geo:   <http://www.opengis.net/ont/geosparql#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix rrx: <http://www.w3.org/ns/r2rml-ext#>.
+@prefix rrxf: <http://www.w3.org/ns/r2rml-ext/functions/def/>.
+@prefix strdf: <http://strdf.di.uoa.gr/ontology#>.
+@prefix iso19150-2: <http://def.seegrid.csiro.au/isotc211/iso19150/-2/2012/basic#> .
+@prefix foodie: <http://foodie-cloud.com/model/foodie#> .
+@prefix foodie-cz: <http://foodie-cloud.com/model/foodie-cz#> .
+@prefix foodie-es: <http://foodie-cloud.com/model/foodie-es#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix virtrdf: <http://www.openlinksw.com/schemas/virtrdf#> .
+@prefix iso19103: <http://def.seegrid.csiro.au/isotc211/iso19103/2005/basic#> .
+
+map:Přední_prostřední_vyfiltrováno_UTM_geometry
+    rr:logicalTable [ rr:tableName "`Přední_prostřední_vyfiltrováno_UTM`"; ];
+    rr:subjectMap [ rr:class geo:Geometry; rr:template "http://w3id.org/foodie/core/Predni_prostredni_vyfiltrovano_UTM/Geometry/{`gid`}"; ];
+    rr:predicateObjectMap [
+        rr:predicate geo:dimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:dimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:asWKT;
+        rr:objectMap [
+            rr:datatype geo:wktLiteral;
+            rrx:function rrxf:asWKT;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:coordinateDimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:coordinateDimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:isSimple;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:isSimple;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:is3D;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:is3D;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:spatialDimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:spatialDimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate geo:isEmpty;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:isEmpty;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    .
+map:Přední_prostřední_vyfiltrováno_UTM_Plot
+    rr:logicalTable [ rr:tableName "`Přední_prostřední_vyfiltrováno_UTM`"; ];
+    rr:subjectMap [ rr:class foodie:Plot; rr:template "http://w3id.org/foodie/core/Predni_prostredni_vyfiltrovano_UTM/Plot/{`gid`}"; ];
+    
+    rr:predicateObjectMap [
+        rr:predicate foodie:crop;
+        rr:objectMap [ rr:parentTriplesMap map:Přední_prostřední_vyfiltrováno_UTM_CropSpecies ];
+    ];
+
+    
+    rr:predicateObjectMap [
+        rr:predicate geo:hasGeometry;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "http://w3id.org/foodie/core/Predni_prostredni_vyfiltrovano_UTM/Geometry/{`gid`}";
+        ];
+    ];
+  rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            #rr:column "`Obj__Id`";
+            #rr:termType rr:Literal;
+            rr:template "{`Field`} #{`gid`}";
+        ];
+    ];  
+  .  
+#-----------------------------------------------------------------common mapping-------
+map:Přední_prostřední_vyfiltrováno_UTM_CropSpecies
+		rr:logicalTable [ rr:tableName "`Přední_prostřední_vyfiltrováno_UTM`"; ];
+		
+		#rr:subjectMap [ rr:class foodie:CropSpecies; rr:template "http://w3id.org/foodie/core/Predni_prostredni_vyfiltrovano_UTM/CropSpecies/{`Product`}"; ];
+		rr:subjectMap [ rr:class foodie:CropSpecies; rr:template "http://w3id.org/foodie/core/Predni_prostredni_vyfiltrovano_UTM/CropSpecies/{`gid`}"; ];
+		rr:predicateObjectMap [
+        rr:predicate foodie:cropSpecies;
+        rr:objectMap [ rr:parentTriplesMap map:Přední_prostřední_vyfiltrováno_UTM_CropType ];
+    ];
+		rr:predicateObjectMap [
+        rr:predicate foodie:production;
+        rr:objectMap [ rr:parentTriplesMap map:Přední_prostřední_vyfiltrováno_UTM_ProductionType ];
+    ];
+ .  
+map:Přední_prostřední_vyfiltrováno_UTM_ProductionType
+		rr:logicalTable [ rr:tableName "`Přední_prostřední_vyfiltrováno_UTM`"; ];
+		
+		#rr:subjectMap [ rr:class foodie:ProductionType; rr:template "http://w3id.org/foodie/core/Predni_prostredni_vyfiltrovano_UTM/ProductionType/{`Yld_Mass_D`}"; ];
+		rr:subjectMap [ rr:class foodie:ProductionType; rr:template "http://w3id.org/foodie/core/Predni_prostredni_vyfiltrovano_UTM/ProductionType/{`gid`}"; ];
+		rr:predicateObjectMap [
+        rr:predicate foodie:productionAmount;
+        rr:objectMap [ rr:parentTriplesMap map:Přední_prostřední_vyfiltrováno_UTM_ProductionAmountMeasure];
+    ];
+		rr:predicateObjectMap [
+        rr:predicate foodie:productionProperty;
+        rr:objectMap [ rr:parentTriplesMap map:Přední_prostřední_vyfiltrováno_UTM_PropertyType ];
+    ];    
+  .
+ #---------------------------product-----------------
+ 
+ map:Přední_prostřední_vyfiltrováno_UTM_CropType
+		rr:logicalTable [ rr:tableName "`Přední_prostřední_vyfiltrováno_UTM`"; ];
+		
+		rr:subjectMap [ rr:class foodie:CropType; rr:template "http://w3id.org/foodie/core/Predni_prostredni_vyfiltrovano_UTM/CropType/{`Product`}"; ];
+		rr:predicateObjectMap [
+        rr:predicate foodie:description;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`Product`";
+        ];
+    ];
+    .
+#-------------Yld_Mass_D--------------------
+
+map:Přední_prostřední_vyfiltrováno_UTM_ProductionAmountMeasure
+		rr:logicalTable [ rr:tableName "`Přední_prostřední_vyfiltrováno_UTM`"; ];
+		
+		#rr:subjectMap [ rr:class iso19103:Measure; rr:template "http://w3id.org/foodie/core/Predni_prostredni_vyfiltrovano_UTM/ProductionType/Measure/{`Yld_Mass_D`}"; ];
+		rr:subjectMap [ rr:class iso19103:Measure; rr:template "http://w3id.org/foodie/core/Predni_prostredni_vyfiltrovano_UTM/ProductionType/Measure/{`gid`}"; ];
+		rr:predicateObjectMap [
+        rr:predicate iso19103:value;
+        rr:objectMap [
+            rr:datatype xsd:decimal;
+            rr:column "`Yld_Mass_D`";
+        ];
+        
+    ];
+    . 
+#-------------------Moisture----------
+map:Přední_prostřední_vyfiltrováno_UTM_PropertyType
+		rr:logicalTable [ rr:tableName "`Přední_prostřední_vyfiltrováno_UTM`"; ];
+		
+		#rr:subjectMap [ rr:class foodie:PropertyType; rr:template "http://w3id.org/foodie/core/Predni_prostredni_vyfiltrovano_UTM/PropertyType/{`Moisture`}"; ];
+		rr:subjectMap [ rr:class foodie:PropertyType; rr:template "http://w3id.org/foodie/core/Predni_prostredni_vyfiltrovano_UTM/PropertyType/{`gid`}"; ];
+		rr:predicateObjectMap [
+        rr:predicate foodie:quantitativeProperty;
+        rr:objectMap [ rr:parentTriplesMap map:Přední_prostřední_vyfiltrováno_UTM_PropertyTypeMeasure ];
+        
+    ];
+    rr:predicateObjectMap [
+        rr:predicate foodie:propertyName;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:constant "moisture";
+        ];
+        
+    ];
+    . 
+map:Přední_prostřední_vyfiltrováno_UTM_PropertyTypeMeasure
+		rr:logicalTable [ rr:tableName "`Přední_prostřední_vyfiltrováno_UTM`"; ];
+		
+		#rr:subjectMap [ rr:class iso19103:Measure; rr:template "http://w3id.org/foodie/core/Predni_prostredni_vyfiltrovano_UTM/PropertyType/Measure/{`Moisture`}"; ];
+		rr:subjectMap [ rr:class iso19103:Measure; rr:template "http://w3id.org/foodie/core/Predni_prostredni_vyfiltrovano_UTM/PropertyType/Measure/{`gid`}"; ];
+		rr:predicateObjectMap [
+        rr:predicate  iso19103:value;
+        rr:objectMap [
+            rr:datatype xsd:decimal;
+            rr:column "`Moisture__`";
+        ];
+        
+    ];
+    . 
